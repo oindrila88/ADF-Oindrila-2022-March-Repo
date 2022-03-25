@@ -70,10 +70,7 @@
 						"referenceName": "DS_adlsoindrila2022march_Unzip_Csv",
 						"type": "DatasetReference",
 						"parameters": {
-							"container_name": {
-								"value": "@pipeline().parameters.unzip_container_name",
-								"type": "Expression"
-							}
+							"container_name": "csv-container"
 						}
 					}
 				]
