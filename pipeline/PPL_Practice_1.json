@@ -33,15 +33,10 @@
 						}
 					},
 					"sink": {
-						"type": "DelimitedTextSink",
+						"type": "BinarySink",
 						"storeSettings": {
 							"type": "AzureBlobFSWriteSettings",
 							"copyBehavior": "PreserveHierarchy"
-						},
-						"formatSettings": {
-							"type": "DelimitedTextWriteSettings",
-							"quoteAllText": true,
-							"fileExtension": ".csv"
 						}
 					},
 					"enableStaging": false,
@@ -72,10 +67,10 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "DS_adlsoindrila2022march_Csv_File",
+						"referenceName": "DS_adlsoindrila2022march_Bin_File",
 						"type": "DatasetReference",
 						"parameters": {
-							"container name": "csv-container"
+							"container name": "zip-container"
 						}
 					}
 				]
