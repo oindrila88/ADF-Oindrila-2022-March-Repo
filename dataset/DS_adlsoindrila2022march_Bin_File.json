@@ -11,6 +11,9 @@
 				"defaultValue": "zip-container"
 			}
 		},
+		"folder": {
+			"name": "ADLS Dataset Folder"
+		},
 		"annotations": [],
 		"type": "Binary",
 		"typeProperties": {
