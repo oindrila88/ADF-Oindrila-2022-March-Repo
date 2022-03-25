@@ -1,0 +1,33 @@
+{
+	"name": "DS_adlsoindrila2022march_Bin_File",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_adlsoindrila2022march",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"container name": {
+				"type": "string",
+				"defaultValue": "zip-container"
+			}
+		},
+		"folder": {
+			"name": "ADLS Dataset Folder"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileSystem": {
+					"value": "@dataset().container name",
+					"type": "Expression"
+				}
+			},
+			"compression": {
+				"type": "ZipDeflate",
+				"level": "Optimal"
+			}
+		}
+	}
+}
