@@ -21,8 +21,8 @@
 						"storeSettings": {
 							"type": "AzureBlobFSReadSettings",
 							"recursive": true,
-							"modifiedDatetimeStart": "2022-03-25T21:00:00.000Z",
-							"modifiedDatetimeEnd": "2022-03-25T23:00:00.000Z",
+							"modifiedDatetimeStart": "2022-03-25T15:00:00.000Z",
+							"modifiedDatetimeEnd": "2022-03-25T17:58:00.000Z",
 							"wildcardFolderPath": "*",
 							"wildcardFileName": "*.zip",
 							"deleteFilesAfterCompletion": false
