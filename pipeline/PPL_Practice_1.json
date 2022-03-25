@@ -61,25 +61,25 @@
 						"referenceName": "DS_adlsoindrila2022march_Zip_File",
 						"type": "DatasetReference",
 						"parameters": {
-							"container name": "zip-container",
-							"directory name": "*",
-							"file extension": "*.zip"
+							"container_name": "zip-container",
+							"directory name": "*"
 						}
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "DS_adlsoindrila2022march_Zip_File",
-						"type": "DatasetReference",
-						"parameters": {
-							"container name": "zip-container",
-							"directory name": "*",
-							"file extension": "*csv"
-						}
+						"referenceName": "DS_adlsoindrila2022march_Unzip_Csv",
+						"type": "DatasetReference"
 					}
 				]
 			}
 		],
+		"parameters": {
+			"unzip_container_name": {
+				"type": "string",
+				"defaultValue": "csv-container"
+			}
+		},
 		"folder": {
 			"name": "Practice Pipeline Folder"
 		},
