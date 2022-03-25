@@ -1,0 +1,26 @@
+{
+	"name": "DS_adlsoindrila2022march_Unzip_Csv",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_adlsoindrila2022march",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"container_name": {
+				"type": "string",
+				"defaultValue": "csv-container"
+			}
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileSystem": {
+					"value": "@dataset().container_name",
+					"type": "Expression"
+				}
+			}
+		}
+	}
+}
