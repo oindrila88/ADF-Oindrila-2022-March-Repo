@@ -11,6 +11,9 @@
 				"defaultValue": "csv-container"
 			}
 		},
+		"folder": {
+			"name": "ADLS Dataset Folder"
+		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
