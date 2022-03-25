@@ -5,6 +5,12 @@
 			"referenceName": "LS_adlsoindrila2022march",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"container name": {
+				"type": "string",
+				"defaultValue": "zip-container"
+			}
+		},
 		"annotations": [],
 		"type": "Binary",
 		"typeProperties": {
