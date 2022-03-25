@@ -19,7 +19,6 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"folderPath": "{YYYY}/{MM}/{dd}",
 				"fileSystem": {
 					"value": "@dataset().container_name",
 					"type": "Expression"
