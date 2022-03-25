@@ -6,17 +6,9 @@
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
-			"container name": {
+			"container_name": {
 				"type": "string",
 				"defaultValue": "zip-container"
-			},
-			"directory name": {
-				"type": "string",
-				"defaultValue": "*"
-			},
-			"file extension": {
-				"type": "string",
-				"defaultValue": "*.zip"
 			}
 		},
 		"folder": {
@@ -27,16 +19,8 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": {
-					"value": "@dataset().file extension",
-					"type": "Expression"
-				},
-				"folderPath": {
-					"value": "@dataset().directory name",
-					"type": "Expression"
-				},
 				"fileSystem": {
-					"value": "@dataset().container name",
+					"value": "@dataset().container_name",
 					"type": "Expression"
 				}
 			},
