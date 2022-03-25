@@ -33,10 +33,15 @@
 						}
 					},
 					"sink": {
-						"type": "BinarySink",
+						"type": "DelimitedTextSink",
 						"storeSettings": {
 							"type": "AzureBlobFSWriteSettings",
 							"copyBehavior": "PreserveHierarchy"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
 						}
 					},
 					"enableStaging": false,
@@ -58,19 +63,23 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "DS_adlsoindrila2022march_Bin_File",
+						"referenceName": "DS_adlsoindrila2022march_Zip_File",
 						"type": "DatasetReference",
 						"parameters": {
-							"container name": "zip-container"
+							"container name": "zip-container",
+							"directory name": "*",
+							"file extension": "*.zip"
 						}
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "DS_adlsoindrila2022march_Bin_File",
+						"referenceName": "DS_adlsoindrila2022march_Csv_File",
 						"type": "DatasetReference",
 						"parameters": {
-							"container name": "zip-container"
+							"container name": "csv-container",
+							"directory name": "*",
+							"file extension": "*.csv"
 						}
 					}
 				]
