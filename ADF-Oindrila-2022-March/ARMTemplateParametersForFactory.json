@@ -1,0 +1,18 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "ADF-Oindrila-2022-March"
+		},
+		"LS_adlsoindrila2022march_properties_typeProperties_url": {
+			"value": "https://adlsoindrila2022march.dfs.core.windows.net"
+		},
+		"LS_keyvault_2022_march_properties_typeProperties_baseUrl": {
+			"value": "https://keyvault-2022-march.vault.azure.net/"
+		},
+		"LS_logadlsoindrila2022march_properties_typeProperties_url": {
+			"value": "https://logadlsoindrila2022march.dfs.core.windows.net"
+		}
+	}
+}

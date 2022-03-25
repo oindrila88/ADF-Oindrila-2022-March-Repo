@@ -1,0 +1,261 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "ADF-Oindrila-2022-March"
+		},
+		"LS_keyvault_2022_march_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://keyvault-2022-march.vault.azure.net/"
+		},
+		"LS_adlsoindrila2022march_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://adlsoindrila2022march.dfs.core.windows.net"
+		},
+		"LS_logadlsoindrila2022march_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://logadlsoindrila2022march.dfs.core.windows.net"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/LS_keyvault_2022_march')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Linked Service for Connecting to the Azure Key Vault Instance \"keyvault-2022-march\" from the ADF Instance \"ADF-Oindrila-2022-March\".",
+				"annotations": [],
+				"type": "AzureKeyVault",
+				"typeProperties": {
+					"baseUrl": "[parameters('LS_keyvault_2022_march_properties_typeProperties_baseUrl')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LS_adlsoindrila2022march')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Linked Service for Connecting to ADLS Gen2 Instance \"adlsoindrila2022march\" from ADF Instance \"ADF-Oindrila-2022-March\".",
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('LS_adlsoindrila2022march_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "AzureKeyVaultSecret",
+						"store": {
+							"referenceName": "LS_keyvault_2022_march",
+							"type": "LinkedServiceReference"
+						},
+						"secretName": "adlsoindrila2022march-access-key-1"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_keyvault_2022_march')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LS_logadlsoindrila2022march')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Linked Service for Connecting to ADLS Gen2 Instance \"logadlsoindrila2022march\" from ADF Instance \"ADF-Oindrila-2022-March\" for Logging.",
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('LS_logadlsoindrila2022march_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "AzureKeyVaultSecret",
+						"store": {
+							"referenceName": "LS_keyvault_2022_march",
+							"type": "LinkedServiceReference"
+						},
+						"secretName": "logadlsoindrila2022march-access-key-1"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_keyvault_2022_march')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_adlsoindrila2022march_Bin_File')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_adlsoindrila2022march",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"container name": {
+						"type": "string",
+						"defaultValue": "zip-container"
+					}
+				},
+				"folder": {
+					"name": "ADLS Dataset Folder"
+				},
+				"annotations": [],
+				"type": "Binary",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileSystem": {
+							"value": "@dataset().container name",
+							"type": "Expression"
+						}
+					},
+					"compression": {
+						"type": "ZipDeflate",
+						"level": "Optimal"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_adlsoindrila2022march')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_adlsoindrila2022march_Csv_File')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_adlsoindrila2022march",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"container name": {
+						"type": "string",
+						"defaultValue": "csv-container"
+					}
+				},
+				"folder": {
+					"name": "ADLS Dataset Folder"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileSystem": {
+							"value": "@dataset().container name",
+							"type": "Expression"
+						}
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_adlsoindrila2022march')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/PPL_Practice_1')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Extract CSV Files",
+						"description": "Extract CSV Files from One Directory to Another Directory.",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 2,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "BinarySource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"wildcardFolderPath": "*",
+									"wildcardFileName": "*.zip",
+									"deleteFilesAfterCompletion": false
+								},
+								"formatSettings": {
+									"type": "BinaryReadSettings",
+									"compressionProperties": {
+										"type": "ZipDeflateReadSettings"
+									}
+								}
+							},
+							"sink": {
+								"type": "BinarySink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings",
+									"copyBehavior": "PreserveHierarchy"
+								}
+							},
+							"enableStaging": false,
+							"enableSkipIncompatibleRow": false,
+							"logSettings": {
+								"enableCopyActivityLog": true,
+								"copyActivityLogSettings": {
+									"logLevel": "Info",
+									"enableReliableLogging": false
+								},
+								"logLocationSettings": {
+									"linkedServiceName": {
+										"referenceName": "LS_logadlsoindrila2022march",
+										"type": "LinkedServiceReference"
+									},
+									"path": "practice-ppl-log-container"
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "DS_adlsoindrila2022march_Bin_File",
+								"type": "DatasetReference",
+								"parameters": {
+									"container name": "zip-container"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DS_adlsoindrila2022march_Bin_File",
+								"type": "DatasetReference",
+								"parameters": {
+									"container name": "zip-container"
+								}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"folder": {
+					"name": "Practice Pipeline Folder"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/DS_adlsoindrila2022march_Bin_File')]",
+				"[concat(variables('factoryId'), '/linkedServices/LS_logadlsoindrila2022march')]"
+			]
+		}
+	]
+}
