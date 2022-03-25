@@ -61,8 +61,7 @@
 						"referenceName": "DS_adlsoindrila2022march_Zip_File",
 						"type": "DatasetReference",
 						"parameters": {
-							"container_name": "zip-container",
-							"directory name": "*"
+							"container_name": "zip-container"
 						}
 					}
 				],
