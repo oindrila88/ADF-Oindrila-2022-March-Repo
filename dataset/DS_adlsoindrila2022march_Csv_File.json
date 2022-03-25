@@ -9,6 +9,14 @@
 			"container name": {
 				"type": "string",
 				"defaultValue": "csv-container"
+			},
+			"directory name": {
+				"type": "string",
+				"defaultValue": "*"
+			},
+			"file extension": {
+				"type": "string",
+				"defaultValue": "*.csv"
 			}
 		},
 		"folder": {
@@ -19,6 +27,14 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().file extension",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "@dataset().directory name",
+					"type": "Expression"
+				},
 				"fileSystem": {
 					"value": "@dataset().container name",
 					"type": "Expression"
