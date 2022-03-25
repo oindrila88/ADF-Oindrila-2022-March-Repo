@@ -21,7 +21,6 @@
 						"storeSettings": {
 							"type": "AzureBlobFSReadSettings",
 							"recursive": true,
-							"wildcardFolderPath": "*",
 							"wildcardFileName": "*.zip",
 							"deleteFilesAfterCompletion": false
 						},
