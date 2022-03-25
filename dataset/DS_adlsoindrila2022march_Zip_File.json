@@ -1,5 +1,5 @@
 {
-	"name": "DS_adlsoindrila2022march_Bin_File",
+	"name": "DS_adlsoindrila2022march_Zip_File",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "LS_adlsoindrila2022march",
@@ -9,6 +9,14 @@
 			"container name": {
 				"type": "string",
 				"defaultValue": "zip-container"
+			},
+			"directory name": {
+				"type": "string",
+				"defaultValue": "*"
+			},
+			"file extension": {
+				"type": "string",
+				"defaultValue": "*.zip"
 			}
 		},
 		"folder": {
@@ -19,8 +27,14 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "*",
-				"folderPath": "*",
+				"fileName": {
+					"value": "@dataset().file extension",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "@dataset().directory name",
+					"type": "Expression"
+				},
 				"fileSystem": {
 					"value": "@dataset().container name",
 					"type": "Expression"
