@@ -17,7 +17,11 @@
 				"userProperties": [],
 				"typeProperties": {
 					"url": "http://restapi.adequateshop.com/api/authaccount/login",
-					"method": "POST"
+					"method": "POST",
+					"body": {
+						"value": "@concat('{\"name\":', pipeline().parameters.name, ', \"email\":', pipeline().parameters.email, ', \"password\":', pipeline().parameters.password, '}')",
+						"type": "Expression"
+					}
 				}
 			}
 		],
