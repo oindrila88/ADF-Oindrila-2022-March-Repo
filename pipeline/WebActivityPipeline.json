@@ -14,7 +14,13 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
-				"userProperties": []
+				"userProperties": [],
+				"typeProperties": {
+					"url": {
+						"value": "@http://api.weatherstack.com/current?access_key=pipeline().parameters.accessKey&query=pipeline().parameters.cityName",
+						"type": "Expression"
+					}
+				}
 			}
 		],
 		"parameters": {
