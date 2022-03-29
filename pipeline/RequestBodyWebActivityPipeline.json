@@ -1,10 +1,10 @@
 {
-	"name": "BasicAuthWebActivityPipeline",
+	"name": "RequestBodyWebActivityPipeline",
 	"properties": {
 		"activities": [
 			{
-				"name": "Find Weather Info of City",
-				"description": "Access the REST API BASE URL \"http://api.weatherstack.com/\", and, pass \"City Name\" and the \"Access Key\" as \"Query String\", appended to the BASE URL, separated by a \"Question Mark\", i.e., \"?\".",
+				"name": "Find User Details",
+				"description": "Access the REST API BASE URL \"http://restapi.adequateshop.com/api/authaccount/login\" using the Basic Authentication.",
 				"type": "WebActivity",
 				"dependsOn": [],
 				"policy": {
@@ -16,24 +16,23 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"url": {
-						"value": "@concat('http://api.weatherstack.com/current?access_key=', pipeline().parameters.accessKey, '&query=', pipeline().parameters.cityName)",
-						"type": "Expression"
-					},
-					"method": "GET"
+					"url": "http://restapi.adequateshop.com/api/authaccount/login",
+					"method": "POST",
+					"authentication": {
+						"type": "Basic",
+						"username": "Developer5@gmail.com",
+						"password": {
+							"type": "AzureKeyVaultSecret",
+							"store": {
+								"referenceName": "LS_keyvault_2022_march",
+								"type": "LinkedServiceReference"
+							},
+							"secretName": "basic-auth-user-details-secret"
+						}
+					}
 				}
 			}
 		],
-		"parameters": {
-			"cityName": {
-				"type": "string",
-				"defaultValue": "Kolkata"
-			},
-			"accessKey": {
-				"type": "string",
-				"defaultValue": "7b1a503846c18a56136f8ab3c90d5017"
-			}
-		},
 		"folder": {
 			"name": "Practice Activities Folder"
 		},
