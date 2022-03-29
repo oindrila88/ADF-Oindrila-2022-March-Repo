@@ -1,6 +1,32 @@
 {
 	"name": "WebActivityPipeline",
 	"properties": {
+		"activities": [
+			{
+				"name": "Find Weather Info",
+				"description": "Access the REST API BASE URL \"http://api.weatherstack.com/\", and, pass \"City Name\" and the \"Access Key\" as \"Query String\", appended to the BASE URL, separated by a \"Question Mark\", i.e., \"?\".",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": []
+			}
+		],
+		"parameters": {
+			"cityName": {
+				"type": "string",
+				"defaultValue": "Kolkata"
+			},
+			"accessKey": {
+				"type": "string",
+				"defaultValue": "7b1a503846c18a56136f8ab3c90d5017"
+			}
+		},
 		"folder": {
 			"name": "Practice Activities Folder"
 		},
