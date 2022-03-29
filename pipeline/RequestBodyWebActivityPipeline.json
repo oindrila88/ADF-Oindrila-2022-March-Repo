@@ -21,6 +21,20 @@
 				}
 			}
 		],
+		"parameters": {
+			"name": {
+				"type": "string",
+				"defaultValue": "oindrila chakraborty"
+			},
+			"email": {
+				"type": "string",
+				"defaultValue": "oindrila.chakraborty88@gmail.com"
+			},
+			"password": {
+				"type": "string",
+				"defaultValue": "123456"
+			}
+		},
 		"folder": {
 			"name": "Practice Activities Folder"
 		},
