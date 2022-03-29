@@ -11,8 +11,8 @@
 					"timeout": "7.00:00:00",
 					"retry": 0,
 					"retryIntervalInSeconds": 30,
-					"secureOutput": true,
-					"secureInput": true
+					"secureOutput": false,
+					"secureInput": false
 				},
 				"userProperties": [],
 				"typeProperties": {
@@ -46,7 +46,7 @@
 			},
 			"bearerToken": {
 				"type": "string",
-				"defaultValue": "3030401c-c5a5-43c8-8b73-2ab9e6f2ca22"
+				"defaultValue": "433fc02b-b5c1-4bd8-836a-618cdc31c492"
 			}
 		},
 		"folder": {
