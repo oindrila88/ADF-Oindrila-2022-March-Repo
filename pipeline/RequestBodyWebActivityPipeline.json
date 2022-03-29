@@ -20,7 +20,7 @@
 					"method": "POST",
 					"headers": {
 						"Authorization": {
-							"value": "@concat('Bearer ', )",
+							"value": "@concat('Bearer ', pipeline().parameters.bearerToken)",
 							"type": "Expression"
 						}
 					},
@@ -43,6 +43,10 @@
 			"password": {
 				"type": "string",
 				"defaultValue": "123456"
+			},
+			"bearerToken": {
+				"type": "string",
+				"defaultValue": "3030401c-c5a5-43c8-8b73-2ab9e6f2ca22"
 			}
 		},
 		"folder": {
