@@ -1,0 +1,9 @@
+{
+	"name": "WebActivityPipeline",
+	"properties": {
+		"folder": {
+			"name": "Practice Activities Folder"
+		},
+		"annotations": []
+	}
+}
