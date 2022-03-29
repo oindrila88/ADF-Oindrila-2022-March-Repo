@@ -4,7 +4,7 @@
 		"activities": [
 			{
 				"name": "Find User Details",
-				"description": "Access the REST API BASE URL \"http://restapi.adequateshop.com/api/authaccount/login\" using the Basic Authentication.",
+				"description": "Access the REST API BASE URL \"http://restapi.adequateshop.com/api/authaccount/login\" using the Authentication information in the \"Request Body\".",
 				"type": "WebActivity",
 				"dependsOn": [],
 				"policy": {
