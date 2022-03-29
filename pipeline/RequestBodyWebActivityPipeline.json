@@ -3,8 +3,8 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Find User Details",
-				"description": "Access the REST API BASE URL \"http://restapi.adequateshop.com/api/authaccount/login\" using the Authentication information in the \"Request Body\".",
+				"name": "Register User Details",
+				"description": "Register user information by accessing the REST API BASE URL \"http://restapi.adequateshop.com/api/authaccount/login\" using the POST Request Method and passing the information in the \"Request Body\".",
 				"type": "WebActivity",
 				"dependsOn": [],
 				"policy": {
