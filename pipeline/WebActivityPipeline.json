@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Find Weather Info",
+				"name": "Find Weather Info of City",
 				"description": "Access the REST API BASE URL \"http://api.weatherstack.com/\", and, pass \"City Name\" and the \"Access Key\" as \"Query String\", appended to the BASE URL, separated by a \"Question Mark\", i.e., \"?\".",
 				"type": "WebActivity",
 				"dependsOn": [],
