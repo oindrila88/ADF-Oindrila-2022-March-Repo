@@ -18,6 +18,12 @@
 				"typeProperties": {
 					"url": "http://restapi.adequateshop.com/api/authaccount/login",
 					"method": "POST",
+					"headers": {
+						"Authorization": {
+							"value": "@concat('Bearer ', )",
+							"type": "Expression"
+						}
+					},
 					"body": {
 						"value": "@concat('{\"name\":', pipeline().parameters.name, ', \"email\":', pipeline().parameters.email, ', \"password\":', pipeline().parameters.password, '}')",
 						"type": "Expression"
