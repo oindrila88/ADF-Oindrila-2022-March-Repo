@@ -60,6 +60,82 @@
 						}
 					}
 				]
+			},
+			{
+				"name": "Extract Downloaded Zip File",
+				"description": "Extract the \"CSV Files\" from the Downloaded \"Zip File\", containing \"Multiple CSV Files\"",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Copy Data from HTTP Endpoint",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 2,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "BinarySource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"deleteFilesAfterCompletion": false
+						},
+						"formatSettings": {
+							"type": "BinaryReadSettings",
+							"compressionProperties": {
+								"type": "ZipDeflateReadSettings"
+							}
+						}
+					},
+					"sink": {
+						"type": "BinarySink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "DS_Http_Output_Zip_World_Bank_Total_Population",
+						"type": "DatasetReference",
+						"parameters": {
+							"container_name": {
+								"value": "@pipeline().parameters.Container_Name",
+								"type": "Expression"
+							},
+							"directory_name": {
+								"value": "@pipeline().parameters.Directory_Name",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DS_Unzipped_CSV_File",
+						"type": "DatasetReference",
+						"parameters": {
+							"container_name": {
+								"value": "@pipeline().parameters.Container_Name",
+								"type": "Expression"
+							},
+							"directory_name": {
+								"value": "@pipeline().parameters.Output_Csv_Directory_Name",
+								"type": "Expression"
+							}
+						}
+					}
+				]
 			}
 		],
 		"parameters": {
@@ -70,6 +146,10 @@
 			"Directory_Name": {
 				"type": "string",
 				"defaultValue": "zipped-raw-folder"
+			},
+			"Output_Csv_Directory_Name": {
+				"type": "string",
+				"defaultValue": "unzipped-raw-csv-folder"
 			}
 		},
 		"folder": {
