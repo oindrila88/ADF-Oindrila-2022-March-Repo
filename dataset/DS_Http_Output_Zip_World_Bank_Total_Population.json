@@ -26,6 +26,10 @@
 					"value": "@dataset().container_name",
 					"type": "Expression"
 				}
+			},
+			"compression": {
+				"type": "ZipDeflate",
+				"level": "Optimal"
 			}
 		}
 	}
