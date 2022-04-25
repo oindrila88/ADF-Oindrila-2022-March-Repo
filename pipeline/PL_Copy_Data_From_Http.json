@@ -96,12 +96,6 @@
 							}
 						}
 					},
-					"sink": {
-						"type": "BinarySink",
-						"storeSettings": {
-							"type": "AzureBlobFSWriteSettings"
-						}
-					},
 					"enableStaging": false
 				},
 				"inputs": [
@@ -115,22 +109,6 @@
 							},
 							"directory_name": {
 								"value": "@pipeline().parameters.Directory_Name",
-								"type": "Expression"
-							}
-						}
-					}
-				],
-				"outputs": [
-					{
-						"referenceName": "DS_Unzipped_CSV_File",
-						"type": "DatasetReference",
-						"parameters": {
-							"container_name": {
-								"value": "@pipeline().parameters.Container_Name",
-								"type": "Expression"
-							},
-							"directory_name": {
-								"value": "@pipeline().parameters.Output_Csv_Directory_Name",
 								"type": "Expression"
 							}
 						}
