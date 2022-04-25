@@ -46,7 +46,17 @@
 				"outputs": [
 					{
 						"referenceName": "DS_Http_Output_Zip_World_Bank_Total_Population",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"container_name": {
+								"value": "@pipeline().parameters.Container Name",
+								"type": "Expression"
+							},
+							"directory_name": {
+								"value": "@pipeline().parameters.Directory Name",
+								"type": "Expression"
+							}
+						}
 					}
 				]
 			}
