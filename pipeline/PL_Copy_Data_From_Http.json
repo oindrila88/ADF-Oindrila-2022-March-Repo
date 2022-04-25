@@ -1,0 +1,9 @@
+{
+	"name": "PL_Copy_Data_From_Http",
+	"properties": {
+		"folder": {
+			"name": "Practice Pipeline Folder"
+		},
+		"annotations": []
+	}
+}
