@@ -1,0 +1,32 @@
+{
+	"name": "DS_Unzipped_CSV_File",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_adlsoindrila2022march",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"container_name": {
+				"type": "string"
+			},
+			"directory_name": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": {
+					"value": "@dataset().directory_name",
+					"type": "Expression"
+				},
+				"fileSystem": {
+					"value": "@dataset().container_name",
+					"type": "Expression"
+				}
+			}
+		}
+	}
+}
