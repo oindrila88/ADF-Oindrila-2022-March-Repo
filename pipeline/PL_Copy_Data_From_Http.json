@@ -169,7 +169,8 @@
 							"directory_name": {
 								"value": "@pipeline().parameters.Output_Csv_Directory_Name",
 								"type": "Expression"
-							}
+							},
+							"extension_type": "*.csv"
 						}
 					},
 					"fieldList": [
