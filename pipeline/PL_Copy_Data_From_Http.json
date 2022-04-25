@@ -49,11 +49,11 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"container_name": {
-								"value": "@pipeline().parameters.Container Name",
+								"value": "@pipeline().parameters.Container_Name",
 								"type": "Expression"
 							},
 							"directory_name": {
-								"value": "@pipeline().parameters.Directory Name",
+								"value": "@pipeline().parameters.Directory_Name",
 								"type": "Expression"
 							}
 						}
@@ -62,11 +62,11 @@
 			}
 		],
 		"parameters": {
-			"Container Name": {
+			"Container_Name": {
 				"type": "string",
 				"defaultValue": "csv-container"
 			},
-			"Directory Name": {
+			"Directory_Name": {
 				"type": "string",
 				"defaultValue": "unzipped-raw-csv-folder"
 			}
