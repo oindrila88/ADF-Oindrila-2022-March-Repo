@@ -69,7 +69,7 @@
 			},
 			"Directory_Name": {
 				"type": "string",
-				"defaultValue": "unzipped-raw-csv-folder"
+				"defaultValue": "zipped-raw-folder"
 			}
 		},
 		"folder": {
