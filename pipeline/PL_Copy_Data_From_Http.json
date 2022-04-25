@@ -51,6 +51,16 @@
 				]
 			}
 		],
+		"parameters": {
+			"Container Name": {
+				"type": "string",
+				"defaultValue": "csv-container"
+			},
+			"Directory Name": {
+				"type": "string",
+				"defaultValue": "unzipped-raw-csv-folder"
+			}
+		},
 		"folder": {
 			"name": "Practice Pipeline Folder"
 		},
