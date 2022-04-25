@@ -1,6 +1,25 @@
 {
 	"name": "PL_Copy_Data_From_Http",
 	"properties": {
+		"activities": [
+			{
+				"name": "Copy Data from HTTP Endpoint",
+				"description": "Copy population related data using the World Bank Public API.",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 2,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"enableStaging": false
+				}
+			}
+		],
 		"folder": {
 			"name": "Practice Pipeline Folder"
 		},
