@@ -136,6 +136,20 @@
 						}
 					}
 				]
+			},
+			{
+				"name": "Iterate Through Each CSV Files in Unzip Folder",
+				"description": "Iterate Through Each CSV Files in Unzip Folder and Copy the File that Starts with the Name \"API_SP.POP.TOTL_DS2\" to \"clean\" Folder.",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Extract Downloaded Zip File",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": []
 			}
 		],
 		"parameters": {
