@@ -137,6 +137,53 @@
 						}
 					}
 				]
+			},
+			{
+				"name": "Get All CSV File Names",
+				"description": "Get the Names of All the CSV Files that were Unzipped.",
+				"type": "GetMetadata",
+				"dependsOn": [
+					{
+						"activity": "Extract Downloaded Zip File",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 2,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "DS_Unzipped_Csv_Files",
+						"type": "DatasetReference",
+						"parameters": {
+							"container_name": {
+								"value": "@pipeline().parameters.Container_Name",
+								"type": "Expression"
+							},
+							"directory_name": {
+								"value": "@pipeline().parameters.Output_Csv_Directory_Name",
+								"type": "Expression"
+							}
+						}
+					},
+					"fieldList": [
+						"childItems"
+					],
+					"storeSettings": {
+						"type": "AzureBlobFSReadSettings",
+						"enablePartitionDiscovery": false
+					},
+					"formatSettings": {
+						"type": "DelimitedTextReadSettings"
+					}
+				}
 			}
 		],
 		"parameters": {
