@@ -188,7 +188,7 @@
 			},
 			{
 				"name": "Iterate Through All Unzipped CSV Files",
-				"description": "Iterate Through All Unzipped CSV Files and Copy the CSV File that Starts with \"API_SP.POP.TOTL_DS2_en_csv\" and Copy to \"clean\" Directory.",
+				"description": "Iterate Through All Unzipped CSV Files and Copy the CSV File that Starts with \"API_SP.POP.TOTL_DS2_en_csv\" and copy to \"clean\" Directory.",
 				"type": "ForEach",
 				"dependsOn": [
 					{
@@ -204,7 +204,16 @@
 						"value": "@activity('Get All CSV File Names').output.childItems.name",
 						"type": "Expression"
 					},
-					"isSequential": true
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "If File Name Matches",
+							"description": "Check if the CSV File Name Starts With \"API_SP.POP.TOTL_DS2_en_csv\"",
+							"type": "IfCondition",
+							"dependsOn": [],
+							"userProperties": []
+						}
+					]
 				}
 			}
 		],
