@@ -204,7 +204,93 @@
 						"value": "@activity('Get All CSV File Names').output.childItems.name",
 						"type": "Expression"
 					},
-					"isSequential": true
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "Set CSV File Name",
+							"description": "Set the Values of Each \"Item\" of the \"ForEach\" Activity for Each Iteration.",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "CSV_File_Name",
+								"value": {
+									"value": "@item()",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "If File Name Matches",
+							"description": "Check if the CSV File Name Starts With \"API_SP.POP.TOTL_DS2_en_csv\"",
+							"type": "IfCondition",
+							"dependsOn": [
+								{
+									"activity": "Set CSV File Name",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"expression": {
+									"value": "@startswith(variables('CSV_File_Name'), 'API_SP.POP.TOTL_DS2_en_csv')",
+									"type": "Expression"
+								},
+								"ifTrueActivities": [
+									{
+										"name": "Copy CSV File",
+										"description": "Copy the CSV File that Starts With “API_SP.POP.TOTL_DS2_en_csv” from \"unzipped-raw-csv-folder\" Directory to \"raw-csv-folder\" Directory",
+										"type": "Copy",
+										"dependsOn": [],
+										"policy": {
+											"timeout": "7.00:00:00",
+											"retry": 2,
+											"retryIntervalInSeconds": 30,
+											"secureOutput": false,
+											"secureInput": false
+										},
+										"userProperties": [],
+										"typeProperties": {
+											"source": {
+												"type": "DelimitedTextSource",
+												"storeSettings": {
+													"type": "AzureBlobFSReadSettings",
+													"recursive": true,
+													"enablePartitionDiscovery": false
+												},
+												"formatSettings": {
+													"type": "DelimitedTextReadSettings"
+												}
+											},
+											"enableStaging": false
+										},
+										"inputs": [
+											{
+												"referenceName": "DS_CSV_File",
+												"type": "DatasetReference",
+												"parameters": {
+													"container_name": {
+														"value": "@pipeline().parameters.Container_Name",
+														"type": "Expression"
+													},
+													"directory_name": {
+														"value": "@pipeline().parameters.Output_Csv_Directory_Name",
+														"type": "Expression"
+													},
+													"file_name": {
+														"value": "@variables('CSV_File_Name')",
+														"type": "Expression"
+													}
+												}
+											}
+										]
+									}
+								]
+							}
+						}
+					]
 				}
 			}
 		],
@@ -220,6 +306,10 @@
 			"Output_Csv_Directory_Name": {
 				"type": "string",
 				"defaultValue": "unzipped-raw-csv-folder"
+			},
+			"Final_Csv_Directory_Name": {
+				"type": "string",
+				"defaultValue": "raw-csv-folder"
 			}
 		},
 		"variables": {
