@@ -188,7 +188,7 @@
 			},
 			{
 				"name": "Iterate Through All Unzipped CSV Files",
-				"description": "Iterate Through All Unzipped CSV Files and Copy the CSV File that Starts with \"API_SP.POP.TOTL_DS2\" and Copy to \"clean\" Directory.",
+				"description": "Iterate Through All Unzipped CSV Files and Copy the CSV File that Starts with \"API_SP.POP.TOTL_DS2\" and copy to \"clean\" Directory.",
 				"type": "ForEach",
 				"dependsOn": [
 					{
