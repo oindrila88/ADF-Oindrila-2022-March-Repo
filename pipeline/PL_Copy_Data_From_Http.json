@@ -215,7 +215,7 @@
 							"typeProperties": {
 								"variableName": "CSV_File_Name",
 								"value": {
-									"value": "@item()",
+									"value": "@item().name",
 									"type": "Expression"
 								}
 							}
