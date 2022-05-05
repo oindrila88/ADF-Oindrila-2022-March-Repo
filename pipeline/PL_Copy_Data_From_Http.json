@@ -201,7 +201,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('Get All CSV File Names').output.childItems.name",
+						"value": "@activity('Get All CSV File Names').output.childItems",
 						"type": "Expression"
 					},
 					"isSequential": true,
