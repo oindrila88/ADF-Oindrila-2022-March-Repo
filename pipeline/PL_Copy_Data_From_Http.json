@@ -222,6 +222,11 @@
 				"defaultValue": "unzipped-raw-csv-folder"
 			}
 		},
+		"variables": {
+			"CSV_File_Name": {
+				"type": "String"
+			}
+		},
 		"folder": {
 			"name": "Practice Pipeline Folder"
 		},
