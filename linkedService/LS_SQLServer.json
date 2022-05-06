@@ -8,16 +8,13 @@
 				"type": "String"
 			},
 			"Param_AzureSQLServerDBName": {
-				"type": "String",
-				"defaultValue": "SQLBD-Oindrila-2022-March"
+				"type": "String"
 			},
 			"Param_AzureSQLServerUserName": {
-				"type": "String",
-				"defaultValue": "sql_azureuser_oindrila_march"
+				"type": "String"
 			},
 			"Param_AzureSQLServerPassword": {
-				"type": "String",
-				"defaultValue": "Kolkata@1234"
+				"type": "String"
 			}
 		},
 		"annotations": [],
