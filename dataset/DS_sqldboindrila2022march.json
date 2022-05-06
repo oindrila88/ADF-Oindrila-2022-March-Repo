@@ -11,8 +11,26 @@
 				"Param_AzureSQLServerPassword": "Suzaku1!"
 			}
 		},
+		"parameters": {
+			"Param_SQLDB_Schema": {
+				"type": "String"
+			},
+			"Param_SQLDB_Table": {
+				"type": "String"
+			}
+		},
 		"annotations": [],
 		"type": "SqlServerTable",
-		"schema": []
+		"schema": [],
+		"typeProperties": {
+			"schema": {
+				"value": "@dataset().Param_SQLDB_Schema",
+				"type": "Expression"
+			},
+			"table": {
+				"value": "@dataset().Param_SQLDB_Table",
+				"type": "Expression"
+			}
+		}
 	}
 }
