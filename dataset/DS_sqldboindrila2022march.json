@@ -1,0 +1,18 @@
+{
+	"name": "DS_sqldboindrila2022march",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_SQLServer",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"Param_AzureSQLServer": "sqlserveroindrila2022march.database.windows.net",
+				"Param_AzureSQLServerDBName": "sqldboindrila2022march",
+				"Param_AzureSQLServerUserName": "oindrila2022march",
+				"Param_AzureSQLServerPassword": "Suzaku1!"
+			}
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": []
+	}
+}
