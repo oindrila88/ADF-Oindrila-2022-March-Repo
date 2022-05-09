@@ -3,7 +3,25 @@
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "LS_SQLServer",
-			"type": "LinkedServiceReference"
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"Param_AzureSQLServer": {
+					"value": "@dataset().Param_AzureSQLServer",
+					"type": "Expression"
+				},
+				"Param_AzureSQLServerDBName": {
+					"value": "@dataset().Param_AzureSQLServerDBName",
+					"type": "Expression"
+				},
+				"Param_AzureSQLServerUserName": {
+					"value": "@dataset().Param_AzureSQLServerUserName",
+					"type": "Expression"
+				},
+				"Param_AzureSQLServerPassword": {
+					"value": "@dataset().Param_AzureSQLServerPassword",
+					"type": "Expression"
+				}
+			}
 		},
 		"parameters": {
 			"Param_SQLDB_Schema": {
@@ -11,6 +29,18 @@
 			},
 			"Param_SQLDB_Table": {
 				"type": "String"
+			},
+			"Param_AzureSQLServer": {
+				"type": "string"
+			},
+			"Param_AzureSQLServerDBName": {
+				"type": "string"
+			},
+			"Param_AzureSQLServerUserName": {
+				"type": "string"
+			},
+			"Param_AzureSQLServerPassword": {
+				"type": "string"
 			}
 		},
 		"annotations": [],
