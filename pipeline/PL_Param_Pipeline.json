@@ -71,7 +71,7 @@
 			},
 			"PL_Param_Password": {
 				"type": "string",
-				"defaultValue": "********"
+				"defaultValue": "Suzaku1!"
 			},
 			"PL_Param_SchemaName": {
 				"type": "string",
