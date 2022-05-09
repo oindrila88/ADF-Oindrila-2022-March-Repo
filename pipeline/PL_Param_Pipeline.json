@@ -19,7 +19,7 @@
 					"source": {
 						"type": "SqlServerSource",
 						"queryTimeout": "02:00:00",
-						"partitionOption": "None"
+						"partitionOption": "PhysicalPartitionsOfTable"
 					},
 					"dataset": {
 						"referenceName": "DS_sqldboindrila2022march",
@@ -58,7 +58,7 @@
 		"parameters": {
 			"PL_Param_ServerName": {
 				"type": "string",
-				"defaultValue": "tcp:sqlserveroindrila2022march.database.windows.net,1433"
+				"defaultValue": "sqlserveroindrila2022march.database.windows.net"
 			},
 			"PL_Param_DatabaseName": {
 				"type": "string",
