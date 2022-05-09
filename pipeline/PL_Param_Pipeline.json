@@ -19,7 +19,7 @@
 					"source": {
 						"type": "SqlServerSource",
 						"queryTimeout": "02:00:00",
-						"partitionOption": "PhysicalPartitionsOfTable"
+						"partitionOption": "None"
 					},
 					"dataset": {
 						"referenceName": "DS_sqldboindrila2022march",
