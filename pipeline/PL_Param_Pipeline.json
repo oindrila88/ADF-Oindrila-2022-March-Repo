@@ -33,19 +33,19 @@
 								"value": "@pipeline().parameters.PL_Param_TableName",
 								"type": "Expression"
 							},
-							"Param_SQL_Server_Name": {
+							"Param_AzureSQLServer": {
 								"value": "@pipeline().parameters.PL_Param_ServerName",
 								"type": "Expression"
 							},
-							"Param_SQL_Server_DB_Name": {
+							"Param_AzureSQLServerDBName": {
 								"value": "@pipeline().parameters.PL_Param_DatabaseName",
 								"type": "Expression"
 							},
-							"Param_SQL_Server_User_Name": {
+							"Param_AzureSQLServerUserName": {
 								"value": "@pipeline().parameters.PL_Param_UserName",
 								"type": "Expression"
 							},
-							"Param_SQL_Server_Password": {
+							"Param_AzureSQLServerPassword": {
 								"value": "@pipeline().parameters.PL_Param_Password",
 								"type": "Expression"
 							}
