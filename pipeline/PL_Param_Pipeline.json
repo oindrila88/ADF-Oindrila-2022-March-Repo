@@ -58,7 +58,7 @@
 		"parameters": {
 			"PL_Param_ServerName": {
 				"type": "string",
-				"defaultValue": "sqlserveroindrila2022march.database.windows.net"
+				"defaultValue": "tcp:sqlserveroindrila2022march.database.windows.net,1433"
 			},
 			"PL_Param_DatabaseName": {
 				"type": "string",
