@@ -1,6 +1,59 @@
 {
 	"name": "PL_Param_Pipeline",
 	"properties": {
+		"activities": [
+			{
+				"name": "Lookup Table",
+				"description": "Look for a Table in the Database for which the Values are Provided in the Pipeline Parameters.",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 2,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "DS_sqldboindrila2022march",
+						"type": "DatasetReference"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"PL_Param_ServerName": {
+				"type": "string",
+				"defaultValue": "sqlserveroindrila2022march.database.windows.net"
+			},
+			"PL_Param_DatabaseName": {
+				"type": "string",
+				"defaultValue": "sqldboindrila2022march"
+			},
+			"PL_Param_UserName": {
+				"type": "string",
+				"defaultValue": "oindrila2022march"
+			},
+			"PL_Param_Password": {
+				"type": "string",
+				"defaultValue": "*********"
+			},
+			"PL_Param_SchemaName": {
+				"type": "string",
+				"defaultValue": "SalesLT"
+			},
+			"PL_Param_TableName": {
+				"type": "string",
+				"defaultValue": "Product"
+			}
+		},
 		"folder": {
 			"name": "Practice Pipeline Folder"
 		},
