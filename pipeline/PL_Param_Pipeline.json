@@ -23,8 +23,35 @@
 					},
 					"dataset": {
 						"referenceName": "DS_sqldboindrila2022march",
-						"type": "DatasetReference"
-					}
+						"type": "DatasetReference",
+						"parameters": {
+							"Param_SQLDB_Schema": {
+								"value": "@pipeline().parameters.PL_Param_SchemaName",
+								"type": "Expression"
+							},
+							"Param_SQLDB_Table": {
+								"value": "@pipeline().parameters.PL_Param_TableName",
+								"type": "Expression"
+							},
+							"Param_SQL_Server_Name": {
+								"value": "@pipeline().parameters.PL_Param_ServerName",
+								"type": "Expression"
+							},
+							"Param_SQL_Server_DB_Name": {
+								"value": "@pipeline().parameters.PL_Param_DatabaseName",
+								"type": "Expression"
+							},
+							"Param_SQL_Server_User_Name": {
+								"value": "@pipeline().parameters.PL_Param_UserName",
+								"type": "Expression"
+							},
+							"Param_SQL_Server_Password": {
+								"value": "@pipeline().parameters.PL_Param_Password",
+								"type": "Expression"
+							}
+						}
+					},
+					"firstRowOnly": false
 				}
 			}
 		],
@@ -43,7 +70,7 @@
 			},
 			"PL_Param_Password": {
 				"type": "string",
-				"defaultValue": "*********"
+				"defaultValue": "Suzaku1!"
 			},
 			"PL_Param_SchemaName": {
 				"type": "string",
