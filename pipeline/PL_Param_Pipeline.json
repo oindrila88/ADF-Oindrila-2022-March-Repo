@@ -71,7 +71,7 @@
 			},
 			"PL_Param_Password": {
 				"type": "string",
-				"defaultValue": "Suzaku1!"
+				"defaultValue": "********"
 			},
 			"PL_Param_SchemaName": {
 				"type": "string",
@@ -79,7 +79,7 @@
 			},
 			"PL_Param_TableName": {
 				"type": "string",
-				"defaultValue": "Product"
+				"defaultValue": "ProductCategory"
 			}
 		},
 		"folder": {
