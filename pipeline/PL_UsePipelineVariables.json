@@ -1,0 +1,14 @@
+{
+	"name": "PL_UsePipelineVariables",
+	"properties": {
+		"variables": {
+			"fileType": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "Practice Activities Folder"
+		},
+		"annotations": []
+	}
+}
