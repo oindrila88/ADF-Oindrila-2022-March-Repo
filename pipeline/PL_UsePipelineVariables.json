@@ -15,6 +15,20 @@
 						"type": "Expression"
 					}
 				}
+			},
+			{
+				"name": "Append List of Cities Variable",
+				"description": "Append the Value of the Variable \"cityName\" to the Existing Array Variable \"listOfCities\".",
+				"type": "AppendVariable",
+				"dependsOn": [
+					{
+						"activity": "Set City Name Variable",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": []
 			}
 		],
 		"parameters": {
@@ -25,6 +39,13 @@
 		},
 		"variables": {
 			"cityName": {
+				"type": "String"
+			},
+			"listOfCities": {
+				"type": "String",
+				"defaultValue": "[\"New York\",\"London\",\"Tokyo\",\"Singapore City\"]"
+			},
+			"appendedCities": {
 				"type": "String"
 			}
 		},
