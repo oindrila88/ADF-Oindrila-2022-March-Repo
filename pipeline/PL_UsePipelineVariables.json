@@ -28,7 +28,35 @@
 						]
 					}
 				],
-				"userProperties": []
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "listOfCities",
+					"value": {
+						"value": "@variables('cityName')",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Set Appended Cities Variable",
+				"description": "Set the Value of the Array Variable \"listOfCities\" to the Existing Empty Array Variable \"appendedCities\".",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Append List of Cities Variable",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "appendedCities",
+					"value": {
+						"value": "@variables('listOfCities')",
+						"type": "Expression"
+					}
+				}
 			}
 		],
 		"parameters": {
@@ -42,11 +70,16 @@
 				"type": "String"
 			},
 			"listOfCities": {
-				"type": "String",
-				"defaultValue": "[\"New York\",\"London\",\"Tokyo\",\"Singapore City\"]"
+				"type": "Array",
+				"defaultValue": [
+					"New York",
+					"London",
+					"Tokyo",
+					"Singapore City"
+				]
 			},
 			"appendedCities": {
-				"type": "String"
+				"type": "Array"
 			}
 		},
 		"folder": {
