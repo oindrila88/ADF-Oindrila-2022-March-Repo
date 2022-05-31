@@ -10,10 +10,19 @@
 				"userProperties": [],
 				"typeProperties": {
 					"variableName": "cityName",
-					"value": ""
+					"value": {
+						"value": "@substring(pipeline().parameters.addressLine, add(indexof(pipeline().parameters.addressLine, 'City:'), 6), sub(sub(indexof(pipeline().parameters.addressLine, 'State:'), 2), add(indexof(pipeline().parameters.addressLine, 'City:'), 6)))",
+						"type": "Expression"
+					}
 				}
 			}
 		],
+		"parameters": {
+			"addressLine": {
+				"type": "string",
+				"defaultValue": "Address: 221 M.G. Road Road. City: Kolkata. State: West Bengal"
+			}
+		},
 		"variables": {
 			"cityName": {
 				"type": "String"
