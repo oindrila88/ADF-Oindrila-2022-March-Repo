@@ -1,8 +1,21 @@
 {
 	"name": "PL_UsePipelineVariables",
 	"properties": {
+		"activities": [
+			{
+				"name": "Set City Name Variable",
+				"description": "Get the Value of the Property \"City\" from the Pipeline Parameter \"addressLine\" of \"String\" Type.",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "cityName",
+					"value": ""
+				}
+			}
+		],
 		"variables": {
-			"fileType": {
+			"cityName": {
 				"type": "String"
 			}
 		},
