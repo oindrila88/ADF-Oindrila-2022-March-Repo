@@ -1,10 +1,35 @@
 {
 	"name": "PL_StringArrayFilterActivity",
 	"properties": {
+		"activities": [
+			{
+				"name": "Filter Cities",
+				"description": "Filter All the Cities, Starting with the Letter \"L\", from the Pipeline Parameter \"listOfCities\".",
+				"type": "Filter",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.listOfCities",
+						"type": "Expression"
+					},
+					"condition": {
+						"value": "@startswith(item(), 'L')",
+						"type": "Expression"
+					}
+				}
+			}
+		],
 		"parameters": {
 			"listOfCities": {
 				"type": "array",
-				"defaultValue": "[‘New York’,’London’,’Tokyo’,’Singapore City’,’Lisbon’]"
+				"defaultValue": [
+					"New York",
+					"London",
+					"Tokyo",
+					"Singapore City",
+					"Lisbon"
+				]
 			}
 		},
 		"folder": {
