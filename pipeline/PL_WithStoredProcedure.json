@@ -1,6 +1,20 @@
 {
 	"name": "PL_WithStoredProcedure",
 	"properties": {
+		"parameters": {
+			"sqlServerName": {
+				"type": "string",
+				"defaultValue": "sqlserveroindrila2022march"
+			},
+			"sqlServerDbName": {
+				"type": "string",
+				"defaultValue": "sqldboindrila2022march"
+			},
+			"sqlServerAdminUserName": {
+				"type": "string",
+				"defaultValue": "oindrila2022march"
+			}
+		},
 		"folder": {
 			"name": "Practice Activities Folder"
 		},
