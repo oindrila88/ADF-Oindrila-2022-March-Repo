@@ -106,7 +106,10 @@
 							"value": "@pipeline().parameters.sqlServerName",
 							"type": "Expression"
 						},
-						"Param_AzureSQLServerDBName": "sqldboindrila2022march",
+						"Param_AzureSQLServerDBName": {
+							"value": "@pipeline().parameters.sqlServerDbName",
+							"type": "Expression"
+						},
 						"Param_AzureSQLServerUserName": {
 							"value": "@pipeline().parameters.sqlServerAdminUserName",
 							"type": "Expression"
