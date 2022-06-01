@@ -125,7 +125,7 @@
 		"parameters": {
 			"sqlServerName": {
 				"type": "string",
-				"defaultValue": "sqlserveroindrila2022march"
+				"defaultValue": "sqlserveroindrila2022march.database.windows.net"
 			},
 			"sqlServerDatabaseName": {
 				"type": "string",
