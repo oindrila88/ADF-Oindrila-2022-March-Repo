@@ -124,7 +124,7 @@
 				"type": "string",
 				"defaultValue": "sqlserveroindrila2022march"
 			},
-			"dbName": {
+			"sqlServerDbName": {
 				"type": "string",
 				"defaultValue": "sqldboindrila2022march"
 			},
