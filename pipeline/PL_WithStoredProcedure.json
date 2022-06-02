@@ -45,7 +45,6 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": "dbo.SP_InsertPipelineRunDetails",
 					"storedProcedureParameters": {
 						"DataFactoryName": {
 							"value": {
@@ -97,6 +96,10 @@
 							"type": "String"
 						}
 					}
+				},
+				"linkedServiceName": {
+					"referenceName": "LS_SQLServer",
+					"type": "LinkedServiceReference"
 				}
 			}
 		],
