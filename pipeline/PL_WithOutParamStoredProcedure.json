@@ -52,12 +52,15 @@
 							"type": "String"
 						},
 						"Id": {
+							"value": null,
 							"type": "Int32"
 						},
 						"FirstName": {
+							"value": null,
 							"type": "String"
 						},
 						"LastName": {
+							"value": null,
 							"type": "String"
 						}
 					}
