@@ -25,8 +25,8 @@
 				}
 			},
 			{
-				"name": "Insert Stored Procedure",
-				"description": "Call the Stored Procedure \"SP_InsertPipelineRunDetails\" to Insert the Pipeline Run Details to the Table \"tbl_PipelineRunDetails\".",
+				"name": "Data Retrieval Stored Procedure",
+				"description": "Call the Stored Procedure \"dbo.SP_GetEmployeeDetails\" to Fetch the Details of the Table \"Employee\".",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
