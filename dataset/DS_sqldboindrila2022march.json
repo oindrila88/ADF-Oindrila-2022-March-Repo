@@ -1,0 +1,26 @@
+{
+	"name": "DS_sqldboindrila2022march",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_SQLServer",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"param_sqlServerName": {
+				"type": "string"
+			},
+			"param_databaseName": {
+				"type": "string"
+			},
+			"param_adminUserName": {
+				"type": "string"
+			},
+			"param_password": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": []
+	}
+}
