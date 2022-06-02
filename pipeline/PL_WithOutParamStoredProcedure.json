@@ -45,55 +45,19 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": "dbo.SP_InsertPipelineRunDetails",
+					"storedProcedureName": "dbo.SP_GetEmployeeDetails",
 					"storedProcedureParameters": {
-						"DataFactoryName": {
-							"value": {
-								"value": "@pipeline().DataFactory",
-								"type": "Expression"
-							},
+						"Address": {
+							"value": "Kolkata",
 							"type": "String"
 						},
-						"PipelineName": {
-							"value": {
-								"value": "@pipeline().Pipeline",
-								"type": "Expression"
-							},
+						"Id": {
+							"type": "Int32"
+						},
+						"FirstName": {
 							"type": "String"
 						},
-						"PipelineRunId": {
-							"value": {
-								"value": "@pipeline().RunId",
-								"type": "Expression"
-							},
-							"type": "String"
-						},
-						"TriggerType": {
-							"value": {
-								"value": "@pipeline().TriggerType",
-								"type": "Expression"
-							},
-							"type": "String"
-						},
-						"TriggerRunId": {
-							"value": {
-								"value": "@pipeline().TriggerId",
-								"type": "Expression"
-							},
-							"type": "String"
-						},
-						"TriggerName": {
-							"value": {
-								"value": "@pipeline().TriggerName",
-								"type": "Expression"
-							},
-							"type": "String"
-						},
-						"TriggerRunTime": {
-							"value": {
-								"value": "@pipeline().TriggerTime",
-								"type": "Expression"
-							},
+						"LastName": {
 							"type": "String"
 						}
 					}
