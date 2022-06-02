@@ -46,52 +46,13 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "SqlServerSource",
-						"sqlReaderStoredProcedureName": "dbo.SP_GetEmployeeDetails",
-						"storedProcedureParameters": {
-							"Address": {
-								"type": "String",
-								"value": "Kolkata"
-							},
-							"Id": {
-								"type": "Int32",
-								"value": null
-							},
-							"FirstName": {
-								"type": "String",
-								"value": null
-							},
-							"LastName": {
-								"type": "String",
-								"value": null
-							}
-						},
+						"type": "AzureSqlSource",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
 					"dataset": {
 						"referenceName": "DS_sqldboindrila2022march",
-						"type": "DatasetReference",
-						"parameters": {
-							"Param_SQLDB_Schema": "dbo",
-							"Param_SQLDB_Table": "ErrorLog",
-							"Param_AzureSQLServer": {
-								"value": "@pipeline().parameters.sqlServerName",
-								"type": "Expression"
-							},
-							"Param_AzureSQLServerDBName": {
-								"value": "@pipeline().parameters.sqlServerDatabaseName",
-								"type": "Expression"
-							},
-							"Param_AzureSQLServerUserName": {
-								"value": "@pipeline().parameters.sqlServerAdminUserName",
-								"type": "Expression"
-							},
-							"Param_AzureSQLServerPassword": {
-								"value": "@activity('Find Secret').output.value",
-								"type": "Expression"
-							}
-						}
+						"type": "DatasetReference"
 					},
 					"firstRowOnly": false
 				}
