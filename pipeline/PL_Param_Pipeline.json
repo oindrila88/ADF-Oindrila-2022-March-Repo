@@ -22,36 +22,6 @@
 						"isolationLevel": "Serializable",
 						"partitionOption": "None"
 					},
-					"dataset": {
-						"referenceName": "DS_sqldboindrila2022march",
-						"type": "DatasetReference",
-						"parameters": {
-							"Param_SQLDB_Schema": {
-								"value": "@pipeline().parameters.PL_Param_SchemaName",
-								"type": "Expression"
-							},
-							"Param_SQLDB_Table": {
-								"value": "@pipeline().parameters.PL_Param_TableName",
-								"type": "Expression"
-							},
-							"Param_AzureSQLServer": {
-								"value": "@pipeline().parameters.PL_Param_ServerName",
-								"type": "Expression"
-							},
-							"Param_AzureSQLServerDBName": {
-								"value": "@pipeline().parameters.PL_Param_DatabaseName",
-								"type": "Expression"
-							},
-							"Param_AzureSQLServerUserName": {
-								"value": "@pipeline().parameters.PL_Param_UserName",
-								"type": "Expression"
-							},
-							"Param_AzureSQLServerPassword": {
-								"value": "@pipeline().parameters.PL_Param_Password",
-								"type": "Expression"
-							}
-						}
-					},
 					"firstRowOnly": false
 				}
 			}
