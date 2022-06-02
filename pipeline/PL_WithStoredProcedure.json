@@ -97,28 +97,6 @@
 							"type": "String"
 						}
 					}
-				},
-				"linkedServiceName": {
-					"referenceName": "LS_SQLServer",
-					"type": "LinkedServiceReference",
-					"parameters": {
-						"Param_AzureSQLServer": {
-							"value": "@pipeline().parameters.sqlServerName",
-							"type": "Expression"
-						},
-						"Param_AzureSQLServerDBName": {
-							"value": "@pipeline().parameters.sqlServerDatabaseName",
-							"type": "Expression"
-						},
-						"Param_AzureSQLServerUserName": {
-							"value": "@pipeline().parameters.sqlServerAdminUserName",
-							"type": "Expression"
-						},
-						"Param_AzureSQLServerPassword": {
-							"value": "@activity('Find Secret').output.value",
-							"type": "Expression"
-						}
-					}
 				}
 			}
 		],
