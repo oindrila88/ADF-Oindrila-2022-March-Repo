@@ -25,9 +25,9 @@
 				}
 			},
 			{
-				"name": "Data Retrieval Stored Procedure",
-				"description": "Call the Stored Procedure \"dbo.SP_GetEmployeeDetails\" to Fetch the Details of the Table \"Employee\".",
-				"type": "SqlServerStoredProcedure",
+				"name": "Lookup SP Result",
+				"description": "Use this \"Lookup\" Activity to Call the Stored Procedure \"dbo.SP_GetEmployeeDetails\" to Fetch the Details of the Table \"Employee\".",
+				"type": "Lookup",
 				"dependsOn": [
 					{
 						"activity": "Find Secret",
@@ -38,54 +38,62 @@
 				],
 				"policy": {
 					"timeout": "7.00:00:00",
-					"retry": 0,
+					"retry": 2,
 					"retryIntervalInSeconds": 30,
 					"secureOutput": false,
-					"secureInput": true
+					"secureInput": false
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": "dbo.SP_GetEmployeeDetails",
-					"storedProcedureParameters": {
-						"Address": {
-							"value": "Kolkata",
-							"type": "String"
+					"source": {
+						"type": "SqlServerSource",
+						"sqlReaderStoredProcedureName": "dbo.SP_GetEmployeeDetails",
+						"storedProcedureParameters": {
+							"Address": {
+								"type": "String",
+								"value": "Kolkata"
+							},
+							"Id": {
+								"type": "Int32",
+								"value": null
+							},
+							"FirstName": {
+								"type": "String",
+								"value": null
+							},
+							"LastName": {
+								"type": "String",
+								"value": null
+							}
 						},
-						"Id": {
-							"value": null,
-							"type": "Int32"
-						},
-						"FirstName": {
-							"value": null,
-							"type": "String"
-						},
-						"LastName": {
-							"value": null,
-							"type": "String"
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "DS_sqldboindrila2022march",
+						"type": "DatasetReference",
+						"parameters": {
+							"Param_SQLDB_Schema": "dbo",
+							"Param_SQLDB_Table": "ErrorLog",
+							"Param_AzureSQLServer": {
+								"value": "@pipeline().parameters.sqlServerName",
+								"type": "Expression"
+							},
+							"Param_AzureSQLServerDBName": {
+								"value": "@pipeline().parameters.sqlServerDatabaseName",
+								"type": "Expression"
+							},
+							"Param_AzureSQLServerUserName": {
+								"value": "@pipeline().parameters.sqlServerAdminUserName",
+								"type": "Expression"
+							},
+							"Param_AzureSQLServerPassword": {
+								"value": "@activity('Find Secret').output.value",
+								"type": "Expression"
+							}
 						}
-					}
-				},
-				"linkedServiceName": {
-					"referenceName": "LS_SQLServer",
-					"type": "LinkedServiceReference",
-					"parameters": {
-						"param_ServerName": {
-							"value": "@pipeline().parameters.sqlServerName",
-							"type": "Expression"
-						},
-						"param_DatabaseName": {
-							"value": "@pipeline().parameters.sqlServerDatabaseName",
-							"type": "Expression"
-						},
-						"param_AdminUserName": {
-							"value": "@pipeline().parameters.sqlServerAdminUserName",
-							"type": "Expression"
-						},
-						"param_Password": {
-							"value": "@activity('Find Secret').output.value",
-							"type": "Expression"
-						}
-					}
+					},
+					"firstRowOnly": false
 				}
 			}
 		],
