@@ -45,6 +45,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
+					"storedProcedureName": "dbo.SP_InsertPipelineRunDetails",
 					"storedProcedureParameters": {
 						"DataFactoryName": {
 							"value": {
@@ -99,7 +100,25 @@
 				},
 				"linkedServiceName": {
 					"referenceName": "LS_SQLServer",
-					"type": "LinkedServiceReference"
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"param_ServerName": {
+							"value": "@pipeline().parameters.sqlServerName",
+							"type": "Expression"
+						},
+						"param_DatabaseName": {
+							"value": "@pipeline().parameters.sqlServerDatabaseName",
+							"type": "Expression"
+						},
+						"param_AdminUserName": {
+							"value": "@pipeline().parameters.sqlServerAdminUserName",
+							"type": "Expression"
+						},
+						"param_Password": {
+							"value": "@activity('Find Secret').output.value",
+							"type": "Expression"
+						}
+					}
 				}
 			}
 		],
