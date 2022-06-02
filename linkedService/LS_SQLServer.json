@@ -1,0 +1,26 @@
+{
+	"name": "LS_SQLServer",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"description": "Linked Service for connecting to SQL Server resource \"sqlserveroindrila2022march\"",
+		"parameters": {
+			"param_ServerName": {
+				"type": "string"
+			},
+			"param_DatabaseName": {
+				"type": "string"
+			},
+			"param_AdminUserName": {
+				"type": "string"
+			},
+			"param_Password": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"connectionString": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=@{linkedService().param_ServerName};Initial Catalog=@{linkedService().param_DatabaseName};User ID=@{linkedService().param_AdminUserName};Password=@{linkedService().param_Password}"
+		}
+	}
+}
