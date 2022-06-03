@@ -47,6 +47,28 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
+						"sqlReaderStoredProcedureName": "dbo.SP_GetEmployeeDetails",
+						"storedProcedureParameters": {
+							"Address": {
+								"type": "String",
+								"value": {
+									"value": "@pipeline().parameters.param_address",
+									"type": "Expression"
+								}
+							},
+							"Id": {
+								"type": "Int32",
+								"value": null
+							},
+							"FirstName": {
+								"type": "String",
+								"value": null
+							},
+							"LastName": {
+								"type": "String",
+								"value": null
+							}
+						},
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
@@ -64,6 +86,10 @@
 							},
 							"param_adminUserName": {
 								"value": "@pipeline().parameters.sqlServerAdminUserName",
+								"type": "Expression"
+							},
+							"param_password": {
+								"value": "@activity('Find Secret').output.value",
 								"type": "Expression"
 							}
 						}
