@@ -88,9 +88,9 @@
 				"type": "string",
 				"defaultValue": "oindrila2022march"
 			},
-			"sqlDbTableName": {
+			"sqlQuery": {
 				"type": "string",
-				"defaultValue": "dbo.Employee"
+				"defaultValue": "SELECT * FROM dbo.Employee"
 			},
 			"containerName": {
 				"type": "string",
