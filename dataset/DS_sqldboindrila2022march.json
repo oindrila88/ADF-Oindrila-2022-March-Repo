@@ -1,0 +1,44 @@
+{
+	"name": "DS_sqldboindrila2022march",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_SQLServer",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"param_ServerName": {
+					"value": "@dataset().param_sqlServerName",
+					"type": "Expression"
+				},
+				"param_DatabaseName": {
+					"value": "@dataset().param_databaseName",
+					"type": "Expression"
+				},
+				"param_AdminUserName": {
+					"value": "@dataset().param_adminUserName",
+					"type": "Expression"
+				},
+				"param_Password": {
+					"value": "@dataset().param_password",
+					"type": "Expression"
+				}
+			}
+		},
+		"parameters": {
+			"param_sqlServerName": {
+				"type": "string"
+			},
+			"param_databaseName": {
+				"type": "string"
+			},
+			"param_adminUserName": {
+				"type": "string"
+			},
+			"param_password": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": []
+	}
+}
