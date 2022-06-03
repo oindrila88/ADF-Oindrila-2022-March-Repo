@@ -1,6 +1,24 @@
 {
 	"name": "PL_CopyDataActivity",
 	"properties": {
+		"parameters": {
+			"sqlServerName": {
+				"type": "string",
+				"defaultValue": "sqlserveroindrila2022march.database.windows.net"
+			},
+			"sqlServerDbName": {
+				"type": "string",
+				"defaultValue": "sqldboindrila2022march"
+			},
+			"sqlServerAdminUserName": {
+				"type": "string",
+				"defaultValue": "oindrila2022march"
+			},
+			"sqlDbTableName": {
+				"type": "string",
+				"defaultValue": "dbo.Employee"
+			}
+		},
 		"folder": {
 			"name": "Practice Activities Folder"
 		},
