@@ -25,9 +25,9 @@
 				}
 			},
 			{
-				"name": "Lookup Employee Table",
-				"description": "Use this \"Lookup\" Activity to Fetch All the Records from the Table \"dbo.Employee\".",
-				"type": "Lookup",
+				"name": "Copy SQL Table into CSV File",
+				"description": "Copy the Records of the Azure SQL Database Table \"dbo.Employee\" and Store the Records as a CSV File in ADLS Gen2.",
+				"type": "Copy",
 				"dependsOn": [
 					{
 						"activity": "Find Secret",
@@ -54,7 +54,29 @@
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
-					"dataset": {
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".csv"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
 						"referenceName": "DS_sqldboindrila2022march",
 						"type": "DatasetReference",
 						"parameters": {
@@ -75,9 +97,24 @@
 								"type": "Expression"
 							}
 						}
-					},
-					"firstRowOnly": false
-				}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DS_pl_copy_data_activity",
+						"type": "DatasetReference",
+						"parameters": {
+							"param_container": {
+								"value": "@pipeline().parameters.containerName",
+								"type": "Expression"
+							},
+							"param_directory": {
+								"value": "@pipeline().parameters.directoryName",
+								"type": "Expression"
+							}
+						}
+					}
+				]
 			}
 		],
 		"parameters": {
