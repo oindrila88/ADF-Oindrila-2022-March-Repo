@@ -1,6 +1,30 @@
 {
 	"name": "PL_CopyDataActivity",
 	"properties": {
+		"activities": [
+			{
+				"name": "Find Secret",
+				"description": "Fetch the Value of the Secret \"kv-sqlserveroindrila2022march-pwd\" from the Azure Key Vault resource “KV-Oindrila-2022-March”",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 2,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": true,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": "https://kv-oindrila-2022-march.vault.azure.net/secrets/kv-sqlserveroindrila2022march-pwd/?api-version=7.0",
+					"method": "GET",
+					"authentication": {
+						"type": "MSI",
+						"resource": "https://vault.azure.net"
+					}
+				}
+			}
+		],
 		"parameters": {
 			"sqlServerName": {
 				"type": "string",
@@ -17,6 +41,14 @@
 			"sqlDbTableName": {
 				"type": "string",
 				"defaultValue": "dbo.Employee"
+			},
+			"containerName": {
+				"type": "string",
+				"defaultValue": "stage"
+			},
+			"directoryName": {
+				"type": "string",
+				"defaultValue": "copy-data-output/pl-copy-data-activity"
 			}
 		},
 		"folder": {
