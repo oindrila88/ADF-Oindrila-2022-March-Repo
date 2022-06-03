@@ -1,10 +1,6 @@
 {
 	"name": "DS_adlsoindrila2022march_Unzip_Csv",
 	"properties": {
-		"linkedServiceName": {
-			"referenceName": "LS_adlsoindrila2022march",
-			"type": "LinkedServiceReference"
-		},
 		"parameters": {
 			"container_name": {
 				"type": "string",

@@ -1,10 +1,6 @@
 {
 	"name": "DS_Http_Output_Zip_World_Bank_Total_Population",
 	"properties": {
-		"linkedServiceName": {
-			"referenceName": "LS_adlsoindrila2022march",
-			"type": "LinkedServiceReference"
-		},
 		"parameters": {
 			"container_name": {
 				"type": "string"
