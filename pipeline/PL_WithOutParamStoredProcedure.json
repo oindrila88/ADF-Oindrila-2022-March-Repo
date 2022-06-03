@@ -55,15 +55,15 @@
 							"type": "String"
 						},
 						"Id": {
-							"value": "",
+							"value": null,
 							"type": "Int32"
 						},
 						"FirstName": {
-							"value": "",
+							"value": null,
 							"type": "String"
 						},
 						"LastName": {
-							"value": "",
+							"value": null,
 							"type": "String"
 						}
 					}
