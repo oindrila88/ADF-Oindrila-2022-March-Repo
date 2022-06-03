@@ -1,0 +1,11 @@
+{
+	"name": "LS_adlsoindrila2022march",
+	"properties": {
+		"description": "Linked Service for connecting to Azure Data Lake Storage Gen2 ‘adlsoindrila2022march’",
+		"annotations": [],
+		"type": "AzureBlobFS",
+		"typeProperties": {
+			"url": "https://adlsoindrila2022march.dfs.core.windows.net"
+		}
+	}
+}
