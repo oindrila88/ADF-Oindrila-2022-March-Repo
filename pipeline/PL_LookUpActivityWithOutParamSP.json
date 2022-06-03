@@ -23,6 +23,27 @@
 						"resource": "https://vault.azure.net"
 					}
 				}
+			},
+			{
+				"name": "Lookup SP Result",
+				"description": "Use this \"Lookup\" Activity to Call the Stored Procedure \"dbo.SP_GetEmployeeDetails\" to Fetch the Details of the Table \"Employee\" Based on the Provided Filter Value as Pipeline Parameter \"param_address\".",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "Find Secret",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 2,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": true
+				},
+				"userProperties": []
 			}
 		],
 		"parameters": {
