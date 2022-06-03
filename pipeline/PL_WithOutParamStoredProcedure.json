@@ -48,19 +48,22 @@
 					"storedProcedureName": "dbo.SP_GetEmployeeDetails",
 					"storedProcedureParameters": {
 						"Address": {
-							"value": "Kolkata",
+							"value": {
+								"value": "@pipeline().parameters.param_address",
+								"type": "Expression"
+							},
 							"type": "String"
 						},
 						"Id": {
-							"value": null,
+							"value": "",
 							"type": "Int32"
 						},
 						"FirstName": {
-							"value": null,
+							"value": "",
 							"type": "String"
 						},
 						"LastName": {
-							"value": null,
+							"value": "",
 							"type": "String"
 						}
 					}
