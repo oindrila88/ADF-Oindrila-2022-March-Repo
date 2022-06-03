@@ -1,5 +1,5 @@
 {
-	"name": "PL_WithOutParamSpInLookUp",
+	"name": "PL_LookUpActivityWithOutParamSP",
 	"properties": {
 		"activities": [
 			{
@@ -28,14 +28,7 @@
 				"name": "Lookup SP Result",
 				"description": "Use this \"Lookup\" Activity to Call the Stored Procedure \"dbo.SP_GetEmployeeDetails\" to Fetch the Details of the Table \"Employee\".",
 				"type": "Lookup",
-				"dependsOn": [
-					{
-						"activity": "Find Secret",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
+				"dependsOn": [],
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 2,
@@ -107,6 +100,10 @@
 			"sqlServerAdminUserName": {
 				"type": "string",
 				"defaultValue": "oindrila2022march"
+			},
+			"param_address": {
+				"type": "string",
+				"defaultValue": "'Kolkata'"
 			}
 		},
 		"folder": {
