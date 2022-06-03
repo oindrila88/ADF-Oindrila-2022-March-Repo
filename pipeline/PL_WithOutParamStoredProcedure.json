@@ -101,6 +101,10 @@
 			"sqlServerAdminUserName": {
 				"type": "string",
 				"defaultValue": "oindrila2022march"
+			},
+			"param_address": {
+				"type": "string",
+				"defaultValue": "Kolkata"
 			}
 		},
 		"folder": {
