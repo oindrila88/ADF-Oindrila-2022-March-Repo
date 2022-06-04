@@ -1,6 +1,30 @@
 {
 	"name": "PL_IfConditionActivity",
 	"properties": {
+		"parameters": {
+			"listOfCities": {
+				"type": "array",
+				"defaultValue": [
+					"New York",
+					"London",
+					"Tokyo",
+					"Singapore City",
+					"Lisbon"
+				]
+			},
+			"cityToSearch": {
+				"type": "string",
+				"defaultValue": "Kolkata"
+			}
+		},
+		"variables": {
+			"ifCityExists": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "Practice Activities Folder"
+		},
 		"annotations": []
 	}
 }
