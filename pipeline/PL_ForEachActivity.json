@@ -1,6 +1,9 @@
 {
 	"name": "PL_ForEachActivity",
 	"properties": {
+		"folder": {
+			"name": "Practice Activities Folder"
+		},
 		"annotations": []
 	}
 }
