@@ -1,6 +1,21 @@
 {
 	"name": "PL_WaitActivity",
 	"properties": {
+		"parameters": {
+			"waitTimeInSecond": {
+				"type": "int",
+				"defaultValue": 75
+			},
+			"waitFinishMessage": {
+				"type": "string",
+				"defaultValue": "Wait is over"
+			}
+		},
+		"variables": {
+			"waitOutput": {
+				"type": "String"
+			}
+		},
 		"folder": {
 			"name": "Practice Activities Folder"
 		},
