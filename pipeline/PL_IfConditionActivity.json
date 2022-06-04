@@ -13,6 +13,19 @@
 						"value": "@contains(pipeline().parameters.listOfCities, pipeline().parameters.cityToSearch)",
 						"type": "Expression"
 					},
+					"ifFalseActivities": [
+						{
+							"name": "Set Text for False",
+							"description": "Set the Text \"No. It Does Not Exist\" to the Pipeline Variable \"ifCityExists\".",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "ifCityExists",
+								"value": "'No. It Does Not Exist'"
+							}
+						}
+					],
 					"ifTrueActivities": [
 						{
 							"name": "Set Text for True",
