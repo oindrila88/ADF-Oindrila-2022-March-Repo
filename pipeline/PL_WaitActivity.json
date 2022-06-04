@@ -27,7 +27,14 @@
 						]
 					}
 				],
-				"userProperties": []
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "waitOutput",
+					"value": {
+						"value": "@pipeline().parameters.waitFinishMessage",
+						"type": "Expression"
+					}
+				}
 			}
 		],
 		"parameters": {
