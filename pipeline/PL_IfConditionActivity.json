@@ -22,7 +22,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"variableName": "ifCityExists",
-								"value": "'No. It Does Not Exist'"
+								"value": "No. It Does Not Exist"
 							}
 						}
 					],
@@ -35,7 +35,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"variableName": "ifCityExists",
-								"value": "'Yes. It Exists'"
+								"value": "Yes. It Exists"
 							}
 						}
 					]
