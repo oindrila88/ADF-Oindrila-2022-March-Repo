@@ -108,27 +108,43 @@
 								"retry": 2,
 								"retryIntervalInSeconds": 30,
 								"secureOutput": false,
-								"secureInput": false
+								"secureInput": true
 							},
 							"userProperties": [],
 							"typeProperties": {
 								"source": {
-									"type": "DelimitedTextSource",
-									"storeSettings": {
-										"type": "AzureBlobFSReadSettings",
-										"recursive": true,
-										"enablePartitionDiscovery": false
+									"type": "AzureSqlSource",
+									"sqlReaderQuery": {
+										"value": "@concat('SELECT Id, FirstNama, LastName, Address FROM dbo.Employee WHERE Id = ''', item().Id, '''')",
+										"type": "Expression"
 									},
-									"formatSettings": {
-										"type": "DelimitedTextReadSettings"
-									}
+									"queryTimeout": "02:00:00",
+									"partitionOption": "None"
 								},
 								"enableStaging": false
 							},
 							"inputs": [
 								{
-									"referenceName": "DS_pl_copy_data_activity",
-									"type": "DatasetReference"
+									"referenceName": "DS_sqldboindrila2022march",
+									"type": "DatasetReference",
+									"parameters": {
+										"param_sqlServerName": {
+											"value": "@pipeline().parameters.sqlServerName",
+											"type": "Expression"
+										},
+										"param_databaseName": {
+											"value": "@pipeline().parameters.sqlServerDbName",
+											"type": "Expression"
+										},
+										"param_adminUserName": {
+											"value": "@pipeline().parameters.sqlServerAdminUserName",
+											"type": "Expression"
+										},
+										"param_password": {
+											"value": "@activity('Find Secret').output.value",
+											"type": "Expression"
+										}
+									}
 								}
 							]
 						}
