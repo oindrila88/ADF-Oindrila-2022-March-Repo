@@ -47,14 +47,92 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
+						"sqlReaderQuery": {
+							"value": "@pipeline().parameters.sqlQuery",
+							"type": "Expression"
+						},
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
 					"dataset": {
 						"referenceName": "DS_sqldboindrila2022march",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"param_sqlServerName": {
+								"value": "@pipeline().parameters.sqlServerName",
+								"type": "Expression"
+							},
+							"param_databaseName": {
+								"value": "@pipeline().parameters.sqlServerDbName",
+								"type": "Expression"
+							},
+							"param_adminUserName": {
+								"value": "@pipeline().parameters.sqlServerAdminUserName",
+								"type": "Expression"
+							},
+							"param_password": {
+								"value": "@activity('Find Secret').output.value",
+								"type": "Expression"
+							}
+						}
 					},
-					"firstRowOnly": true
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "Iterate Each Row of Lookup Output",
+				"description": "Iterate Over Each Row of the Output of the Previous \"Lookup\" Activity that Executes the Query, Provided in the Pipeline Parameter \"sqlQuery\".",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Lookup Table Employee",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Lookup Table Employee').output.value",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Copy Each Output Row of Lookup",
+							"description": "Copy Each \"Output Row\" of the \"Lookup\" Activity to the Directory “copy-data-output/pl-for-each-copy-data-activity” as a CSV File under the Container “stage” in the Azure Data Lake Storage Gen2 resource “adlsoindrila2022march”.",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 2,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "DelimitedTextSource",
+									"storeSettings": {
+										"type": "AzureBlobFSReadSettings",
+										"recursive": true,
+										"enablePartitionDiscovery": false
+									},
+									"formatSettings": {
+										"type": "DelimitedTextReadSettings"
+									}
+								},
+								"enableStaging": false
+							},
+							"inputs": [
+								{
+									"referenceName": "DS_pl_copy_data_activity",
+									"type": "DatasetReference"
+								}
+							]
+						}
+					]
 				}
 			}
 		],
