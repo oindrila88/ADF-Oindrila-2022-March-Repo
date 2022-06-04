@@ -121,7 +121,26 @@
 									"queryTimeout": "02:00:00",
 									"partitionOption": "None"
 								},
-								"enableStaging": false
+								"sink": {
+									"type": "DelimitedTextSink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									},
+									"formatSettings": {
+										"type": "DelimitedTextWriteSettings",
+										"quoteAllText": true,
+										"fileExtension": ".csv"
+									}
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
 							},
 							"inputs": [
 								{
@@ -142,6 +161,22 @@
 										},
 										"param_password": {
 											"value": "@activity('Find Secret').output.value",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "DS_pl_copy_data_activity",
+									"type": "DatasetReference",
+									"parameters": {
+										"param_container": {
+											"value": "@pipeline().parameters.containerName",
+											"type": "Expression"
+										},
+										"param_directory": {
+											"value": "@pipeline().parameters.directoryName",
 											"type": "Expression"
 										}
 									}
