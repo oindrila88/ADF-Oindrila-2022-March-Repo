@@ -115,7 +115,7 @@
 								"source": {
 									"type": "AzureSqlSource",
 									"sqlReaderQuery": {
-										"value": "@concat('SELECT Id, FirstNama, LastName, Address FROM dbo.Employee WHERE Id = ''', item().Id, '''')",
+										"value": "@concat('SELECT Id, FirstName, LastName, Address FROM dbo.Employee WHERE Id = ''', item().Id, '''')",
 										"type": "Expression"
 									},
 									"queryTimeout": "02:00:00",
