@@ -1,6 +1,34 @@
 {
 	"name": "PL_IfConditionActivity",
 	"properties": {
+		"activities": [
+			{
+				"name": "If City Exists",
+				"description": "Verify if the Value of Pipeline Parameter \"cityToSearch\" Exists in the Pipeline Parameter \"listOfCities\" of Type Array",
+				"type": "IfCondition",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@contains(pipeline().parameters.listOfCities, pipeline().parameters.cityToSearch)",
+						"type": "Expression"
+					},
+					"ifTrueActivities": [
+						{
+							"name": "Set Text for True",
+							"description": "Set the Text \"Yes. It Exists\" to the Pipeline Variable \"ifCityExists\".",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "ifCityExists",
+								"value": "'Yes. It Exists'"
+							}
+						}
+					]
+				}
+			}
+		],
 		"parameters": {
 			"listOfCities": {
 				"type": "array",
