@@ -39,6 +39,7 @@
 					],
 					"storeSettings": {
 						"type": "AzureBlobFSReadSettings",
+						"recursive": true,
 						"enablePartitionDiscovery": false
 					},
 					"formatSettings": {
@@ -63,7 +64,20 @@
 					"expression": {
 						"value": "@equals(activity('Get Metadata of Item').output.itemType, 'Folder')",
 						"type": "Expression"
-					}
+					},
+					"ifTrueActivities": [
+						{
+							"name": "Set Item Type As Folder",
+							"description": "Set the Value of the Pipeline Variable \"itemType\" with the Text \"This is a Folder\".",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "itemType",
+								"value": "This is a Folder"
+							}
+						}
+					]
 				}
 			}
 		],
