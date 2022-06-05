@@ -45,6 +45,26 @@
 						"type": "DelimitedTextReadSettings"
 					}
 				}
+			},
+			{
+				"name": "Verify Item Type",
+				"description": "Verify If the Item, Pointed by the Dataset “DS_pl_copy_data_activity” is a \"Folder\", or, a \"File\".",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "Get Metadata of Item",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@activity('Get Metadata of Item').output.itemType",
+						"type": "Expression"
+					}
+				}
 			}
 		],
 		"parameters": {
@@ -55,6 +75,11 @@
 			"directoryName": {
 				"type": "string",
 				"defaultValue": "copy-data-output/pl-for-each-copy-data-activity"
+			}
+		},
+		"variables": {
+			"itemType": {
+				"type": "String"
 			}
 		},
 		"folder": {
