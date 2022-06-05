@@ -1,6 +1,52 @@
 {
 	"name": "PL_GetMetadataOfFolder",
 	"properties": {
+		"activities": [
+			{
+				"name": "Get Metadata of Item",
+				"description": "Get the following Metadata information of the Item, Pointed by the Pipeline Parameters \"containerName\" and \"directoryName\" -\n\n1. Type\n2. Exists\n3. Name\n4. Child Items\n5. Last Modified Date and Time",
+				"type": "GetMetadata",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 2,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "DS_pl_copy_data_activity",
+						"type": "DatasetReference",
+						"parameters": {
+							"param_container": {
+								"value": "@pipeline().parameters.containerName",
+								"type": "Expression"
+							},
+							"param_directory": {
+								"value": "@pipeline().parameters.directoryName",
+								"type": "Expression"
+							}
+						}
+					},
+					"fieldList": [
+						"itemType",
+						"exists",
+						"itemName",
+						"childItems",
+						"lastModified"
+					],
+					"storeSettings": {
+						"type": "AzureBlobFSReadSettings",
+						"enablePartitionDiscovery": false
+					},
+					"formatSettings": {
+						"type": "DelimitedTextReadSettings"
+					}
+				}
+			}
+		],
 		"parameters": {
 			"containerName": {
 				"type": "string",
