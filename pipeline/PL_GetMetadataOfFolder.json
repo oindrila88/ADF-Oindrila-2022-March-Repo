@@ -65,6 +65,19 @@
 						"value": "@equals(activity('Get Metadata of Item').output.itemType, 'Folder')",
 						"type": "Expression"
 					},
+					"ifFalseActivities": [
+						{
+							"name": "Set Item Type As File",
+							"description": "Set the Value of the Pipeline Variable \"itemType\" with the Text \"This is a File\".",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "itemType",
+								"value": "This is a File"
+							}
+						}
+					],
 					"ifTrueActivities": [
 						{
 							"name": "Set Item Type As Folder",
