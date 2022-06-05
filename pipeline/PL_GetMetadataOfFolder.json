@@ -1,6 +1,16 @@
 {
 	"name": "PL_GetMetadataOfFolder",
 	"properties": {
+		"parameters": {
+			"containerName": {
+				"type": "string",
+				"defaultValue": "stage"
+			},
+			"directoryName": {
+				"type": "string",
+				"defaultValue": "copy-data-output/pl-for-each-copy-data-activity"
+			}
+		},
 		"folder": {
 			"name": "Practice Activities Folder"
 		},
