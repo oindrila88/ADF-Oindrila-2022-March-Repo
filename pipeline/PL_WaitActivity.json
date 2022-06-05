@@ -1,0 +1,60 @@
+{
+	"name": "PL_WaitActivity",
+	"properties": {
+		"activities": [
+			{
+				"name": "Wait for Specified Time",
+				"description": "Wait for the Specified Time, Provided in the Pipeline Parameter \"waitTimeInSecond\".",
+				"type": "Wait",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"waitTimeInSeconds": {
+						"value": "@pipeline().parameters.waitTimeInSecond",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Set Wait Finish Message",
+				"description": "Set the Value of the Pipeline Variable \"waitOutput\" as the Value of the Pipeline Parameter \"waitFinishMessage\".",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Wait for Specified Time",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "waitOutput",
+					"value": {
+						"value": "@pipeline().parameters.waitFinishMessage",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"waitTimeInSecond": {
+				"type": "int",
+				"defaultValue": 75
+			},
+			"waitFinishMessage": {
+				"type": "string",
+				"defaultValue": "Wait is over"
+			}
+		},
+		"variables": {
+			"waitOutput": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "Practice Activities Folder"
+		},
+		"annotations": []
+	}
+}

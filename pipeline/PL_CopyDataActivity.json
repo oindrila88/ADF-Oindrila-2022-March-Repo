@@ -1,0 +1,151 @@
+{
+	"name": "PL_CopyDataActivity",
+	"properties": {
+		"activities": [
+			{
+				"name": "Find Secret",
+				"description": "Fetch the Value of the Secret \"kv-sqlserveroindrila2022march-pwd\" from the Azure Key Vault resource “KV-Oindrila-2022-March”",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 2,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": true,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": "https://kv-oindrila-2022-march.vault.azure.net/secrets/kv-sqlserveroindrila2022march-pwd/?api-version=7.0",
+					"method": "GET",
+					"authentication": {
+						"type": "MSI",
+						"resource": "https://vault.azure.net"
+					}
+				}
+			},
+			{
+				"name": "Copy SQL Table into CSV File",
+				"description": "Copy the Records of the Azure SQL Database Table \"dbo.Employee\" and Store the Records as a CSV File in ADLS Gen2.",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Find Secret",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 2,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": true
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": {
+							"value": "@pipeline().parameters.sqlQuery",
+							"type": "Expression"
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".csv"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "DS_sqldboindrila2022march",
+						"type": "DatasetReference",
+						"parameters": {
+							"param_sqlServerName": {
+								"value": "@pipeline().parameters.sqlServerName",
+								"type": "Expression"
+							},
+							"param_databaseName": {
+								"value": "@pipeline().parameters.sqlServerDbName",
+								"type": "Expression"
+							},
+							"param_adminUserName": {
+								"value": "@pipeline().parameters.sqlServerAdminUserName",
+								"type": "Expression"
+							},
+							"param_password": {
+								"value": "@activity('Find Secret').output.value",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DS_pl_copy_data_activity",
+						"type": "DatasetReference",
+						"parameters": {
+							"param_container": {
+								"value": "@pipeline().parameters.containerName",
+								"type": "Expression"
+							},
+							"param_directory": {
+								"value": "@pipeline().parameters.directoryName",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			}
+		],
+		"parameters": {
+			"sqlServerName": {
+				"type": "string",
+				"defaultValue": "sqlserveroindrila2022march.database.windows.net"
+			},
+			"sqlServerDbName": {
+				"type": "string",
+				"defaultValue": "sqldboindrila2022march"
+			},
+			"sqlServerAdminUserName": {
+				"type": "string",
+				"defaultValue": "oindrila2022march"
+			},
+			"sqlQuery": {
+				"type": "string",
+				"defaultValue": "SELECT * FROM dbo.Employee"
+			},
+			"containerName": {
+				"type": "string",
+				"defaultValue": "stage"
+			},
+			"directoryName": {
+				"type": "string",
+				"defaultValue": "copy-data-output/pl-copy-data-activity"
+			}
+		},
+		"folder": {
+			"name": "Practice Activities Folder"
+		},
+		"annotations": []
+	}
+}

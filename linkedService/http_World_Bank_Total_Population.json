@@ -1,0 +1,13 @@
+{
+	"name": "http_World_Bank_Total_Population",
+	"properties": {
+		"description": "This API gives a Zip file, containing main indicator details file, along with metadata files in CSV format",
+		"annotations": [],
+		"type": "HttpServer",
+		"typeProperties": {
+			"url": "http://api.worldbank.org/v2/indicator/SP.POP.TOTL?downloadformat=csv",
+			"enableServerCertificateValidation": true,
+			"authenticationType": "Anonymous"
+		}
+	}
+}

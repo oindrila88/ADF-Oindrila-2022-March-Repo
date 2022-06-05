@@ -1,0 +1,90 @@
+{
+	"name": "PL_UsePipelineVariables",
+	"properties": {
+		"activities": [
+			{
+				"name": "Set City Name Variable",
+				"description": "Get the Value of the Property \"City\" from the Pipeline Parameter \"addressLine\" of \"String\" Type.",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "cityName",
+					"value": {
+						"value": "@substring(pipeline().parameters.addressLine, add(indexof(pipeline().parameters.addressLine, 'City:'), 6), sub(sub(indexof(pipeline().parameters.addressLine, 'State:'), 2), add(indexof(pipeline().parameters.addressLine, 'City:'), 6)))",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Append List of Cities Variable",
+				"description": "Append the Value of the Variable \"cityName\" to the Existing Array Variable \"listOfCities\".",
+				"type": "AppendVariable",
+				"dependsOn": [
+					{
+						"activity": "Set City Name Variable",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "listOfCities",
+					"value": {
+						"value": "@variables('cityName')",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Set Appended Cities Variable",
+				"description": "Set the Value of the Array Variable \"listOfCities\" to the Existing Empty Array Variable \"appendedCities\".",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Append List of Cities Variable",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "appendedCities",
+					"value": {
+						"value": "@variables('listOfCities')",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"addressLine": {
+				"type": "string",
+				"defaultValue": "Address: 221 M.G. Road Road. City: Kolkata. State: West Bengal"
+			}
+		},
+		"variables": {
+			"cityName": {
+				"type": "String"
+			},
+			"listOfCities": {
+				"type": "Array",
+				"defaultValue": [
+					"New York",
+					"London",
+					"Tokyo",
+					"Singapore City"
+				]
+			},
+			"appendedCities": {
+				"type": "Array"
+			}
+		},
+		"folder": {
+			"name": "Practice Activities Folder"
+		},
+		"annotations": []
+	}
+}

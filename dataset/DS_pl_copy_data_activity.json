@@ -1,26 +1,29 @@
 {
-	"name": "DS_adlsoindrila2022march_Csv_File",
+	"name": "DS_pl_copy_data_activity",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "LS_adlsoindrila2022march",
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
-			"container name": {
-				"type": "string",
-				"defaultValue": "csv-container"
+			"param_container": {
+				"type": "string"
+			},
+			"param_directory": {
+				"type": "string"
 			}
-		},
-		"folder": {
-			"name": "ADLS Dataset Folder"
 		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
+				"folderPath": {
+					"value": "@dataset().param_directory",
+					"type": "Expression"
+				},
 				"fileSystem": {
-					"value": "@dataset().container name",
+					"value": "@dataset().param_container",
 					"type": "Expression"
 				}
 			},

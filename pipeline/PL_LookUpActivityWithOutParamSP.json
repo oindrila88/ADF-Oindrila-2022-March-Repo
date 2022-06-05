@@ -1,0 +1,102 @@
+{
+	"name": "PL_LookUpActivityWithOutParamSP",
+	"properties": {
+		"activities": [
+			{
+				"name": "Find Secret",
+				"description": "Fetch the Value of the Secret \"kv-sqlserveroindrila2022march-pwd\" from the Azure Key Vault resource “KV-Oindrila-2022-March”",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 2,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": true,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": "https://kv-oindrila-2022-march.vault.azure.net/secrets/kv-sqlserveroindrila2022march-pwd/?api-version=7.0",
+					"method": "GET",
+					"authentication": {
+						"type": "MSI",
+						"resource": "https://vault.azure.net"
+					}
+				}
+			},
+			{
+				"name": "Lookup SP Result",
+				"description": "Use this \"Lookup\" Activity to Call the Stored Procedure \"dbo.SP_GetEmployeeDetails\" to Fetch the Details of the Table \"Employee\" Based on the Provided Filter Value as Pipeline Parameter \"param_address\".",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "Find Secret",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 2,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": true
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderStoredProcedureName": "dbo.SP_GetEmployeeDetails",
+						"storedProcedureParameters": {
+							"Address": {
+								"type": "String",
+								"value": {
+									"value": "@pipeline().parameters.param_address",
+									"type": "Expression"
+								}
+							},
+							"Id": {
+								"type": "Int32",
+								"value": null
+							},
+							"FirstName": {
+								"type": "String",
+								"value": null
+							},
+							"LastName": {
+								"type": "String",
+								"value": null
+							}
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"firstRowOnly": true
+				}
+			}
+		],
+		"parameters": {
+			"sqlServerName": {
+				"type": "string",
+				"defaultValue": "sqlserveroindrila2022march.database.windows.net"
+			},
+			"sqlServerDatabaseName": {
+				"type": "string",
+				"defaultValue": "sqldboindrila2022march"
+			},
+			"sqlServerAdminUserName": {
+				"type": "string",
+				"defaultValue": "oindrila2022march"
+			},
+			"param_address": {
+				"type": "string",
+				"defaultValue": "Kolkata"
+			}
+		},
+		"folder": {
+			"name": "Practice Activities Folder"
+		},
+		"annotations": []
+	}
+}
