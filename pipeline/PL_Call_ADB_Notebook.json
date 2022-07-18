@@ -1,0 +1,10 @@
+{
+	"name": "PL_Call_ADB_Notebook",
+	"properties": {
+		"description": "Calling one Databricks Notebook",
+		"folder": {
+			"name": "Calling Other Services Folder"
+		},
+		"annotations": []
+	}
+}
