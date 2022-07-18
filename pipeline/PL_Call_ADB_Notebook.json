@@ -16,6 +16,13 @@
 					"secureInput": true
 				},
 				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Users/oindrila.chakraborty88_gmail.com#ext#@oindrilachakraborty88gmail.onmicrosoft.com/Training-Day-5/nbk_Introduction_To_Widgets",
+					"baseParameters": {
+						"Text Widget": "Soumyajyoti Bagchi",
+						"Dropdown Widget": "17"
+					}
+				},
 				"linkedServiceName": {
 					"referenceName": "LS_oindrila_workspace_2022_march",
 					"type": "LinkedServiceReference"
