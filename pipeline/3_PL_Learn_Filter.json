@@ -1,6 +1,18 @@
 {
 	"name": "3_PL_Learn_Filter",
 	"properties": {
+		"parameters": {
+			"param_listOfCities": {
+				"type": "array",
+				"defaultValue": [
+					"New York",
+					"London",
+					"Tokyo",
+					"Singapore City",
+					"Lisbon"
+				]
+			}
+		},
 		"folder": {
 			"name": "Training Folder/Learning Activities"
 		},
