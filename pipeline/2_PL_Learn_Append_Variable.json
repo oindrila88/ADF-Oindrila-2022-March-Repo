@@ -4,7 +4,7 @@
 		"activities": [
 			{
 				"name": "Append City Name to List of Cities Variable",
-				"description": "Append the Value of the Variable \"var_cityName\" to the Existing Array Variable \"listOfCities\".",
+				"description": "Append the Value of the Variable \"var_cityName\" to the Existing Array Variable \"var_listOfCities\".",
 				"type": "AppendVariable",
 				"dependsOn": [
 					{
@@ -14,7 +14,10 @@
 						]
 					}
 				],
-				"userProperties": []
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": ""
+				}
 			},
 			{
 				"name": "Set City Name Variable",
