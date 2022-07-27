@@ -9,7 +9,16 @@
 				"userProperties": []
 			}
 		],
+		"parameters": {
+			"param_addressLine": {
+				"type": "string",
+				"defaultValue": "Address: 221 M.G. Road, City: Kolkata, State: West Bengal"
+			}
+		},
 		"variables": {
+			"cityName": {
+				"type": "String"
+			},
 			"var_listOfCities": {
 				"type": "Array",
 				"defaultValue": [
