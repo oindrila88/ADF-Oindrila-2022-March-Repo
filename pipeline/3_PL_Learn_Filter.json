@@ -1,6 +1,25 @@
 {
 	"name": "3_PL_Learn_Filter",
 	"properties": {
+		"activities": [
+			{
+				"name": "Filter City Starting With Letter - L",
+				"description": "Filter All the Cities, Starting with the Letter \"L\", from the Pipeline Parameter \"param_listOfCities\".",
+				"type": "Filter",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.listOfCities",
+						"type": "Expression"
+					},
+					"condition": {
+						"value": "@startswith(item(), 'L')",
+						"type": "Expression"
+					}
+				}
+			}
+		],
 		"parameters": {
 			"param_listOfCities": {
 				"type": "array",
