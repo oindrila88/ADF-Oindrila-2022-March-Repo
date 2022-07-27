@@ -3,10 +3,32 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Append variable1",
+				"name": "Append City Name to List of Cities Variable",
+				"description": "Append the Value of the Variable \"var_cityName\" to the Existing Array Variable \"listOfCities\".",
 				"type": "AppendVariable",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Set City Name Variable",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"userProperties": []
+			},
+			{
+				"name": "Set City Name Variable",
+				"description": "Get the Value of the Property \"City\" from the Pipeline Parameter \"param_addressLine\" of \"String\" Type.",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "var_cityName",
+					"value": {
+						"value": "@trim(split(split(pipeline().parameters.param_addressLine, ',')[1], ':')[1])",
+						"type": "Expression"
+					}
+				}
 			}
 		],
 		"parameters": {
@@ -16,7 +38,7 @@
 			}
 		},
 		"variables": {
-			"cityName": {
+			"var_cityName": {
 				"type": "String"
 			},
 			"var_listOfCities": {
