@@ -1,0 +1,15 @@
+{
+	"name": "1_PL_Learn_Set_Variable",
+	"properties": {
+		"parameters": {
+			"param_addressLine": {
+				"type": "string",
+				"defaultValue": "Address: 221 M.G. Road, City: Kolkata, State: West Bengal"
+			}
+		},
+		"folder": {
+			"name": "Training Folder/Learning Activities"
+		},
+		"annotations": []
+	}
+}
