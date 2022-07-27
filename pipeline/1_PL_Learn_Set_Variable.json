@@ -4,12 +4,12 @@
 		"activities": [
 			{
 				"name": "Set City Name Variable",
-				"description": "Get the Value of the Property \"City\" from the Pipeline Parameter \"param_addressLine\" of \"String\" Type.",
+				"description": "Get the Value of the Property \"City\" from the Pipeline Parameter \"param_addressLine\" of \"String\" Type and Store into the Variable \"var_cityName\".",
 				"type": "SetVariable",
 				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
-					"variableName": "cityName",
+					"variableName": "var_cityName",
 					"value": {
 						"value": "@trim(split(split(pipeline().parameters.param_addressLine, ',')[1], ':')[1])",
 						"type": "Expression"
@@ -24,7 +24,7 @@
 			}
 		},
 		"variables": {
-			"cityName": {
+			"var_cityName": {
 				"type": "String"
 			}
 		},
