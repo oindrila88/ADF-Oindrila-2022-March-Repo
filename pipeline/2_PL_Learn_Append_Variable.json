@@ -1,0 +1,31 @@
+{
+	"name": "2_PL_Learn_Append_Variable",
+	"properties": {
+		"activities": [
+			{
+				"name": "Append variable1",
+				"type": "AppendVariable",
+				"dependsOn": [],
+				"userProperties": []
+			}
+		],
+		"variables": {
+			"var_listOfCities": {
+				"type": "Array",
+				"defaultValue": [
+					"New York",
+					"London",
+					"Tokyo",
+					"Singapore City"
+				]
+			},
+			"var_appendedCities": {
+				"type": "Array"
+			}
+		},
+		"folder": {
+			"name": "Training Folder/Learning Activities"
+		},
+		"annotations": []
+	}
+}
