@@ -16,7 +16,11 @@
 				],
 				"userProperties": [],
 				"typeProperties": {
-					"variableName": ""
+					"variableName": "var_listOfCities",
+					"value": {
+						"value": "@variables('var_cityName')",
+						"type": "Expression"
+					}
 				}
 			},
 			{
