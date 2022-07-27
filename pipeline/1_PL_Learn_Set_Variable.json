@@ -7,6 +7,11 @@
 				"defaultValue": "Address: 221 M.G. Road, City: Kolkata, State: West Bengal"
 			}
 		},
+		"variables": {
+			"cityName": {
+				"type": "String"
+			}
+		},
 		"folder": {
 			"name": "Training Folder/Learning Activities"
 		},
