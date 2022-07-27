@@ -11,7 +11,7 @@
 				"typeProperties": {
 					"variableName": "cityName",
 					"value": {
-						"value": "@split(pipeline().parameters.param_addressLine, ',')[1]",
+						"value": "@split(split(pipeline().parameters.param_addressLine, ',')[1], ':')[1]",
 						"type": "Expression"
 					}
 				}
