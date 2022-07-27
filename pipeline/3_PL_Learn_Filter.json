@@ -10,7 +10,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@pipeline().parameters.listOfCities",
+						"value": "@pipeline().parameters.param_listOfCities",
 						"type": "Expression"
 					},
 					"condition": {
