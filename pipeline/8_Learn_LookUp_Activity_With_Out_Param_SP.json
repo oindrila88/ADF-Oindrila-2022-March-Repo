@@ -25,7 +25,7 @@
 				}
 			},
 			{
-				"name": "Lookup SP Result",
+				"name": "Lookup SP With Out Param Result",
 				"description": "Use this \"Lookup\" Activity to Call the Stored Procedure \"dbo.SP_GetEmployeeDetails\" to Fetch the Details of the Table \"Employee\" Based on the Provided Filter Value as Pipeline Parameter \"param_address\".",
 				"type": "Lookup",
 				"dependsOn": [
