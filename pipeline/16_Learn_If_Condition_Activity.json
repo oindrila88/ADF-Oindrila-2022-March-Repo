@@ -43,7 +43,7 @@
 			}
 		],
 		"parameters": {
-			"listOfCities": {
+			"param_listOfCities": {
 				"type": "array",
 				"defaultValue": [
 					"New York",
@@ -53,13 +53,13 @@
 					"Lisbon"
 				]
 			},
-			"cityToSearch": {
+			"param_cityToSearch": {
 				"type": "string",
 				"defaultValue": "Kolkata"
 			}
 		},
 		"variables": {
-			"ifCityExists": {
+			"var_ifCityExists": {
 				"type": "String"
 			}
 		},
