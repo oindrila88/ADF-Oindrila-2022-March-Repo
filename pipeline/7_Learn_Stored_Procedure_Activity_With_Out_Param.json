@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Find Secret",
+				"name": "Find SQL Server Password KV Secret",
 				"description": "Fetch the Value of the Secret \"kv-sqlserveroindrila2022march-pwd\" from the Azure Key Vault resource “KV-Oindrila-2022-March”",
 				"type": "WebActivity",
 				"dependsOn": [],
@@ -30,7 +30,7 @@
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "Find Secret",
+						"activity": "Find SQL Server Password KV Secret",
 						"dependencyConditions": [
 							"Succeeded"
 						]
