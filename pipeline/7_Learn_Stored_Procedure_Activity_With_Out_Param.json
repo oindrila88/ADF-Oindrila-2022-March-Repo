@@ -105,6 +105,10 @@
 				"type": "string",
 				"defaultValue": "oindrila2022march"
 			},
+			"param_storedProcedureName": {
+				"type": "string",
+				"defaultValue": "dbo.SP_GetEmployeeDetails"
+			},
 			"param_address": {
 				"type": "string",
 				"defaultValue": "Kolkata"
