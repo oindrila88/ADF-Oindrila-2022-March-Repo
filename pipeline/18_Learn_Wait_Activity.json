@@ -1,5 +1,5 @@
 {
-	"name": "PL_WaitActivity",
+	"name": "18_Learn_Wait_Activity",
 	"properties": {
 		"activities": [
 			{
@@ -53,7 +53,7 @@
 			}
 		},
 		"folder": {
-			"name": "Practice Activities Folder"
+			"name": "Training Folder/Learning Activities/Day-8"
 		},
 		"annotations": []
 	}
