@@ -21,11 +21,11 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"param_container": {
-								"value": "@pipeline().parameters.containerName",
+								"value": "@pipeline().parameters.param_containerName",
 								"type": "Expression"
 							},
 							"param_directory": {
-								"value": "@pipeline().parameters.directoryName",
+								"value": "@pipeline().parameters.param_directoryName",
 								"type": "Expression"
 							}
 						}
@@ -95,11 +95,11 @@
 			}
 		],
 		"parameters": {
-			"containerName": {
+			"param_containerName": {
 				"type": "string",
 				"defaultValue": "stage"
 			},
-			"directoryName": {
+			"param_directoryName": {
 				"type": "string",
 				"defaultValue": "copy-data-output/pl-for-each-copy-data-activity"
 			}
