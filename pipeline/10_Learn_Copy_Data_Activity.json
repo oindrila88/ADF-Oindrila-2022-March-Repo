@@ -48,7 +48,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "@pipeline().parameters.sqlQuery",
+							"value": "@pipeline().parameters.param_sqlQuery",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
@@ -81,19 +81,19 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"param_sqlServerName": {
-								"value": "@pipeline().parameters.sqlServerName",
+								"value": "@pipeline().parameters.param_sqlServerName",
 								"type": "Expression"
 							},
 							"param_databaseName": {
-								"value": "@pipeline().parameters.sqlServerDbName",
+								"value": "@pipeline().parameters.param_sqlServerDbName",
 								"type": "Expression"
 							},
 							"param_adminUserName": {
-								"value": "@pipeline().parameters.sqlServerAdminUserName",
+								"value": "@pipeline().parameters.param_sqlServerAdminUserName",
 								"type": "Expression"
 							},
 							"param_password": {
-								"value": "@activity('Find Secret').output.value",
+								"value": "@activity('Find SQL Server Password KV Secret').output.value",
 								"type": "Expression"
 							}
 						}
