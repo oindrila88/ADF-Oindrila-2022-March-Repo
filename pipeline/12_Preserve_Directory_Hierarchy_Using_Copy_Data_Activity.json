@@ -1,6 +1,25 @@
 {
 	"name": "12_Preserve_Directory_Hierarchy_Using_Copy_Data_Activity",
 	"properties": {
+		"activities": [
+			{
+				"name": "Copy CSV Files Preserving Directory Hierarchy",
+				"description": "Copy the CSV File from the Input Directory \"input-csv-files\" under the Input Container \"raw\", Preserving the Directory Hierarchy, to the Output Directory \"copy-data-output/pl-copy-data-activity\" under the Output Container \"stage\".",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 2,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"enableStaging": false
+				}
+			}
+		],
 		"parameters": {
 			"param_inputContainerName": {
 				"type": "string",
