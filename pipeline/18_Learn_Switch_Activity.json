@@ -1,6 +1,32 @@
 {
 	"name": "18_Learn_Switch_Activity",
 	"properties": {
+		"parameters": {
+			"param_sqlServerName": {
+				"type": "string",
+				"defaultValue": "sqlserveroindrila2022march.database.windows.net"
+			},
+			"param_sqlServerDbName": {
+				"type": "string",
+				"defaultValue": "sqldboindrila2022march"
+			},
+			"param_sqlServerAdminUserName": {
+				"type": "string",
+				"defaultValue": "oindrila2022march"
+			},
+			"param_sqlQuery": {
+				"type": "string",
+				"defaultValue": "SELECT * FROM dbo.Employee"
+			},
+			"param_containerName": {
+				"type": "string",
+				"defaultValue": "stage"
+			},
+			"param_directoryName": {
+				"type": "string",
+				"defaultValue": "switch-activity-output"
+			}
+		},
 		"folder": {
 			"name": "Training Folder/Learning Activities/Day-8"
 		},
