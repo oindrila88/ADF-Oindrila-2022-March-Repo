@@ -1,5 +1,5 @@
 {
-	"name": "PL_ForEachActivity",
+	"name": "15_Learn_ForEach_Activity",
 	"properties": {
 		"activities": [
 			{
@@ -214,7 +214,7 @@
 			}
 		},
 		"folder": {
-			"name": "Practice Activities Folder"
+			"name": "Training Folder/Learning Activities/Day-7"
 		},
 		"annotations": []
 	}
