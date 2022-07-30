@@ -78,6 +78,34 @@
 					},
 					"firstRowOnly": false
 				}
+			},
+			{
+				"name": "Switch On City Values",
+				"description": "Depending on the Name of the \"City\", \"Copy\" the Data to Different Folders.",
+				"type": "Switch",
+				"dependsOn": [
+					{
+						"activity": "Lookup SQL Query",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"on": {
+						"value": "@activity('Lookup SQL Query').output.value",
+						"type": "Expression"
+					},
+					"cases": [
+						{
+							"value": "Kolkata"
+						},
+						{
+							"value": "Noida"
+						}
+					]
+				}
 			}
 		],
 		"parameters": {
