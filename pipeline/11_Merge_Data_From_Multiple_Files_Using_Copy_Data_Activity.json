@@ -23,6 +23,95 @@
 						"resource": "https://vault.azure.net"
 					}
 				}
+			},
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Find SQL Server Password KV Secret",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"wildcardFileName": "*",
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false,
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "DS_pl_copy_data_activity",
+						"type": "DatasetReference",
+						"parameters": {
+							"param_container": {
+								"value": "@pipeline().parameters.param_containerName",
+								"type": "Expression"
+							},
+							"param_directory": {
+								"value": "@pipeline().parameters.param_directoryName",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DS_sqldboindrila2022march_Param_Table",
+						"type": "DatasetReference",
+						"parameters": {
+							"param_sqlServerName": {
+								"value": "@pipeline().parameters.param_sqlServerName",
+								"type": "Expression"
+							},
+							"param_databaseName": {
+								"value": "@pipeline().parameters.param_sqlServerDbName",
+								"type": "Expression"
+							},
+							"param_adminUserName": {
+								"value": "@pipeline().parameters.param_sqlServerAdminUserName",
+								"type": "Expression"
+							},
+							"param_password": {
+								"value": "@activity('Find SQL Server Password KV Secret').output.value",
+								"type": "Expression"
+							}
+						}
+					}
+				]
 			}
 		],
 		"parameters": {
@@ -40,6 +129,14 @@
 			},
 			"param_storedProcedureName": {
 				"type": "string"
+			},
+			"param_schemaName": {
+				"type": "string",
+				"defaultValue": "dbo"
+			},
+			"param_tableName": {
+				"type": "string",
+				"defaultValue": "StudentMarks"
 			},
 			"param_containerName": {
 				"type": "string",
