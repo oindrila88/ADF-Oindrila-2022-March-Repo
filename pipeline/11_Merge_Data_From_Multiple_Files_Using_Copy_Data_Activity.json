@@ -25,7 +25,8 @@
 				}
 			},
 			{
-				"name": "Copy data1",
+				"name": "Merge Data from Multiple Files to SQL Table",
+				"description": "Copy Data from the Multiple CSV Files Present in the \"Hierarchy\" of \"Sub-Directories\" inside the Directory \"input-csv-files\" under the Container \"raw\" and Store the Merged Data into the SQL Table \"dbo.StudentMarks\".",
 				"type": "Copy",
 				"dependsOn": [
 					{
@@ -37,10 +38,10 @@
 				],
 				"policy": {
 					"timeout": "7.00:00:00",
-					"retry": 0,
+					"retry": 2,
 					"retryIntervalInSeconds": 30,
 					"secureOutput": false,
-					"secureInput": false
+					"secureInput": true
 				},
 				"userProperties": [],
 				"typeProperties": {
@@ -107,6 +108,14 @@
 							},
 							"param_password": {
 								"value": "@activity('Find SQL Server Password KV Secret').output.value",
+								"type": "Expression"
+							},
+							"param_schemaName": {
+								"value": "@pipeline().parameters.param_schemaName",
+								"type": "Expression"
+							},
+							"param_tableName": {
+								"value": "@pipeline().parameters.param_tableName",
 								"type": "Expression"
 							}
 						}
