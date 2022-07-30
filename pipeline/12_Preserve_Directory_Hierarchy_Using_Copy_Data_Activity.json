@@ -1,6 +1,24 @@
 {
 	"name": "12_Preserve_Directory_Hierarchy_Using_Copy_Data_Activity",
 	"properties": {
+		"parameters": {
+			"param_inputContainerName": {
+				"type": "string",
+				"defaultValue": "raw"
+			},
+			"param_inputDirectoryName": {
+				"type": "string",
+				"defaultValue": "input-csv-files"
+			},
+			"param_outputContainerName": {
+				"type": "string",
+				"defaultValue": "stage"
+			},
+			"param_outputDirectoryName": {
+				"type": "string",
+				"defaultValue": "copy-data-output/pl-copy-data-activity"
+			}
+		},
 		"folder": {
 			"name": "Training Folder/Learning Activities/Day-5"
 		},
