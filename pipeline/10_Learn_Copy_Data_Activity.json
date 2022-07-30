@@ -140,7 +140,7 @@
 			},
 			"param_directoryName": {
 				"type": "string",
-				"defaultValue": "copy-data-output/pl-copy-data-activity"
+				"defaultValue": "switch-activity-output"
 			}
 		},
 		"folder": {
