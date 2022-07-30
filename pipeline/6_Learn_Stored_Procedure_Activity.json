@@ -45,7 +45,10 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": "dbo.SP_InsertPipelineRunDetails",
+					"storedProcedureName": {
+						"value": "@pipeline().parameters.param_storedProcedureName",
+						"type": "Expression"
+					},
 					"storedProcedureParameters": {
 						"DataFactoryName": {
 							"value": {
@@ -103,19 +106,19 @@
 					"type": "LinkedServiceReference",
 					"parameters": {
 						"param_ServerName": {
-							"value": "@pipeline().parameters.sqlServerName",
+							"value": "@pipeline().parameters.param_sqlServerName",
 							"type": "Expression"
 						},
 						"param_DatabaseName": {
-							"value": "@pipeline().parameters.sqlServerDatabaseName",
+							"value": "@pipeline().parameters.param_sqlServerDatabaseName",
 							"type": "Expression"
 						},
 						"param_AdminUserName": {
-							"value": "@pipeline().parameters.sqlServerAdminUserName",
+							"value": "@pipeline().parameters.param_sqlServerAdminUserName",
 							"type": "Expression"
 						},
 						"param_Password": {
-							"value": "@activity('Find Secret').output.value",
+							"value": "@activity('Find SQL Server Password KV Secret').output.value",
 							"type": "Expression"
 						}
 					}
@@ -134,6 +137,10 @@
 			"param_sqlServerAdminUserName": {
 				"type": "string",
 				"defaultValue": "oindrila2022march"
+			},
+			"param_storedProcedureName": {
+				"type": "string",
+				"defaultValue": "dbo.SP_InsertPipelineRunDetails"
 			}
 		},
 		"folder": {
