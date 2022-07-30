@@ -10,7 +10,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@contains(pipeline().parameters.listOfCities, pipeline().parameters.cityToSearch)",
+						"value": "@contains(pipeline().parameters.param_listOfCities, pipeline().parameters.param_cityToSearch)",
 						"type": "Expression"
 					},
 					"ifFalseActivities": [
