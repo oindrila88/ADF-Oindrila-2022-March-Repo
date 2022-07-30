@@ -1,0 +1,32 @@
+{
+	"name": "DS_sqldboindrila2022march_Table",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_SQLServer",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"param_sqlServerName": {
+				"type": "string"
+			},
+			"param_databaseName": {
+				"type": "string"
+			},
+			"param_adminUserName": {
+				"type": "string"
+			},
+			"param_password": {
+				"type": "string"
+			},
+			"param_schemaName": {
+				"type": "string"
+			},
+			"param_tableName": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": []
+	}
+}
