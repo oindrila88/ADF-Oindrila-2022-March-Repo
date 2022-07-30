@@ -45,7 +45,10 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": "dbo.SP_GetEmployeeDetails",
+					"storedProcedureName": {
+						"value": "@pipeline().parameters.param_storedProcedureName",
+						"type": "Expression"
+					},
 					"storedProcedureParameters": {
 						"Address": {
 							"value": {
