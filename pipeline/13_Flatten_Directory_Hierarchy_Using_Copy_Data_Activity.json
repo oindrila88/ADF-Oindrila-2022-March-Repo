@@ -3,8 +3,8 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Copy CSV Files Preserving Directory Hierarchy",
-				"description": "Copy the CSV File from the Input Directory \"input-csv-files\" under the Input Container \"raw\", Preserving the Directory Hierarchy, to the Output Directory \"copy-data-output/pl-copy-data-activity\" under the Output Container \"stage\".",
+				"name": "Copy CSV Files Flattening Directory Hierarchy",
+				"description": "Copy the CSV File from the Input Directory \"input-csv-files\" under the Input Container \"raw\", Flattening the Directory Hierarchy, to the Output Directory \"copy-data-output/pl-copy-data-activity\" under the Output Container \"stage\".",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
