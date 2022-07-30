@@ -1,5 +1,5 @@
 {
-	"name": "PL_WithOutParamStoredProcedure",
+	"name": "7_Learn_Stored_Procedure_Activity_With_Out_Param",
 	"properties": {
 		"activities": [
 			{
@@ -111,7 +111,7 @@
 			}
 		},
 		"folder": {
-			"name": "Practice Activities Folder"
+			"name": "Training Folder/Learning Activities/Day-3"
 		},
 		"annotations": []
 	}
