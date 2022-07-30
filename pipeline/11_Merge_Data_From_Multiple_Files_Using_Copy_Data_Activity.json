@@ -40,6 +40,14 @@
 			},
 			"param_storedProcedureName": {
 				"type": "string"
+			},
+			"param_containerName": {
+				"type": "string",
+				"defaultValue": "raw"
+			},
+			"param_directoryName": {
+				"type": "string",
+				"defaultValue": "input-csv-files"
 			}
 		},
 		"folder": {
