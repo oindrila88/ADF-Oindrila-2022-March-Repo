@@ -77,17 +77,21 @@
 			}
 		],
 		"parameters": {
-			"sqlServerName": {
+			"param_sqlServerName": {
 				"type": "string",
 				"defaultValue": "sqlserveroindrila2022march.database.windows.net"
 			},
-			"sqlServerDatabaseName": {
+			"param_sqlServerDatabaseName": {
 				"type": "string",
 				"defaultValue": "sqldboindrila2022march"
 			},
-			"sqlServerAdminUserName": {
+			"param_sqlServerAdminUserName": {
 				"type": "string",
 				"defaultValue": "oindrila2022march"
+			},
+			"param_storedProcedureName": {
+				"type": "string",
+				"defaultValue": "dbo.SP_GetEmployeeDetails"
 			},
 			"param_address": {
 				"type": "string",
