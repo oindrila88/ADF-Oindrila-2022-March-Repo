@@ -28,7 +28,14 @@
 				"name": "Insert Stored Procedure",
 				"description": "Call the Stored Procedure \"SP_InsertPipelineRunDetails\" to Insert the Pipeline Run Details to the Table \"tbl_PipelineRunDetails\".",
 				"type": "SqlServerStoredProcedure",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Find SQL Server Password KV Secret",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 0,
@@ -115,6 +122,20 @@
 				}
 			}
 		],
+		"parameters": {
+			"param_sqlServerName": {
+				"type": "string",
+				"defaultValue": "sqlserveroindrila2022march.database.windows.net"
+			},
+			"param_sqlServerDatabaseName": {
+				"type": "string",
+				"defaultValue": "sqldboindrila2022march"
+			},
+			"param_sqlServerAdminUserName": {
+				"type": "string",
+				"defaultValue": "oindrila2022march"
+			}
+		},
 		"folder": {
 			"name": "Training Folder/Learning Activities/Day-3"
 		},
