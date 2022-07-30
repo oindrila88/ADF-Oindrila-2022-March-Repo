@@ -1,5 +1,5 @@
 {
-	"name": "DS_sqldboindrila2022march_Table",
+	"name": "DS_sqldboindrila2022march_Param_Table",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "LS_SQLServer",
