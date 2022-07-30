@@ -17,7 +17,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"url": {
-						"value": "@concat('http://api.weatherstack.com/current?access_key=', pipeline().parameters.accessKey, '&query=', pipeline().parameters.cityName)",
+						"value": "@concat('http://api.weatherstack.com/current?access_key=', pipeline().parameters.param_accessKey, '&query=', pipeline().parameters.param_cityName)",
 						"type": "Expression"
 					},
 					"method": "GET"
