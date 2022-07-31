@@ -1,6 +1,44 @@
 {
 	"name": "18_Learn_Validation_Activity",
 	"properties": {
+		"activities": [
+			{
+				"name": "Validation of ADLS Directory in Dataset",
+				"description": "Verify if the Directory \"input-json-files\" Directory Exists under the Container \"raw\"",
+				"type": "Validation",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "DS_Json_With_Container_And_Directory_Params",
+						"type": "DatasetReference",
+						"parameters": {
+							"param_containerName": {
+								"value": "@pipeline().parameters.param_containerName",
+								"type": "Expression"
+							},
+							"param_directoryName": {
+								"value": "@pipeline().parameters.param_directoryName",
+								"type": "Expression"
+							}
+						}
+					},
+					"timeout": "7.00:00:00",
+					"sleep": 10,
+					"childItems": true
+				}
+			}
+		],
+		"parameters": {
+			"param_containerName": {
+				"type": "string",
+				"defaultValue": "raw"
+			},
+			"param_directoryName": {
+				"type": "string",
+				"defaultValue": "input-json-files"
+			}
+		},
 		"folder": {
 			"name": "Training Folder/Learning Activities/Day-7"
 		},
