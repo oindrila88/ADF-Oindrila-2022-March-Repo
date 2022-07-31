@@ -16,7 +16,7 @@
 					"activities": [
 						{
 							"name": "Get Existence Metadata of CSV File",
-							"description": "Check the Existence of the File \"Student1.csv\" in the Directory \"input-csv-files/pl-until-file\" Under the Container \"raw\" Using the \"Exists\" Field of \"Get Metadata\" Activity.",
+							"description": "Check the Existence of the File \"Students_1.csv\" in the Directory \"input-csv-files/pl-until-file\" Under the Container \"raw\" Using the \"Exists\" Field of \"Get Metadata\" Activity.",
 							"type": "GetMetadata",
 							"dependsOn": [],
 							"policy": {
