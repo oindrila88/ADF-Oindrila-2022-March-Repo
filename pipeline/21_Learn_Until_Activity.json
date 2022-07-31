@@ -126,7 +126,7 @@
 		"variables": {
 			"var_isFileAvailable": {
 				"type": "Boolean",
-				"defaultValue": "False"
+				"defaultValue": false
 			}
 		},
 		"folder": {
