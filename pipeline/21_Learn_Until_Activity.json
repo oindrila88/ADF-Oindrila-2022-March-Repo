@@ -1,6 +1,12 @@
 {
 	"name": "21_Learn_Until_Activity",
 	"properties": {
+		"variables": {
+			"var_isFileAvailable": {
+				"type": "String",
+				"defaultValue": "No. The File is Not Available Yet."
+			}
+		},
 		"folder": {
 			"name": "Training Folder/Learning Activities/Day-8"
 		},
