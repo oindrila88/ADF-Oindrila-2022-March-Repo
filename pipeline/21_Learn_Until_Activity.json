@@ -78,7 +78,7 @@
 								},
 								"ifFalseActivities": [
 									{
-										"name": "Set Negative to File Exists Variable_copy1",
+										"name": "Set Negative to File Exists Variable",
 										"description": "Set the Value \"false\" to the Pipeline Variable \"var_isFileAvailable\".",
 										"type": "SetVariable",
 										"dependsOn": [],
