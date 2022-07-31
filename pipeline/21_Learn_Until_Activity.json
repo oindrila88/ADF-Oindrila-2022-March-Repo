@@ -30,7 +30,17 @@
 							"typeProperties": {
 								"dataset": {
 									"referenceName": "DS_pl_copy_data_activity",
-									"type": "DatasetReference"
+									"type": "DatasetReference",
+									"parameters": {
+										"param_container": {
+											"value": "@pipeline().parameters.param_containerName",
+											"type": "Expression"
+										},
+										"param_directory": {
+											"value": "@pipeline().parameters.param_directoryName",
+											"type": "Expression"
+										}
+									}
 								},
 								"fieldList": [],
 								"storeSettings": {
