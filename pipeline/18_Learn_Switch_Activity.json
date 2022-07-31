@@ -25,8 +25,8 @@
 				}
 			},
 			{
-				"name": "Lookup SQL Query",
-				"description": "Use this \"Lookup\" Activity to Run the SQL Query Provided as Pipeline Parameter \"param_sqlQuery\".",
+				"name": "Lookup Table Employee",
+				"description": "Use this \"Lookup\" Activity to Execute the Query, Provided in the Pipeline Parameter \"param_sqlQuery\".",
 				"type": "Lookup",
 				"dependsOn": [
 					{
@@ -83,14 +83,7 @@
 				"name": "Switch On City Values",
 				"description": "Depending on the Name of the \"City\", \"Copy\" the Data to Different Folders.",
 				"type": "Switch",
-				"dependsOn": [
-					{
-						"activity": "Lookup SQL Query",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
+				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
 					"on": {
@@ -105,6 +98,26 @@
 							"value": "Noida"
 						}
 					]
+				}
+			},
+			{
+				"name": "Iterate Each Row of Lookup Output",
+				"description": "Iterate Over Each Row of the Output of the Previous \"Lookup\" Activity that Executes the Query, Provided in the Pipeline Parameter \"param_sqlQuery\".",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Lookup Table Employee",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Lookup Table Employee').output.value",
+						"type": "Expression"
+					}
 				}
 			}
 		],
