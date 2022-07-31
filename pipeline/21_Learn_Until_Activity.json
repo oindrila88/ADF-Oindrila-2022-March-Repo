@@ -42,7 +42,9 @@
 										}
 									}
 								},
-								"fieldList": [],
+								"fieldList": [
+									"exists"
+								],
 								"storeSettings": {
 									"type": "AzureBlobFSReadSettings",
 									"enablePartitionDiscovery": false
