@@ -80,27 +80,6 @@
 				}
 			},
 			{
-				"name": "Switch On City Values",
-				"description": "Depending on the Name of the \"City\", \"Copy\" the Data to Different Folders.",
-				"type": "Switch",
-				"dependsOn": [],
-				"userProperties": [],
-				"typeProperties": {
-					"on": {
-						"value": "@activity('Lookup SQL Query').output.value",
-						"type": "Expression"
-					},
-					"cases": [
-						{
-							"value": "Kolkata"
-						},
-						{
-							"value": "Noida"
-						}
-					]
-				}
-			},
-			{
 				"name": "Iterate Each Row of Lookup Output",
 				"description": "Iterate Over Each Row of the Output of the Previous \"Lookup\" Activity that Executes the Query, Provided in the Pipeline Parameter \"param_sqlQuery\".",
 				"type": "ForEach",
@@ -117,7 +96,30 @@
 					"items": {
 						"value": "@activity('Lookup Table Employee').output.value",
 						"type": "Expression"
-					}
+					},
+					"activities": [
+						{
+							"name": "Switch On City Values",
+							"description": "Depending on the Name of the \"City\", \"Copy\" the Data to Different Folders.",
+							"type": "Switch",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"on": {
+									"value": "@item().Address",
+									"type": "Expression"
+								},
+								"cases": [
+									{
+										"value": "Kolkata"
+									},
+									{
+										"value": "Noida"
+									}
+								]
+							}
+						}
+					]
 				}
 			}
 		],
