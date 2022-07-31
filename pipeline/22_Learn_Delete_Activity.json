@@ -51,6 +51,7 @@
 								],
 								"storeSettings": {
 									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
 									"enablePartitionDiscovery": false
 								},
 								"formatSettings": {
@@ -103,7 +104,7 @@
 									},
 									{
 										"name": "Copy CSV File",
-										"description": "Copy the CSV File \"\"",
+										"description": "Copy the CSV File \"Students_1.csv\", When it Becomes Available, from the Input Directory \"input-csv-files/pl-until-file\" Under the Input Container \"raw\" to the Output Directory \"copy-data-output/pl-delete-copy-data-activity\" Under the Output Container \"stage\".",
 										"type": "Copy",
 										"dependsOn": [
 											{
