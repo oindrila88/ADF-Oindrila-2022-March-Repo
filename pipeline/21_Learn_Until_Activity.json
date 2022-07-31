@@ -76,6 +76,19 @@
 									"value": "@activity('Get Existence Metadata of CSV File').output.exists",
 									"type": "Expression"
 								},
+								"ifFalseActivities": [
+									{
+										"name": "Set Negative to File Exists Variable_copy1",
+										"description": "Set the Value \"false\" to the Pipeline Variable \"var_isFileAvailable\".",
+										"type": "SetVariable",
+										"dependsOn": [],
+										"userProperties": [],
+										"typeProperties": {
+											"variableName": "var_isFileAvailable",
+											"value": false
+										}
+									}
+								],
 								"ifTrueActivities": [
 									{
 										"name": "Set Affirmative to File Exists Variable",
