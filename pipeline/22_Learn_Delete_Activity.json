@@ -85,7 +85,7 @@
 										"userProperties": [],
 										"typeProperties": {
 											"variableName": "var_isFileAvailable",
-											"value": "false"
+											"value": false
 										}
 									}
 								],
@@ -98,7 +98,7 @@
 										"userProperties": [],
 										"typeProperties": {
 											"variableName": "var_isFileAvailable",
-											"value": "true"
+											"value": true
 										}
 									}
 								]
@@ -129,6 +129,12 @@
 			"param_outputDirectoryName": {
 				"type": "string",
 				"defaultValue": "copy-data-output/pl-delete-copy-data-activity"
+			}
+		},
+		"variables": {
+			"var_isFileAvailable": {
+				"type": "Boolean",
+				"defaultValue": false
 			}
 		},
 		"folder": {
