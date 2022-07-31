@@ -1,6 +1,18 @@
 {
 	"name": "21_Learn_Until_Activity",
 	"properties": {
+		"activities": [
+			{
+				"name": "Wait Until the File is Available",
+				"description": "Wait \"Until\" the File Becomes Available.",
+				"type": "Until",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"timeout": "7.00:00:00"
+				}
+			}
+		],
 		"variables": {
 			"var_isFileAvailable": {
 				"type": "String",
