@@ -23,7 +23,7 @@
 							}
 						}
 					},
-					"timeout": "7.00:00:00",
+					"timeout": "0.00:01:00",
 					"sleep": 10,
 					"childItems": true
 				}
