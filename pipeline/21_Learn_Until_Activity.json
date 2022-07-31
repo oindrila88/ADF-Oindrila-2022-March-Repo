@@ -120,7 +120,7 @@
 			},
 			"param_fileName": {
 				"type": "string",
-				"defaultValue": "Student1.csv"
+				"defaultValue": "Students_1.csv"
 			}
 		},
 		"variables": {
