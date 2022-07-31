@@ -127,7 +127,20 @@
 										]
 									},
 									{
-										"value": "Noida"
+										"value": "Noida",
+										"activities": [
+											{
+												"name": "Set Addres Variable To Noida",
+												"description": "Set the Value \"Noida\" as the Pipeline Variable \"var_address\" for the Selected Case \"Noida\".",
+												"type": "SetVariable",
+												"dependsOn": [],
+												"userProperties": [],
+												"typeProperties": {
+													"variableName": "var_address",
+													"value": "Noida"
+												}
+											}
+										]
 									}
 								]
 							}
