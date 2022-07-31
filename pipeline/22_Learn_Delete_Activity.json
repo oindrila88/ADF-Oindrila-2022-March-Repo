@@ -61,7 +61,7 @@
 						},
 						{
 							"name": "Verify If File Exists",
-							"description": "Verify If the File \"Student1.csv\" Exists in the Directory \"input-csv-files/pl-until-file\" Under the Container \"raw\".",
+							"description": "Verify If the File \"Students_1.csv\" Exists in the Directory \"input-csv-files/pl-until-file\" Under the Container \"raw\".",
 							"type": "IfCondition",
 							"dependsOn": [
 								{
