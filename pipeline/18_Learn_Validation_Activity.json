@@ -46,6 +46,19 @@
 						"value": "@activity('Validation of ADLS Directory in Dataset').output.exists",
 						"type": "Expression"
 					},
+					"ifFalseActivities": [
+						{
+							"name": "Set Negative To Directory Exists Variable_copy1",
+							"description": "Set the Value \"No. The Directory Does Not Exist\" in the Pipeline Variable \"var_ifDirectoryExists\".",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "var_ifDirectoryExists",
+								"value": "No. The Directory Does Not Exist"
+							}
+						}
+					],
 					"ifTrueActivities": [
 						{
 							"name": "Set Affirmative To Directory Exists Variable",
