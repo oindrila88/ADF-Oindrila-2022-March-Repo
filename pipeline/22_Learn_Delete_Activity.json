@@ -1,6 +1,28 @@
 {
 	"name": "22_Learn_Delete_Activity",
 	"properties": {
+		"parameters": {
+			"param_inputContainerName": {
+				"type": "string",
+				"defaultValue": "raw"
+			},
+			"param_inputDirectoryName": {
+				"type": "string",
+				"defaultValue": "input-csv-files/pl-until-file"
+			},
+			"param_inputFileName": {
+				"type": "string",
+				"defaultValue": "Students_1.csv"
+			},
+			"param_outputContainerName": {
+				"type": "string",
+				"defaultValue": "stage"
+			},
+			"param_outputDirectoryName": {
+				"type": "string",
+				"defaultValue": "copy-data-output/pl-delete-copy-data-activity"
+			}
+		},
 		"folder": {
 			"name": "Training Folder/Learning Activities/Day-9"
 		},
