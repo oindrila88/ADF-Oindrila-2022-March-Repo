@@ -123,8 +123,70 @@
 										},
 										"userProperties": [],
 										"typeProperties": {
+											"source": {
+												"type": "DelimitedTextSource",
+												"storeSettings": {
+													"type": "AzureBlobFSReadSettings",
+													"recursive": true,
+													"enablePartitionDiscovery": false
+												},
+												"formatSettings": {
+													"type": "DelimitedTextReadSettings"
+												}
+											},
+											"sink": {
+												"type": "DelimitedTextSink",
+												"storeSettings": {
+													"type": "AzureBlobFSWriteSettings"
+												},
+												"formatSettings": {
+													"type": "DelimitedTextWriteSettings",
+													"quoteAllText": true,
+													"fileExtension": ".txt"
+												}
+											},
 											"enableStaging": false
-										}
+										},
+										"inputs": [
+											{
+												"referenceName": "DS_CSV_With_Container_Directory_File_Params",
+												"type": "DatasetReference",
+												"parameters": {
+													"param_containerName": {
+														"value": "@pipeline().parameters.param_inputContainerName",
+														"type": "Expression"
+													},
+													"param_directoryName": {
+														"value": "@pipeline().parameters.param_inputDirectoryName",
+														"type": "Expression"
+													},
+													"param_fileName": {
+														"value": "@pipeline().parameters.param_inputFileName",
+														"type": "Expression"
+													}
+												}
+											}
+										],
+										"outputs": [
+											{
+												"referenceName": "DS_CSV_With_Container_Directory_File_Params",
+												"type": "DatasetReference",
+												"parameters": {
+													"param_containerName": {
+														"value": "@pipeline().parameters.param_outputContainerName",
+														"type": "Expression"
+													},
+													"param_directoryName": {
+														"value": "@pipeline().parameters.param_outputDirectoryName",
+														"type": "Expression"
+													},
+													"param_fileName": {
+														"value": "@pipeline().parameters.param_inputFileName",
+														"type": "Expression"
+													}
+												}
+											}
+										]
 									}
 								]
 							}
