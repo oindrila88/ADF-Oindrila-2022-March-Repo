@@ -57,6 +57,39 @@
 									"type": "DelimitedTextReadSettings"
 								}
 							}
+						},
+						{
+							"name": "Verify If File Exists",
+							"description": "Verify If the File \"Student1.csv\" Exists in the Directory \"input-csv-files/pl-until-file\" Under the Container \"raw\".",
+							"type": "IfCondition",
+							"dependsOn": [
+								{
+									"activity": "Get Existence Metadata of CSV File",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"expression": {
+									"value": "@activity('Get Existence Metadata of CSV File').output.exists",
+									"type": "Expression"
+								},
+								"ifTrueActivities": [
+									{
+										"name": "Set Affirmative to File Exists Variable",
+										"description": "Set the Value \"true\" to the Pipeline Variable \"var_isFileAvailable\".",
+										"type": "SetVariable",
+										"dependsOn": [],
+										"userProperties": [],
+										"typeProperties": {
+											"variableName": "var_isFileAvailable",
+											"value": true
+										}
+									}
+								]
+							}
 						}
 					],
 					"timeout": "7.00:00:00"
