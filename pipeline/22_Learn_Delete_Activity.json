@@ -33,15 +33,15 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"param_containerName": {
-											"value": "@pipeline().parameters.param_containerName",
+											"value": "@pipeline().parameters.param_inputContainerName",
 											"type": "Expression"
 										},
 										"param_directoryName": {
-											"value": "@pipeline().parameters.param_directoryName",
+											"value": "@pipeline().parameters.param_inputDirectoryName",
 											"type": "Expression"
 										},
 										"param_fileName": {
-											"value": "@pipeline().parameters.param_fileName",
+											"value": "@pipeline().parameters.param_inputFileName",
 											"type": "Expression"
 										}
 									}
@@ -187,6 +187,39 @@
 												}
 											}
 										]
+									},
+									{
+										"name": "Delete Source CSV File",
+										"description": "After Copying, Delete the CSV File ",
+										"type": "Delete",
+										"dependsOn": [
+											{
+												"activity": "Copy CSV File",
+												"dependencyConditions": [
+													"Succeeded"
+												]
+											}
+										],
+										"policy": {
+											"timeout": "7.00:00:00",
+											"retry": 0,
+											"retryIntervalInSeconds": 30,
+											"secureOutput": false,
+											"secureInput": false
+										},
+										"userProperties": [],
+										"typeProperties": {
+											"dataset": {
+												"referenceName": "DS_CSV_With_Container_Directory_File_Params",
+												"type": "DatasetReference"
+											},
+											"enableLogging": true,
+											"storeSettings": {
+												"type": "AzureBlobFSReadSettings",
+												"recursive": true,
+												"enablePartitionDiscovery": false
+											}
+										}
 									}
 								]
 							}
