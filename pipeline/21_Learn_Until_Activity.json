@@ -15,8 +15,8 @@
 		],
 		"variables": {
 			"var_isFileAvailable": {
-				"type": "String",
-				"defaultValue": "No. The File is Not Available Yet."
+				"type": "Boolean",
+				"defaultValue": "False"
 			}
 		},
 		"folder": {
