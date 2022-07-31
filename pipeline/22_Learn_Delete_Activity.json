@@ -100,6 +100,30 @@
 											"variableName": "var_isFileAvailable",
 											"value": true
 										}
+									},
+									{
+										"name": "Copy CSV File",
+										"description": "Copy the CSV File \"\"",
+										"type": "Copy",
+										"dependsOn": [
+											{
+												"activity": "Set Affirmative to File Exists Variable",
+												"dependencyConditions": [
+													"Succeeded"
+												]
+											}
+										],
+										"policy": {
+											"timeout": "7.00:00:00",
+											"retry": 0,
+											"retryIntervalInSeconds": 30,
+											"secureOutput": false,
+											"secureInput": false
+										},
+										"userProperties": [],
+										"typeProperties": {
+											"enableStaging": false
+										}
 									}
 								]
 							}
