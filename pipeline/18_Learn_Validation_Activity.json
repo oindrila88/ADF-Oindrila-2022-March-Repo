@@ -24,8 +24,7 @@
 						}
 					},
 					"timeout": "0.00:01:00",
-					"sleep": 1,
-					"childItems": true
+					"sleep": 1
 				}
 			},
 			{
