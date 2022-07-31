@@ -1,0 +1,117 @@
+{
+	"name": "17_Learn_Get_Metadata_Activity_For_Folder",
+	"properties": {
+		"activities": [
+			{
+				"name": "Get Metadata of Item",
+				"description": "Get the following Metadata information of the Item, Pointed by the Pipeline Parameters \"containerName\" and \"directoryName\" -\n\n1. Type\n2. Exists\n3. Name\n4. Child Items\n5. Last Modified Date and Time",
+				"type": "GetMetadata",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 2,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "DS_pl_copy_data_activity",
+						"type": "DatasetReference",
+						"parameters": {
+							"param_container": {
+								"value": "@pipeline().parameters.param_containerName",
+								"type": "Expression"
+							},
+							"param_directory": {
+								"value": "@pipeline().parameters.param_directoryName",
+								"type": "Expression"
+							}
+						}
+					},
+					"fieldList": [
+						"itemType",
+						"exists",
+						"itemName",
+						"childItems",
+						"lastModified"
+					],
+					"storeSettings": {
+						"type": "AzureBlobFSReadSettings",
+						"recursive": true,
+						"enablePartitionDiscovery": false
+					},
+					"formatSettings": {
+						"type": "DelimitedTextReadSettings"
+					}
+				}
+			},
+			{
+				"name": "Verify Item Type",
+				"description": "Verify If the Item, Pointed by the Dataset “DS_pl_copy_data_activity” is a \"Folder\", or, a \"File\".",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "Get Metadata of Item",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@equals(activity('Get Metadata of Item').output.itemType, 'Folder')",
+						"type": "Expression"
+					},
+					"ifFalseActivities": [
+						{
+							"name": "Set Item Type As File",
+							"description": "Set the Value of the Pipeline Variable \"itemType\" with the Text \"This is a File\".",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "itemType",
+								"value": "This is a File"
+							}
+						}
+					],
+					"ifTrueActivities": [
+						{
+							"name": "Set Item Type As Folder",
+							"description": "Set the Value of the Pipeline Variable \"itemType\" with the Text \"This is a Folder\".",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "itemType",
+								"value": "This is a Folder"
+							}
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"param_containerName": {
+				"type": "string",
+				"defaultValue": "stage"
+			},
+			"param_directoryName": {
+				"type": "string",
+				"defaultValue": "copy-data-output/pl-for-each-copy-data-activity"
+			}
+		},
+		"variables": {
+			"itemType": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "Training Folder/Learning Activities/Day-7"
+		},
+		"annotations": []
+	}
+}

@@ -1,0 +1,90 @@
+{
+	"name": "2_PL_Learn_Append_Variable_Activity",
+	"properties": {
+		"activities": [
+			{
+				"name": "Append City Name to List of Cities Variable",
+				"description": "Append the Value of the Variable \"var_cityName\" to the Existing Array Variable \"var_listOfCities\".",
+				"type": "AppendVariable",
+				"dependsOn": [
+					{
+						"activity": "Set City Name Variable",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "var_listOfCities",
+					"value": {
+						"value": "@variables('var_cityName')",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Set City Name Variable",
+				"description": "Get the Value of the Property \"City\" from the Pipeline Parameter \"param_addressLine\" of \"String\" Type.",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "var_cityName",
+					"value": {
+						"value": "@trim(split(split(pipeline().parameters.param_addressLine, ',')[1], ':')[1])",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Set List of Cities Variable to Another Variable",
+				"description": "Set the Value of the Array Variable \"var_listOfCities\" to the Existing Empty Array Variable \"var_appendedCities\".",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Append City Name to List of Cities Variable",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "var_appendedCities",
+					"value": {
+						"value": "@variables('var_listOfCities')",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"param_addressLine": {
+				"type": "string",
+				"defaultValue": "Address: 221 M.G. Road, City: Kolkata, State: West Bengal"
+			}
+		},
+		"variables": {
+			"var_cityName": {
+				"type": "String"
+			},
+			"var_listOfCities": {
+				"type": "Array",
+				"defaultValue": [
+					"New York",
+					"London",
+					"Tokyo",
+					"Singapore City"
+				]
+			},
+			"var_appendedCities": {
+				"type": "Array"
+			}
+		},
+		"folder": {
+			"name": "Training Folder/Learning Activities/Day-1"
+		},
+		"annotations": []
+	}
+}

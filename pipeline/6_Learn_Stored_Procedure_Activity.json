@@ -1,9 +1,9 @@
 {
-	"name": "PL_WithOutParamStoredProcedure",
+	"name": "6_Learn_Stored_Procedure_Activity",
 	"properties": {
 		"activities": [
 			{
-				"name": "Find Secret",
+				"name": "Find SQL Server Password KV Secret",
 				"description": "Fetch the Value of the Secret \"kv-sqlserveroindrila2022march-pwd\" from the Azure Key Vault resource “KV-Oindrila-2022-March”",
 				"type": "WebActivity",
 				"dependsOn": [],
@@ -25,12 +25,12 @@
 				}
 			},
 			{
-				"name": "Data Retrieval Stored Procedure",
-				"description": "Call the Stored Procedure \"dbo.SP_GetEmployeeDetails\" to Fetch the Details of the Table \"Employee\".",
+				"name": "Insert Stored Procedure",
+				"description": "Call the Stored Procedure \"SP_InsertPipelineRunDetails\" to Insert the Pipeline Run Details to the Table \"tbl_PipelineRunDetails\".",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "Find Secret",
+						"activity": "Find SQL Server Password KV Secret",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -45,25 +45,58 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": "dbo.SP_GetEmployeeDetails",
+					"storedProcedureName": {
+						"value": "@pipeline().parameters.param_storedProcedureName",
+						"type": "Expression"
+					},
 					"storedProcedureParameters": {
-						"Address": {
+						"DataFactoryName": {
 							"value": {
-								"value": "@pipeline().parameters.param_address",
+								"value": "@pipeline().DataFactory",
 								"type": "Expression"
 							},
 							"type": "String"
 						},
-						"Id": {
-							"value": null,
-							"type": "Int32"
-						},
-						"FirstName": {
-							"value": null,
+						"PipelineName": {
+							"value": {
+								"value": "@pipeline().Pipeline",
+								"type": "Expression"
+							},
 							"type": "String"
 						},
-						"LastName": {
-							"value": null,
+						"PipelineRunId": {
+							"value": {
+								"value": "@pipeline().RunId",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"TriggerType": {
+							"value": {
+								"value": "@pipeline().TriggerType",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"TriggerRunId": {
+							"value": {
+								"value": "@pipeline().TriggerId",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"TriggerName": {
+							"value": {
+								"value": "@pipeline().TriggerName",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"TriggerRunTime": {
+							"value": {
+								"value": "@pipeline().TriggerTime",
+								"type": "Expression"
+							},
 							"type": "String"
 						}
 					}
@@ -73,19 +106,19 @@
 					"type": "LinkedServiceReference",
 					"parameters": {
 						"param_ServerName": {
-							"value": "@pipeline().parameters.sqlServerName",
+							"value": "@pipeline().parameters.param_sqlServerName",
 							"type": "Expression"
 						},
 						"param_DatabaseName": {
-							"value": "@pipeline().parameters.sqlServerDatabaseName",
+							"value": "@pipeline().parameters.param_sqlServerDatabaseName",
 							"type": "Expression"
 						},
 						"param_AdminUserName": {
-							"value": "@pipeline().parameters.sqlServerAdminUserName",
+							"value": "@pipeline().parameters.param_sqlServerAdminUserName",
 							"type": "Expression"
 						},
 						"param_Password": {
-							"value": "@activity('Find Secret').output.value",
+							"value": "@activity('Find SQL Server Password KV Secret').output.value",
 							"type": "Expression"
 						}
 					}
@@ -93,25 +126,25 @@
 			}
 		],
 		"parameters": {
-			"sqlServerName": {
+			"param_sqlServerName": {
 				"type": "string",
 				"defaultValue": "sqlserveroindrila2022march.database.windows.net"
 			},
-			"sqlServerDatabaseName": {
+			"param_sqlServerDatabaseName": {
 				"type": "string",
 				"defaultValue": "sqldboindrila2022march"
 			},
-			"sqlServerAdminUserName": {
+			"param_sqlServerAdminUserName": {
 				"type": "string",
 				"defaultValue": "oindrila2022march"
 			},
-			"param_address": {
+			"param_storedProcedureName": {
 				"type": "string",
-				"defaultValue": "Kolkata"
+				"defaultValue": "dbo.SP_InsertPipelineRunDetails"
 			}
 		},
 		"folder": {
-			"name": "Practice Activities Folder"
+			"name": "Training Folder/Learning Activities/Day-3"
 		},
 		"annotations": []
 	}

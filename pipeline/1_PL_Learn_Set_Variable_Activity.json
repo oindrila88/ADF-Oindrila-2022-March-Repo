@@ -1,0 +1,36 @@
+{
+	"name": "1_PL_Learn_Set_Variable_Activity",
+	"properties": {
+		"activities": [
+			{
+				"name": "Set City Name Variable",
+				"description": "Get the Value of the Property \"City\" from the Pipeline Parameter \"param_addressLine\" of \"String\" Type and Store into the Variable \"var_cityName\".",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "var_cityName",
+					"value": {
+						"value": "@trim(split(split(pipeline().parameters.param_addressLine, ',')[1], ':')[1])",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"param_addressLine": {
+				"type": "string",
+				"defaultValue": "Address: 221 M.G. Road, City: Kolkata, State: West Bengal"
+			}
+		},
+		"variables": {
+			"var_cityName": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "Training Folder/Learning Activities/Day-1"
+		},
+		"annotations": []
+	}
+}

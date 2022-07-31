@@ -1,9 +1,9 @@
 {
-	"name": "PL_LookUpActivityWithOutParamSP",
+	"name": "8_Learn_LookUp_Activity_With_Out_Param_SP",
 	"properties": {
 		"activities": [
 			{
-				"name": "Find Secret",
+				"name": "Find SQL Server Password KV Secret",
 				"description": "Fetch the Value of the Secret \"kv-sqlserveroindrila2022march-pwd\" from the Azure Key Vault resource “KV-Oindrila-2022-March”",
 				"type": "WebActivity",
 				"dependsOn": [],
@@ -25,12 +25,12 @@
 				}
 			},
 			{
-				"name": "Lookup SP Result",
+				"name": "Lookup SP With Out Param Result",
 				"description": "Use this \"Lookup\" Activity to Call the Stored Procedure \"dbo.SP_GetEmployeeDetails\" to Fetch the Details of the Table \"Employee\" Based on the Provided Filter Value as Pipeline Parameter \"param_address\".",
 				"type": "Lookup",
 				"dependsOn": [
 					{
-						"activity": "Find Secret",
+						"activity": "Find SQL Server Password KV Secret",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -47,7 +47,10 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderStoredProcedureName": "dbo.SP_GetEmployeeDetails",
+						"sqlReaderStoredProcedureName": {
+							"value": "@pipeline().parameters.param_storedProcedureName",
+							"type": "Expression"
+						},
 						"storedProcedureParameters": {
 							"Address": {
 								"type": "String",
@@ -72,22 +75,48 @@
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
-					"firstRowOnly": true
+					"dataset": {
+						"referenceName": "DS_sqldboindrila2022march",
+						"type": "DatasetReference",
+						"parameters": {
+							"param_sqlServerName": {
+								"value": "@pipeline().parameters.param_sqlServerName",
+								"type": "Expression"
+							},
+							"param_databaseName": {
+								"value": "@pipeline().parameters.param_sqlServerDatabaseName",
+								"type": "Expression"
+							},
+							"param_adminUserName": {
+								"value": "@pipeline().parameters.param_sqlServerAdminUserName",
+								"type": "Expression"
+							},
+							"param_password": {
+								"value": "@activity('Find SQL Server Password KV Secret').output.value",
+								"type": "Expression"
+							}
+						}
+					},
+					"firstRowOnly": false
 				}
 			}
 		],
 		"parameters": {
-			"sqlServerName": {
+			"param_sqlServerName": {
 				"type": "string",
 				"defaultValue": "sqlserveroindrila2022march.database.windows.net"
 			},
-			"sqlServerDatabaseName": {
+			"param_sqlServerDatabaseName": {
 				"type": "string",
 				"defaultValue": "sqldboindrila2022march"
 			},
-			"sqlServerAdminUserName": {
+			"param_sqlServerAdminUserName": {
 				"type": "string",
 				"defaultValue": "oindrila2022march"
+			},
+			"param_storedProcedureName": {
+				"type": "string",
+				"defaultValue": "dbo.SP_GetEmployeeDetails"
 			},
 			"param_address": {
 				"type": "string",
@@ -95,7 +124,7 @@
 			}
 		},
 		"folder": {
-			"name": "Practice Activities Folder"
+			"name": "Training Folder/Learning Activities/Day-4"
 		},
 		"annotations": []
 	}

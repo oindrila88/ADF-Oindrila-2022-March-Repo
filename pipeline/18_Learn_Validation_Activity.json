@@ -1,0 +1,97 @@
+{
+	"name": "18_Learn_Validation_Activity",
+	"properties": {
+		"activities": [
+			{
+				"name": "Validation of ADLS Directory in Dataset",
+				"description": "Verify if the Directory \"input-json-files\" Directory Exists under the Container \"raw\"",
+				"type": "Validation",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "DS_Json_With_Container_And_Directory_Params",
+						"type": "DatasetReference",
+						"parameters": {
+							"param_containerName": {
+								"value": "@pipeline().parameters.param_containerName",
+								"type": "Expression"
+							},
+							"param_directoryName": {
+								"value": "@pipeline().parameters.param_directoryName",
+								"type": "Expression"
+							}
+						}
+					},
+					"timeout": "0.00:01:00",
+					"sleep": 1
+				}
+			},
+			{
+				"name": "Verify If Directory Exists",
+				"description": "Verify If the \"Validation\" Activity is Returning \"true\" or \"false\".",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "Validation of ADLS Directory in Dataset",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@activity('Validation of ADLS Directory in Dataset').output.exists",
+						"type": "Expression"
+					},
+					"ifFalseActivities": [
+						{
+							"name": "Set Negative To Directory Exists Variable_copy1",
+							"description": "Set the Value \"No. The Directory Does Not Exist\" in the Pipeline Variable \"var_ifDirectoryExists\".",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "var_ifDirectoryExists",
+								"value": "No. The Directory Does Not Exist"
+							}
+						}
+					],
+					"ifTrueActivities": [
+						{
+							"name": "Set Affirmative To Directory Exists Variable",
+							"description": "Set the Value \"Yes. Directory Exists\" in the Pipeline Variable \"var_ifDirectoryExists\".",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "var_ifDirectoryExists",
+								"value": "Yes. Directory Exists"
+							}
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"param_containerName": {
+				"type": "string",
+				"defaultValue": "raw"
+			},
+			"param_directoryName": {
+				"type": "string",
+				"defaultValue": "input-json-files"
+			}
+		},
+		"variables": {
+			"var_ifDirectoryExists": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "Training Folder/Learning Activities/Day-7"
+		},
+		"annotations": []
+	}
+}

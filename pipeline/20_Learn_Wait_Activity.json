@@ -1,5 +1,5 @@
 {
-	"name": "PL_WaitActivity",
+	"name": "20_Learn_Wait_Activity",
 	"properties": {
 		"activities": [
 			{
@@ -10,7 +10,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"waitTimeInSeconds": {
-						"value": "@pipeline().parameters.waitTimeInSecond",
+						"value": "@pipeline().parameters.param_waitTimeInSecond",
 						"type": "Expression"
 					}
 				}
@@ -29,31 +29,31 @@
 				],
 				"userProperties": [],
 				"typeProperties": {
-					"variableName": "waitOutput",
+					"variableName": "var_waitOutput",
 					"value": {
-						"value": "@pipeline().parameters.waitFinishMessage",
+						"value": "@pipeline().parameters.param_waitFinishMessage",
 						"type": "Expression"
 					}
 				}
 			}
 		],
 		"parameters": {
-			"waitTimeInSecond": {
+			"param_waitTimeInSecond": {
 				"type": "int",
 				"defaultValue": 75
 			},
-			"waitFinishMessage": {
+			"param_waitFinishMessage": {
 				"type": "string",
 				"defaultValue": "Wait is over"
 			}
 		},
 		"variables": {
-			"waitOutput": {
+			"var_waitOutput": {
 				"type": "String"
 			}
 		},
 		"folder": {
-			"name": "Practice Activities Folder"
+			"name": "Training Folder/Learning Activities/Day-8"
 		},
 		"annotations": []
 	}

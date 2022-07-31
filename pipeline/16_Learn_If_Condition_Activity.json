@@ -1,16 +1,16 @@
 {
-	"name": "PL_IfConditionActivity",
+	"name": "16_Learn_If_Condition_Activity",
 	"properties": {
 		"activities": [
 			{
-				"name": "If City Exists",
-				"description": "Verify if the Value of Pipeline Parameter \"cityToSearch\" Exists in the Pipeline Parameter \"listOfCities\" of Type Array",
+				"name": "Verify If City Exists",
+				"description": "Verify if the Value of Pipeline Parameter \"param_cityToSearch\" Exists in the Pipeline Parameter \"param_listOfCities\" of Type Array",
 				"type": "IfCondition",
 				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@contains(pipeline().parameters.listOfCities, pipeline().parameters.cityToSearch)",
+						"value": "@contains(pipeline().parameters.param_listOfCities, pipeline().parameters.param_cityToSearch)",
 						"type": "Expression"
 					},
 					"ifFalseActivities": [
@@ -21,7 +21,7 @@
 							"dependsOn": [],
 							"userProperties": [],
 							"typeProperties": {
-								"variableName": "ifCityExists",
+								"variableName": "var_ifCityExists",
 								"value": "No. It Does Not Exist"
 							}
 						}
@@ -34,7 +34,7 @@
 							"dependsOn": [],
 							"userProperties": [],
 							"typeProperties": {
-								"variableName": "ifCityExists",
+								"variableName": "var_ifCityExists",
 								"value": "Yes. It Exists"
 							}
 						}
@@ -43,7 +43,7 @@
 			}
 		],
 		"parameters": {
-			"listOfCities": {
+			"param_listOfCities": {
 				"type": "array",
 				"defaultValue": [
 					"New York",
@@ -53,18 +53,18 @@
 					"Lisbon"
 				]
 			},
-			"cityToSearch": {
+			"param_cityToSearch": {
 				"type": "string",
 				"defaultValue": "Kolkata"
 			}
 		},
 		"variables": {
-			"ifCityExists": {
+			"var_ifCityExists": {
 				"type": "String"
 			}
 		},
 		"folder": {
-			"name": "Practice Activities Folder"
+			"name": "Training Folder/Learning Activities/Day-7"
 		},
 		"annotations": []
 	}

@@ -1,0 +1,44 @@
+{
+	"name": "DS_CSV_With_Container_Directory_File_Params",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_adlsoindrila2022march",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"param_containerName": {
+				"type": "string"
+			},
+			"param_directoryName": {
+				"type": "string"
+			},
+			"param_fileName": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().param_fileName",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "@dataset().param_directoryName",
+					"type": "Expression"
+				},
+				"fileSystem": {
+					"value": "@dataset().param_containerName",
+					"type": "Expression"
+				}
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}

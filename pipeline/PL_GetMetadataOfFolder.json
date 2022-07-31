@@ -1,9 +1,0 @@
-{
-	"name": "PL_GetMetadataOfFolder",
-	"properties": {
-		"folder": {
-			"name": "Practice Activities Folder"
-		},
-		"annotations": []
-	}
-}

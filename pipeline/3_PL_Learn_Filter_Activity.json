@@ -1,16 +1,16 @@
 {
-	"name": "PL_StringArrayFilterActivity",
+	"name": "3_PL_Learn_Filter_Activity",
 	"properties": {
 		"activities": [
 			{
-				"name": "Filter Cities",
-				"description": "Filter All the Cities, Starting with the Letter \"L\", from the Pipeline Parameter \"listOfCities\".",
+				"name": "Filter City Starting With Letter - L",
+				"description": "Filter All the Cities, Starting with the Letter \"L\", from the Pipeline Parameter \"param_listOfCities\".",
 				"type": "Filter",
 				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@pipeline().parameters.listOfCities",
+						"value": "@pipeline().parameters.param_listOfCities",
 						"type": "Expression"
 					},
 					"condition": {
@@ -21,7 +21,7 @@
 			}
 		],
 		"parameters": {
-			"listOfCities": {
+			"param_listOfCities": {
 				"type": "array",
 				"defaultValue": [
 					"New York",
@@ -33,7 +33,7 @@
 			}
 		},
 		"folder": {
-			"name": "Practice Activities Folder"
+			"name": "Training Folder/Learning Activities/Day-1"
 		},
 		"annotations": []
 	}

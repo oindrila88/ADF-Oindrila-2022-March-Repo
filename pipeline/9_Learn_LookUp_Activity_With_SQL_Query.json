@@ -1,9 +1,9 @@
 {
-	"name": "PL_CopyDataActivity",
+	"name": "9_Learn_LookUp_Activity_With_SQL_Query",
 	"properties": {
 		"activities": [
 			{
-				"name": "Find Secret",
+				"name": "Find SQL Server Password KV Secret",
 				"description": "Fetch the Value of the Secret \"kv-sqlserveroindrila2022march-pwd\" from the Azure Key Vault resource “KV-Oindrila-2022-March”",
 				"type": "WebActivity",
 				"dependsOn": [],
@@ -25,12 +25,12 @@
 				}
 			},
 			{
-				"name": "Copy SQL Table into CSV File",
-				"description": "Copy the Records of the Azure SQL Database Table \"dbo.Employee\" and Store the Records as a CSV File in ADLS Gen2.",
-				"type": "Copy",
+				"name": "Lookup SQL Query",
+				"description": "Use this \"Lookup\" Activity to Fetch the Result of the SQL Query \"SELECT * FROM dbo.Employee WHERE Address = '\" + param_address + \"'\".",
+				"type": "Lookup",
 				"dependsOn": [
 					{
-						"activity": "Find Secret",
+						"activity": "Find SQL Server Password KV Secret",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -48,103 +48,58 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "@pipeline().parameters.sqlQuery",
+							"value": "@concat('SELECT * FROM dbo.Employee WHERE Address = ''', pipeline().parameters.param_address, '''')",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
-					"sink": {
-						"type": "DelimitedTextSink",
-						"storeSettings": {
-							"type": "AzureBlobFSWriteSettings"
-						},
-						"formatSettings": {
-							"type": "DelimitedTextWriteSettings",
-							"quoteAllText": true,
-							"fileExtension": ".csv"
-						}
-					},
-					"enableStaging": false,
-					"translator": {
-						"type": "TabularTranslator",
-						"typeConversion": true,
-						"typeConversionSettings": {
-							"allowDataTruncation": true,
-							"treatBooleanAsNumber": false
-						}
-					}
-				},
-				"inputs": [
-					{
+					"dataset": {
 						"referenceName": "DS_sqldboindrila2022march",
 						"type": "DatasetReference",
 						"parameters": {
 							"param_sqlServerName": {
-								"value": "@pipeline().parameters.sqlServerName",
+								"value": "@pipeline().parameters.param_sqlServerName",
 								"type": "Expression"
 							},
 							"param_databaseName": {
-								"value": "@pipeline().parameters.sqlServerDbName",
+								"value": "@pipeline().parameters.param_sqlServerDatabaseName",
 								"type": "Expression"
 							},
 							"param_adminUserName": {
-								"value": "@pipeline().parameters.sqlServerAdminUserName",
+								"value": "@pipeline().parameters.param_sqlServerAdminUserName",
 								"type": "Expression"
 							},
 							"param_password": {
-								"value": "@activity('Find Secret').output.value",
+								"value": "@activity('Find SQL Server Password KV Secret').output.value",
 								"type": "Expression"
 							}
 						}
-					}
-				],
-				"outputs": [
-					{
-						"referenceName": "DS_pl_copy_data_activity",
-						"type": "DatasetReference",
-						"parameters": {
-							"param_container": {
-								"value": "@pipeline().parameters.containerName",
-								"type": "Expression"
-							},
-							"param_directory": {
-								"value": "@pipeline().parameters.directoryName",
-								"type": "Expression"
-							}
-						}
-					}
-				]
+					},
+					"firstRowOnly": false
+				}
 			}
 		],
 		"parameters": {
-			"sqlServerName": {
+			"param_sqlServerName": {
 				"type": "string",
 				"defaultValue": "sqlserveroindrila2022march.database.windows.net"
 			},
-			"sqlServerDbName": {
+			"param_sqlServerDatabaseName": {
 				"type": "string",
 				"defaultValue": "sqldboindrila2022march"
 			},
-			"sqlServerAdminUserName": {
+			"param_sqlServerAdminUserName": {
 				"type": "string",
 				"defaultValue": "oindrila2022march"
 			},
-			"sqlQuery": {
+			"param_address": {
 				"type": "string",
-				"defaultValue": "SELECT * FROM dbo.Employee"
-			},
-			"containerName": {
-				"type": "string",
-				"defaultValue": "stage"
-			},
-			"directoryName": {
-				"type": "string",
-				"defaultValue": "copy-data-output/pl-copy-data-activity"
+				"defaultValue": "Kolkata"
 			}
 		},
 		"folder": {
-			"name": "Practice Activities Folder"
+			"name": "Training Folder/Learning Activities/Day-4"
 		},
 		"annotations": []
 	}

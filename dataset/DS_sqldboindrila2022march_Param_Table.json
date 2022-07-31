@@ -1,0 +1,60 @@
+{
+	"name": "DS_sqldboindrila2022march_Param_Table",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_SQLServer",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"param_ServerName": {
+					"value": "@dataset().param_sqlServerName",
+					"type": "Expression"
+				},
+				"param_DatabaseName": {
+					"value": "@dataset().param_databaseName",
+					"type": "Expression"
+				},
+				"param_AdminUserName": {
+					"value": "@dataset().param_adminUserName",
+					"type": "Expression"
+				},
+				"param_Password": {
+					"value": "@dataset().param_password",
+					"type": "Expression"
+				}
+			}
+		},
+		"parameters": {
+			"param_sqlServerName": {
+				"type": "string"
+			},
+			"param_databaseName": {
+				"type": "string"
+			},
+			"param_adminUserName": {
+				"type": "string"
+			},
+			"param_password": {
+				"type": "string"
+			},
+			"param_schemaName": {
+				"type": "string"
+			},
+			"param_tableName": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": {
+				"value": "@dataset().param_schemaName",
+				"type": "Expression"
+			},
+			"table": {
+				"value": "@dataset().param_tableName",
+				"type": "Expression"
+			}
+		}
+	}
+}

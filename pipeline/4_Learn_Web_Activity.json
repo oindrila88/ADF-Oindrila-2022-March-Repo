@@ -1,5 +1,5 @@
 {
-	"name": "PL_NoAuthWebActivity",
+	"name": "4_Learn_Web_Activity",
 	"properties": {
 		"activities": [
 			{
@@ -17,7 +17,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"url": {
-						"value": "@concat('http://api.weatherstack.com/current?access_key=', pipeline().parameters.accessKey, '&query=', pipeline().parameters.cityName)",
+						"value": "@concat('http://api.weatherstack.com/current?access_key=', pipeline().parameters.param_accessKey, '&query=', pipeline().parameters.param_cityName)",
 						"type": "Expression"
 					},
 					"method": "GET"
@@ -25,17 +25,17 @@
 			}
 		],
 		"parameters": {
-			"cityName": {
+			"param_cityName": {
 				"type": "string",
 				"defaultValue": "Kolkata"
 			},
-			"accessKey": {
+			"param_accessKey": {
 				"type": "string",
 				"defaultValue": "7b1a503846c18a56136f8ab3c90d5017"
 			}
 		},
 		"folder": {
-			"name": "Practice Activities Folder"
+			"name": "Training Folder/Learning Activities/Day-2"
 		},
 		"annotations": []
 	}

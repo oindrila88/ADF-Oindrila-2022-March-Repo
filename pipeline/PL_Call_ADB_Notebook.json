@@ -1,0 +1,37 @@
+{
+	"name": "PL_Call_ADB_Notebook",
+	"properties": {
+		"description": "Calling one Databricks Notebook",
+		"activities": [
+			{
+				"name": "Calling Notebook",
+				"description": "Call the Notebook \"nbk_Introduction_To_Widgets\".",
+				"type": "DatabricksNotebook",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 2,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": true,
+					"secureInput": true
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Users/oindrila.chakraborty88_gmail.com#ext#@oindrilachakraborty88gmail.onmicrosoft.com/Training-Day-5/nbk_Introduction_To_Widgets",
+					"baseParameters": {
+						"Text Widget": "Soumyajyoti Bagchi",
+						"Dropdown Widget": "17"
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "LS_oindrila_workspace_2022_march",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"folder": {
+			"name": "Calling Other Services Folder"
+		},
+		"annotations": []
+	}
+}

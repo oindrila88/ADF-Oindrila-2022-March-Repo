@@ -1,0 +1,279 @@
+{
+	"name": "22_Learn_Delete_Activity",
+	"properties": {
+		"activities": [
+			{
+				"name": "Wait Until the File is Available",
+				"description": "Wait \"Until\" the File Becomes Available.",
+				"type": "Until",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@variables('var_isFileAvailable')",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Get Existence Metadata of CSV File",
+							"description": "Check the Existence of the File \"Students_1.csv\" in the Directory \"input-csv-files/pl-until-file\" Under the Container \"raw\" Using the \"Exists\" Field of \"Get Metadata\" Activity.",
+							"type": "GetMetadata",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 2,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"dataset": {
+									"referenceName": "DS_CSV_With_Container_Directory_File_Params",
+									"type": "DatasetReference",
+									"parameters": {
+										"param_containerName": {
+											"value": "@pipeline().parameters.param_inputContainerName",
+											"type": "Expression"
+										},
+										"param_directoryName": {
+											"value": "@pipeline().parameters.param_inputDirectoryName",
+											"type": "Expression"
+										},
+										"param_fileName": {
+											"value": "@pipeline().parameters.param_inputFileName",
+											"type": "Expression"
+										}
+									}
+								},
+								"fieldList": [
+									"exists"
+								],
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							}
+						},
+						{
+							"name": "Verify If File Exists",
+							"description": "Verify If the File \"Students_1.csv\" Exists in the Directory \"input-csv-files/pl-until-file\" Under the Container \"raw\".",
+							"type": "IfCondition",
+							"dependsOn": [
+								{
+									"activity": "Get Existence Metadata of CSV File",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"expression": {
+									"value": "@activity('Get Existence Metadata of CSV File').output.exists",
+									"type": "Expression"
+								},
+								"ifFalseActivities": [
+									{
+										"name": "Set Negative to File Exists Variable",
+										"description": "Set the Value \"false\" to the Pipeline Variable \"var_isFileAvailable\".",
+										"type": "SetVariable",
+										"dependsOn": [],
+										"userProperties": [],
+										"typeProperties": {
+											"variableName": "var_isFileAvailable",
+											"value": false
+										}
+									}
+								],
+								"ifTrueActivities": [
+									{
+										"name": "Set Affirmative to File Exists Variable",
+										"description": "Set the Value \"true\" to the Pipeline Variable \"var_isFileAvailable\".",
+										"type": "SetVariable",
+										"dependsOn": [],
+										"userProperties": [],
+										"typeProperties": {
+											"variableName": "var_isFileAvailable",
+											"value": true
+										}
+									},
+									{
+										"name": "Copy CSV File",
+										"description": "Copy the CSV File \"Students_1.csv\", When it Becomes Available, from the Input Directory \"input-csv-files/pl-until-file\" Under the Input Container \"raw\" to the Output Directory \"copy-data-output/pl-delete-copy-data-activity\" Under the Output Container \"stage\".",
+										"type": "Copy",
+										"dependsOn": [
+											{
+												"activity": "Set Affirmative to File Exists Variable",
+												"dependencyConditions": [
+													"Succeeded"
+												]
+											}
+										],
+										"policy": {
+											"timeout": "7.00:00:00",
+											"retry": 0,
+											"retryIntervalInSeconds": 30,
+											"secureOutput": false,
+											"secureInput": false
+										},
+										"userProperties": [],
+										"typeProperties": {
+											"source": {
+												"type": "DelimitedTextSource",
+												"storeSettings": {
+													"type": "AzureBlobFSReadSettings",
+													"recursive": true,
+													"enablePartitionDiscovery": false
+												},
+												"formatSettings": {
+													"type": "DelimitedTextReadSettings"
+												}
+											},
+											"sink": {
+												"type": "DelimitedTextSink",
+												"storeSettings": {
+													"type": "AzureBlobFSWriteSettings"
+												},
+												"formatSettings": {
+													"type": "DelimitedTextWriteSettings",
+													"quoteAllText": true,
+													"fileExtension": ".txt"
+												}
+											},
+											"enableStaging": false
+										},
+										"inputs": [
+											{
+												"referenceName": "DS_CSV_With_Container_Directory_File_Params",
+												"type": "DatasetReference",
+												"parameters": {
+													"param_containerName": {
+														"value": "@pipeline().parameters.param_inputContainerName",
+														"type": "Expression"
+													},
+													"param_directoryName": {
+														"value": "@pipeline().parameters.param_inputDirectoryName",
+														"type": "Expression"
+													},
+													"param_fileName": {
+														"value": "@pipeline().parameters.param_inputFileName",
+														"type": "Expression"
+													}
+												}
+											}
+										],
+										"outputs": [
+											{
+												"referenceName": "DS_CSV_With_Container_Directory_File_Params",
+												"type": "DatasetReference",
+												"parameters": {
+													"param_containerName": {
+														"value": "@pipeline().parameters.param_outputContainerName",
+														"type": "Expression"
+													},
+													"param_directoryName": {
+														"value": "@pipeline().parameters.param_outputDirectoryName",
+														"type": "Expression"
+													},
+													"param_fileName": {
+														"value": "@pipeline().parameters.param_inputFileName",
+														"type": "Expression"
+													}
+												}
+											}
+										]
+									},
+									{
+										"name": "Delete Source CSV File",
+										"description": "After Copying, Delete the CSV File from the Directory \"input-csv-files/pl-until-file\" Under the Container \"raw\".",
+										"type": "Delete",
+										"dependsOn": [
+											{
+												"activity": "Copy CSV File",
+												"dependencyConditions": [
+													"Succeeded"
+												]
+											}
+										],
+										"policy": {
+											"timeout": "7.00:00:00",
+											"retry": 2,
+											"retryIntervalInSeconds": 30,
+											"secureOutput": false,
+											"secureInput": false
+										},
+										"userProperties": [],
+										"typeProperties": {
+											"dataset": {
+												"referenceName": "DS_CSV_With_Container_Directory_File_Params",
+												"type": "DatasetReference",
+												"parameters": {
+													"param_containerName": {
+														"value": "@pipeline().parameters.param_inputContainerName",
+														"type": "Expression"
+													},
+													"param_directoryName": {
+														"value": "@pipeline().parameters.param_inputDirectoryName",
+														"type": "Expression"
+													},
+													"param_fileName": {
+														"value": "@pipeline().parameters.param_inputFileName",
+														"type": "Expression"
+													}
+												}
+											},
+											"enableLogging": true,
+											"storeSettings": {
+												"type": "AzureBlobFSReadSettings",
+												"recursive": true,
+												"enablePartitionDiscovery": false
+											}
+										}
+									}
+								]
+							}
+						}
+					],
+					"timeout": "7.00:00:00"
+				}
+			}
+		],
+		"parameters": {
+			"param_inputContainerName": {
+				"type": "string",
+				"defaultValue": "raw"
+			},
+			"param_inputDirectoryName": {
+				"type": "string",
+				"defaultValue": "input-csv-files/pl-until-file"
+			},
+			"param_inputFileName": {
+				"type": "string",
+				"defaultValue": "Students_1.csv"
+			},
+			"param_outputContainerName": {
+				"type": "string",
+				"defaultValue": "stage"
+			},
+			"param_outputDirectoryName": {
+				"type": "string",
+				"defaultValue": "copy-data-output/pl-delete-copy-data-activity"
+			}
+		},
+		"variables": {
+			"var_isFileAvailable": {
+				"type": "Boolean",
+				"defaultValue": false
+			}
+		},
+		"folder": {
+			"name": "Training Folder/Learning Activities/Day-9"
+		},
+		"annotations": []
+	}
+}

@@ -1,0 +1,201 @@
+{
+	"name": "19_Learn_Switch_Activity",
+	"properties": {
+		"activities": [
+			{
+				"name": "Find SQL Server Password KV Secret",
+				"description": "Fetch the Value of the Secret \"kv-sqlserveroindrila2022march-pwd\" from the Azure Key Vault resource “KV-Oindrila-2022-March”",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 2,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": true,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": "https://kv-oindrila-2022-march.vault.azure.net/secrets/kv-sqlserveroindrila2022march-pwd/?api-version=7.0",
+					"method": "GET",
+					"authentication": {
+						"type": "MSI",
+						"resource": "https://vault.azure.net"
+					}
+				}
+			},
+			{
+				"name": "Lookup Table Employee",
+				"description": "Use this \"Lookup\" Activity to Execute the Query, Provided in the Pipeline Parameter \"param_sqlQuery\".",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "Find SQL Server Password KV Secret",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 2,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": true
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": {
+							"value": "@pipeline().parameters.param_sqlQuery",
+							"type": "Expression"
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "DS_sqldboindrila2022march",
+						"type": "DatasetReference",
+						"parameters": {
+							"param_sqlServerName": {
+								"value": "@pipeline().parameters.param_sqlServerName",
+								"type": "Expression"
+							},
+							"param_databaseName": {
+								"value": "@pipeline().parameters.param_sqlServerDbName",
+								"type": "Expression"
+							},
+							"param_adminUserName": {
+								"value": "@pipeline().parameters.param_sqlServerAdminUserName",
+								"type": "Expression"
+							},
+							"param_password": {
+								"value": "@activity('Find SQL Server Password KV Secret').output.value",
+								"type": "Expression"
+							}
+						}
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "Iterate Each Row of Lookup Output",
+				"description": "Iterate Over Each Row of the Output of the Previous \"Lookup\" Activity that Executes the Query, Provided in the Pipeline Parameter \"param_sqlQuery\".",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Lookup Table Employee",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Lookup Table Employee').output.value",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Switch On City Values",
+							"description": "Depending on the Name of the \"City\", \"Copy\" the Data to Different Folders.",
+							"type": "Switch",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"on": {
+									"value": "@item().Address",
+									"type": "Expression"
+								},
+								"cases": [
+									{
+										"value": "Kolkata",
+										"activities": [
+											{
+												"name": "Set Addres Variable To Kolkata",
+												"description": "Set the Value \"Kolkata\" as the Pipeline Variable \"var_address\" for the Selected Case \"Kolkata\".",
+												"type": "SetVariable",
+												"dependsOn": [],
+												"userProperties": [],
+												"typeProperties": {
+													"variableName": "var_address",
+													"value": "Kolkata"
+												}
+											}
+										]
+									},
+									{
+										"value": "Noida",
+										"activities": [
+											{
+												"name": "Set Addres Variable To Noida",
+												"description": "Set the Value \"Noida\" as the Pipeline Variable \"var_address\" for the Selected Case \"Noida\".",
+												"type": "SetVariable",
+												"dependsOn": [],
+												"userProperties": [],
+												"typeProperties": {
+													"variableName": "var_address",
+													"value": "Noida"
+												}
+											}
+										]
+									}
+								],
+								"defaultActivities": [
+									{
+										"name": "Set Addres Variable To Other City",
+										"description": "Set the Value \"Other City\" as the Pipeline Variable \"var_address\" for the Default Case.",
+										"type": "SetVariable",
+										"dependsOn": [],
+										"userProperties": [],
+										"typeProperties": {
+											"variableName": "var_address",
+											"value": "Other City"
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"param_sqlServerName": {
+				"type": "string",
+				"defaultValue": "sqlserveroindrila2022march.database.windows.net"
+			},
+			"param_sqlServerDbName": {
+				"type": "string",
+				"defaultValue": "sqldboindrila2022march"
+			},
+			"param_sqlServerAdminUserName": {
+				"type": "string",
+				"defaultValue": "oindrila2022march"
+			},
+			"param_sqlQuery": {
+				"type": "string",
+				"defaultValue": "SELECT * FROM dbo.Employee"
+			},
+			"param_containerName": {
+				"type": "string",
+				"defaultValue": "stage"
+			},
+			"param_directoryName": {
+				"type": "string",
+				"defaultValue": "switch-activity-output"
+			}
+		},
+		"variables": {
+			"var_address": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "Training Folder/Learning Activities/Day-8"
+		},
+		"annotations": []
+	}
+}
