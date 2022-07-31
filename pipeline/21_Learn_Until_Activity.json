@@ -29,14 +29,14 @@
 							"userProperties": [],
 							"typeProperties": {
 								"dataset": {
-									"referenceName": "DS_pl_copy_data_activity",
+									"referenceName": "DS_CSV_With_Container_Directory_File_Params",
 									"type": "DatasetReference",
 									"parameters": {
-										"param_container": {
+										"param_containerName": {
 											"value": "@pipeline().parameters.param_containerName",
 											"type": "Expression"
 										},
-										"param_directory": {
+										"param_directoryName": {
 											"value": "@pipeline().parameters.param_directoryName",
 											"type": "Expression"
 										}
@@ -67,6 +67,10 @@
 			"param_directoryName": {
 				"type": "string",
 				"defaultValue": "input-csv-files/pl-until-file"
+			},
+			"param_fileName": {
+				"type": "string",
+				"defaultValue": "Student1.csv"
 			}
 		},
 		"variables": {
