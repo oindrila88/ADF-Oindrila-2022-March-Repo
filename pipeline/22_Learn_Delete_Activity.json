@@ -190,7 +190,7 @@
 									},
 									{
 										"name": "Delete Source CSV File",
-										"description": "After Copying, Delete the CSV File ",
+										"description": "After Copying, Delete the CSV File from the Directory \"input-csv-files/pl-until-file\" Under the Container \"raw\".",
 										"type": "Delete",
 										"dependsOn": [
 											{
@@ -202,7 +202,7 @@
 										],
 										"policy": {
 											"timeout": "7.00:00:00",
-											"retry": 0,
+											"retry": 2,
 											"retryIntervalInSeconds": 30,
 											"secureOutput": false,
 											"secureInput": false
@@ -211,7 +211,21 @@
 										"typeProperties": {
 											"dataset": {
 												"referenceName": "DS_CSV_With_Container_Directory_File_Params",
-												"type": "DatasetReference"
+												"type": "DatasetReference",
+												"parameters": {
+													"param_containerName": {
+														"value": "@pipeline().parameters.param_inputContainerName",
+														"type": "Expression"
+													},
+													"param_directoryName": {
+														"value": "@pipeline().parameters.param_inputDirectoryName",
+														"type": "Expression"
+													},
+													"param_fileName": {
+														"value": "@pipeline().parameters.param_inputFileName",
+														"type": "Expression"
+													}
+												}
 											},
 											"enableLogging": true,
 											"storeSettings": {
