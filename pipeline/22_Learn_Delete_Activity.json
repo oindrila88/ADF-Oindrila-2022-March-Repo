@@ -1,6 +1,114 @@
 {
 	"name": "22_Learn_Delete_Activity",
 	"properties": {
+		"activities": [
+			{
+				"name": "Wait Until the File is Available",
+				"description": "Wait \"Until\" the File Becomes Available.",
+				"type": "Until",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@variables('var_isFileAvailable')",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Get Existence Metadata of CSV File",
+							"description": "Check the Existence of the File \"Student1.csv\" in the Directory \"input-csv-files/pl-until-file\" Under the Container \"raw\" Using the \"Exists\" Field of \"Get Metadata\" Activity.",
+							"type": "GetMetadata",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 2,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"dataset": {
+									"referenceName": "DS_CSV_With_Container_Directory_File_Params",
+									"type": "DatasetReference",
+									"parameters": {
+										"param_containerName": {
+											"value": "@pipeline().parameters.param_containerName",
+											"type": "Expression"
+										},
+										"param_directoryName": {
+											"value": "@pipeline().parameters.param_directoryName",
+											"type": "Expression"
+										},
+										"param_fileName": {
+											"value": "@pipeline().parameters.param_fileName",
+											"type": "Expression"
+										}
+									}
+								},
+								"fieldList": [
+									"exists"
+								],
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							}
+						},
+						{
+							"name": "Verify If File Exists",
+							"description": "Verify If the File \"Student1.csv\" Exists in the Directory \"input-csv-files/pl-until-file\" Under the Container \"raw\".",
+							"type": "IfCondition",
+							"dependsOn": [
+								{
+									"activity": "Get Existence Metadata of CSV File",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"expression": {
+									"value": "@activity('Get Existence Metadata of CSV File').output.exists",
+									"type": "Expression"
+								},
+								"ifFalseActivities": [
+									{
+										"name": "Set Negative to File Exists Variable",
+										"description": "Set the Value \"false\" to the Pipeline Variable \"var_isFileAvailable\".",
+										"type": "SetVariable",
+										"dependsOn": [],
+										"userProperties": [],
+										"typeProperties": {
+											"variableName": "var_isFileAvailable",
+											"value": "false"
+										}
+									}
+								],
+								"ifTrueActivities": [
+									{
+										"name": "Set Affirmative to File Exists Variable",
+										"description": "Set the Value \"true\" to the Pipeline Variable \"var_isFileAvailable\".",
+										"type": "SetVariable",
+										"dependsOn": [],
+										"userProperties": [],
+										"typeProperties": {
+											"variableName": "var_isFileAvailable",
+											"value": "true"
+										}
+									}
+								]
+							}
+						}
+					],
+					"timeout": "7.00:00:00"
+				}
+			}
+		],
 		"parameters": {
 			"param_inputContainerName": {
 				"type": "string",
