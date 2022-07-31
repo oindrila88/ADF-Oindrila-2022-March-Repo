@@ -47,6 +47,16 @@
 				}
 			}
 		],
+		"parameters": {
+			"param_containerName": {
+				"type": "string",
+				"defaultValue": "raw"
+			},
+			"param_directoryName": {
+				"type": "string",
+				"defaultValue": "input-csv-files/pl-until-file"
+			}
+		},
 		"variables": {
 			"var_isFileAvailable": {
 				"type": "Boolean",
