@@ -114,7 +114,7 @@
 										"value": "Kolkata",
 										"activities": [
 											{
-												"name": "Set Addres Variable",
+												"name": "Set Addres Variable To Kolkata",
 												"description": "Set the Value \"Kolkata\" as the Pipeline Variable \"var_address\" for the Selected Case \"Kolkata\".",
 												"type": "SetVariable",
 												"dependsOn": [],
