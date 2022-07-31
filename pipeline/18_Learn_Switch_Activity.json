@@ -142,6 +142,19 @@
 											}
 										]
 									}
+								],
+								"defaultActivities": [
+									{
+										"name": "Set Addres Variable To Other City",
+										"description": "Set the Value \"Other City\" as the Pipeline Variable \"var_address\" for the Default Case.",
+										"type": "SetVariable",
+										"dependsOn": [],
+										"userProperties": [],
+										"typeProperties": {
+											"variableName": "var_address",
+											"value": "Other City"
+										}
+									}
 								]
 							}
 						}
