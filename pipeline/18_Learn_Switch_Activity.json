@@ -111,7 +111,20 @@
 								},
 								"cases": [
 									{
-										"value": "Kolkata"
+										"value": "Kolkata",
+										"activities": [
+											{
+												"name": "Set Addres Variable",
+												"description": "Set the Value \"Kolkata\" as the Pipeline Variable \"var_address\" for the Selected Case \"Kolkata\".",
+												"type": "SetVariable",
+												"dependsOn": [],
+												"userProperties": [],
+												"typeProperties": {
+													"variableName": "var_address",
+													"value": "Kolkata"
+												}
+											}
+										]
 									},
 									{
 										"value": "Noida"
