@@ -39,6 +39,10 @@
 										"param_directoryName": {
 											"value": "@pipeline().parameters.param_directoryName",
 											"type": "Expression"
+										},
+										"param_fileName": {
+											"value": "@pipeline().parameters.param_fileName",
+											"type": "Expression"
 										}
 									}
 								},
