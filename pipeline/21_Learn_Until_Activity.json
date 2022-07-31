@@ -9,6 +9,10 @@
 				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
+					"expression": {
+						"value": "@variables('var_isFileAvailable')",
+						"type": "Expression"
+					},
 					"timeout": "7.00:00:00"
 				}
 			}
