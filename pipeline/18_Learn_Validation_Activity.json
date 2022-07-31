@@ -27,6 +27,39 @@
 					"sleep": 1,
 					"childItems": true
 				}
+			},
+			{
+				"name": "Verify If Directory Exists",
+				"description": "Verify If the \"Validation\" Activity is Returning \"true\" or \"false\".",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "Validation of ADLS Directory in Dataset",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@activity('Validation of ADLS Directory in Dataset').output.exists",
+						"type": "Expression"
+					},
+					"ifTrueActivities": [
+						{
+							"name": "Set Affirmative To Directory Exists Variable",
+							"description": "Set the Value \"Yes. Directory Exists\" in the Pipeline Variable \"var_ifDirectoryExists\".",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "var_ifDirectoryExists",
+								"value": "Yes. Directory Exists"
+							}
+						}
+					]
+				}
 			}
 		],
 		"parameters": {
@@ -37,6 +70,11 @@
 			"param_directoryName": {
 				"type": "string",
 				"defaultValue": "input-json-files"
+			}
+		},
+		"variables": {
+			"var_ifDirectoryExists": {
+				"type": "String"
 			}
 		},
 		"folder": {
