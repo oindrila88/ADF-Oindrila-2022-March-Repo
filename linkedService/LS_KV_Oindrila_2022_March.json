@@ -1,0 +1,11 @@
+{
+	"name": "LS_KV_Oindrila_2022_March",
+	"properties": {
+		"description": "Linked Service to Connect to the Azure Key Vault Instance \"KV-Oindrila-2022-March\" from Azure Data Factory Instance \"ADF-Oindrila-2022-March\".",
+		"annotations": [],
+		"type": "AzureKeyVault",
+		"typeProperties": {
+			"baseUrl": "https://kv-oindrila-2022-march.vault.azure.net/"
+		}
+	}
+}
