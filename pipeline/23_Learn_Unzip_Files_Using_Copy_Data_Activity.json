@@ -1,6 +1,107 @@
 {
 	"name": "23_Learn_Unzip_Files_Using_Copy_Data_Activity",
 	"properties": {
+		"activities": [
+			{
+				"name": "Copy CSV Files Preserving Directory Hierarchy",
+				"description": "Copy the CSV File from the Input Directory \"input-csv-files\" under the Input Container \"raw\", Preserving the Directory Hierarchy, to the Output Directory \"copy-data-output/pl-copy-data-activity\" under the Output Container \"stage\".",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 2,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"wildcardFileName": "*.csv",
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings",
+							"copyBehavior": "PreserveHierarchy"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".csv"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "DS_pl_copy_data_activity",
+						"type": "DatasetReference",
+						"parameters": {
+							"param_container": {
+								"value": "@pipeline().parameters.param_inputContainerName",
+								"type": "Expression"
+							},
+							"param_directory": {
+								"value": "@pipeline().parameters.param_inputDirectoryName",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DS_pl_copy_data_activity",
+						"type": "DatasetReference",
+						"parameters": {
+							"param_container": {
+								"value": "@pipeline().parameters.param_outputContainerName",
+								"type": "Expression"
+							},
+							"param_directory": {
+								"value": "@pipeline().parameters.param_outputDirectoryName",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			}
+		],
+		"parameters": {
+			"param_inputZipContainerName": {
+				"type": "string",
+				"defaultValue": "raw"
+			},
+			"param_inputZipDirectoryName": {
+				"type": "string",
+				"defaultValue": "input-zip-files"
+			},
+			"param_outputUnzipContainerName": {
+				"type": "string",
+				"defaultValue": "stage"
+			},
+			"param_outputUnzipDirectoryName": {
+				"type": "string",
+				"defaultValue": "pl-copy-unzip-file-activity"
+			}
+		},
 		"folder": {
 			"name": "Training Folder/Learning Activities/Day-8"
 		},
