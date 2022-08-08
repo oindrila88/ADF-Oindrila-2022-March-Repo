@@ -80,27 +80,42 @@
 				}
 			},
 			{
-				"name": "Fail On Lookup Employee Table",
-				"description": "Provide the Error Message on Failure of the Previous Lookup Activity",
-				"type": "Fail",
+				"name": "Verify Lookup Result",
+				"description": "Verify If the Previous Lookup Activity Returns Result Set",
+				"type": "IfCondition",
 				"dependsOn": [
 					{
 						"activity": "Lookup Employee Table",
 						"dependencyConditions": [
-							"Failed"
+							"Succeeded"
 						]
 					}
 				],
 				"userProperties": [],
 				"typeProperties": {
-					"message": {
-						"value": "@concat('The Employee Information Could Not be Found Living in the City \"', pipeline().parameters.param_address, '\"')",
+					"expression": {
+						"value": "@greater(activity('Lookup Employee Table').output.count, 0)",
 						"type": "Expression"
 					},
-					"errorCode": {
-						"value": "@pipeline().parameters.param_failureCode",
-						"type": "Expression"
-					}
+					"ifFalseActivities": [
+						{
+							"name": "Fail On Lookup Employee Table",
+							"description": "Provide the Error Message on Failure of the Previous Lookup Activity",
+							"type": "Fail",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"message": {
+									"value": "@concat('The Employee Information Could Not be Found Living in the City \"', pipeline().parameters.param_address, '\"')",
+									"type": "Expression"
+								},
+								"errorCode": {
+									"value": "@pipeline().parameters.param_failureCode",
+									"type": "Expression"
+								}
+							}
+						}
+					]
 				}
 			}
 		],
