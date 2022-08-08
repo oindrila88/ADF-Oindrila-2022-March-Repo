@@ -78,6 +78,30 @@
 					},
 					"firstRowOnly": false
 				}
+			},
+			{
+				"name": "Fail On Lookup Employee Table",
+				"description": "Provide the Error Message on Failure of the Previous Lookup Activity",
+				"type": "Fail",
+				"dependsOn": [
+					{
+						"activity": "Lookup Employee Table",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"message": {
+						"value": "@concat('The Employee Information Could Not be Found Living in the City \"', pipeline().parameters.param_address, '\"')",
+						"type": "Expression"
+					},
+					"errorCode": {
+						"value": "@pipeline().parameters.param_failureCode",
+						"type": "Expression"
+					}
+				}
 			}
 		],
 		"parameters": {
@@ -96,6 +120,10 @@
 			"param_address": {
 				"type": "string",
 				"defaultValue": "Tokyo"
+			},
+			"param_failureCode": {
+				"type": "string",
+				"defaultValue": "Error_400"
 			}
 		},
 		"folder": {
