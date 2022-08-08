@@ -51,7 +51,8 @@
 							"linkedServiceName": {
 								"referenceName": "LS_logadlsoindrila2022march",
 								"type": "LinkedServiceReference"
-							}
+							},
+							"path": "copy-data-log-container/copy-data-log-directory"
 						}
 					},
 					"translator": {
