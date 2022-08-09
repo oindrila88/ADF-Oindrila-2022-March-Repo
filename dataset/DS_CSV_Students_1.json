@@ -1,0 +1,45 @@
+{
+	"name": "DS_CSV_Students_1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_adlsoindrila2022march",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "Students_1.csv",
+				"folderPath": "input-csv-files/1988/09/02",
+				"fileSystem": "raw"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "FirstName",
+				"type": "String"
+			},
+			{
+				"name": "MiddleName",
+				"type": "String"
+			},
+			{
+				"name": "LastName",
+				"type": "String"
+			},
+			{
+				"name": "Subject",
+				"type": "String"
+			},
+			{
+				"name": "Marks",
+				"type": "String"
+			}
+		]
+	}
+}
