@@ -4,7 +4,7 @@
 		"activities": [
 			{
 				"name": "Validation of ADLS Directory in Dataset",
-				"description": "Verify if the Directory \"input-json-files\" Directory Exists under the Container \"raw\"",
+				"description": "Verify if the Directory \"input-json-files\"  Exists under the Container \"raw\"",
 				"type": "Validation",
 				"dependsOn": [],
 				"userProperties": [],
