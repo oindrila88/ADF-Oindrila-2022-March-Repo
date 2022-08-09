@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Get Metadata of Item",
+				"name": "Get Metadata of Folder",
 				"description": "Get the following Metadata information of the Item, Pointed by the Pipeline Parameters \"containerName\" and \"directoryName\" -\n\n1. Type\n2. Exists\n3. Name\n4. Child Items\n5. Last Modified Date and Time",
 				"type": "GetMetadata",
 				"dependsOn": [],
@@ -53,7 +53,7 @@
 				"type": "IfCondition",
 				"dependsOn": [
 					{
-						"activity": "Get Metadata of Item",
+						"activity": "Get Metadata of Folder",
 						"dependencyConditions": [
 							"Succeeded"
 						]
