@@ -73,7 +73,7 @@
 							"dependsOn": [],
 							"userProperties": [],
 							"typeProperties": {
-								"variableName": "itemType",
+								"variableName": "var_itemType",
 								"value": "This is a File"
 							}
 						}
@@ -86,7 +86,7 @@
 							"dependsOn": [],
 							"userProperties": [],
 							"typeProperties": {
-								"variableName": "itemType",
+								"variableName": "var_itemType",
 								"value": "This is a Folder"
 							}
 						}
@@ -105,7 +105,7 @@
 			}
 		},
 		"variables": {
-			"itemType": {
+			"var_itemType": {
 				"type": "String"
 			}
 		},
