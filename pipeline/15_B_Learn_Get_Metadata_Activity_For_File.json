@@ -22,7 +22,6 @@
 					},
 					"fieldList": [
 						"columnCount",
-						"exists",
 						"itemName",
 						"itemType",
 						"lastModified",
