@@ -32,9 +32,15 @@
 						}
 					},
 					"sink": {
-						"type": "BinarySink",
+						"type": "DelimitedTextSink",
 						"storeSettings": {
-							"type": "AzureBlobFSWriteSettings"
+							"type": "AzureBlobFSWriteSettings",
+							"copyBehavior": "PreserveHierarchy"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
 						}
 					},
 					"enableStaging": false
@@ -57,7 +63,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "DS_Zip_File_With_Container_Directory_Params",
+						"referenceName": "DS_CSV_With_Container_Directory_Params",
 						"type": "DatasetReference",
 						"parameters": {
 							"param_containerName": {
