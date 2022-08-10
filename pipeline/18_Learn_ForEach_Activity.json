@@ -122,9 +122,14 @@
 									"partitionOption": "None"
 								},
 								"sink": {
-									"type": "BinarySink",
+									"type": "DelimitedTextSink",
 									"storeSettings": {
 										"type": "AzureBlobFSWriteSettings"
+									},
+									"formatSettings": {
+										"type": "DelimitedTextWriteSettings",
+										"quoteAllText": true,
+										"fileExtension": ".csv"
 									}
 								},
 								"enableStaging": false
@@ -155,7 +160,7 @@
 							],
 							"outputs": [
 								{
-									"referenceName": "DS_Binary_File_With_Container_Directory_Params",
+									"referenceName": "DS_CSV_With_Container_Directory_Params",
 									"type": "DatasetReference",
 									"parameters": {
 										"param_containerName": {
