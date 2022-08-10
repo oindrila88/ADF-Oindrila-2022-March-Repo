@@ -23,7 +23,11 @@
 							"requestMethod": "GET"
 						},
 						"formatSettings": {
-							"type": "BinaryReadSettings"
+							"type": "BinaryReadSettings",
+							"compressionProperties": {
+								"type": "ZipDeflateReadSettings",
+								"preserveZipFileNameAsFolder": false
+							}
 						}
 					},
 					"enableStaging": false
@@ -31,7 +35,13 @@
 				"inputs": [
 					{
 						"referenceName": "DS_HTTP_Zip_File",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"param_indicatorRelativeUrl": {
+								"value": "@pipeline().parameters.param_relativeUrl",
+								"type": "Expression"
+							}
+						}
 					}
 				]
 			}
