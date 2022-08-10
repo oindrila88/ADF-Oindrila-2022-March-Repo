@@ -18,9 +18,29 @@
 				"typeProperties": {
 					"dataset": {
 						"referenceName": "DS_CSV_With_Container_Directory_File_Params",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"param_containerName": {
+								"value": "@pipeline().parameters.param_containerName",
+								"type": "Expression"
+							},
+							"param_directoryName": {
+								"value": "@pipeline().parameters.param_directoryName",
+								"type": "Expression"
+							},
+							"param_fileName": {
+								"value": "@pipeline().parameters.param_fileName",
+								"type": "Expression"
+							}
+						}
 					},
-					"fieldList": [],
+					"fieldList": [
+						"columnCount",
+						"exists",
+						"itemName",
+						"itemType",
+						"childItems"
+					],
 					"storeSettings": {
 						"type": "AzureBlobFSReadSettings",
 						"enablePartitionDiscovery": false
