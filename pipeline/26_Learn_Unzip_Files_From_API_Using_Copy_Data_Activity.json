@@ -52,7 +52,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "DS_Binary_File_With_Container_Directory_Params",
+						"referenceName": "DS_Zip_File_With_Container_Directory_Params",
 						"type": "DatasetReference",
 						"parameters": {
 							"param_containerName": {
@@ -60,7 +60,7 @@
 								"type": "Expression"
 							},
 							"param_directoryName": {
-								"value": "@pipeline().parameters.param_outputUnzipDirectoryName",
+								"value": "@pipeline().parameters.param_stageDirectoryName",
 								"type": "Expression"
 							}
 						}
