@@ -58,7 +58,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "DS_Zip_File_With_Container_Directory_Params",
+						"referenceName": "DS_Binary_File_With_Container_Directory_Params",
 						"type": "DatasetReference",
 						"parameters": {
 							"param_containerName": {
