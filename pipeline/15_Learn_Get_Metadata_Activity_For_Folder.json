@@ -4,7 +4,7 @@
 		"activities": [
 			{
 				"name": "Get Metadata of Folder",
-				"description": "Get the following Metadata information of the Folder, Pointed by the Pipeline Parameters \"containerName\" and \"directoryName\" -\n\n1. Type\n2. Exists\n3. Name\n4. Child Items\n5. Last Modified Date and Time",
+				"description": "Get the following Metadata information of the Folder, Pointed by the Pipeline Parameters \"param_containerName\" and \"param_directoryName\" -\n\n1. Type\n2. Exists\n3. Name\n4. Child Items\n5. Last Modified Date and Time",
 				"type": "GetMetadata",
 				"dependsOn": [],
 				"policy": {
