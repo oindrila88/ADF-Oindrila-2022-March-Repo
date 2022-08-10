@@ -48,7 +48,7 @@
 				}
 			},
 			{
-				"name": "Verify Item Type",
+				"name": "Verify Item Type is Folder",
 				"description": "Verify If the Item, Pointed by the Dataset “DS_pl_copy_data_activity” is a \"Folder\", or, a \"File\".",
 				"type": "IfCondition",
 				"dependsOn": [
