@@ -1,6 +1,20 @@
 {
 	"name": "26_Learn_Unzip_Files_From_API_Using_Copy_Data_Activity",
 	"properties": {
+		"parameters": {
+			"param_relativeUrl": {
+				"type": "string",
+				"defaultValue": "AG.AGR.TRAC.NO?source=2&downloadformat=csv"
+			},
+			"param_outputUnzipContainerName": {
+				"type": "string",
+				"defaultValue": "stage"
+			},
+			"param_outputUnzipDirectoryName": {
+				"type": "string",
+				"defaultValue": "copy-data-output/pl-copy-unzip-file-from-api-activity"
+			}
+		},
 		"folder": {
 			"name": "Training Folder/Learning Activities/Day-8"
 		},
