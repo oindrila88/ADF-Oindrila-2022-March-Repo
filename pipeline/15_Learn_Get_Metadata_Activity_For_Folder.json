@@ -48,7 +48,7 @@
 			},
 			{
 				"name": "Verify Item Type is Folder",
-				"description": "Verify If the Item, Pointed by the Dataset “DS_pl_copy_data_activity” is a \"Folder\", or, Not.",
+				"description": "Verify If the Item, Pointed by the Dataset “DS_CSV_With_Contaner_Directory_Params” is a \"Folder\", or, Not.",
 				"type": "IfCondition",
 				"dependsOn": [
 					{
