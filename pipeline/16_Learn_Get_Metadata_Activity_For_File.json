@@ -53,30 +53,37 @@
 				"name": "Verify Item Type is File",
 				"description": "Verify If the Item, Pointed by the Dataset “DS_CSV_With_Contaner_Directory_File_Params” is a \"File\", or, Not.",
 				"type": "IfCondition",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Get Metadata of File",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@equals(activity('Get Metadata of Folder').output.itemType, 'Folder')",
+						"value": "@equals(activity('Get Metadata of File').output.itemType, 'File')",
 						"type": "Expression"
 					},
 					"ifFalseActivities": [
 						{
-							"name": "Set Item Type As File",
-							"description": "Set the Value of the Pipeline Variable \"itemType\" with the Text \"This is a File\".",
+							"name": "Set Item Type As Folder",
+							"description": "Set the Value of the Pipeline Variable \"itemType\" with the Text \"This is a Folder\".",
 							"type": "SetVariable",
 							"dependsOn": [],
 							"userProperties": [],
 							"typeProperties": {
 								"variableName": "var_itemType",
-								"value": "This is a File"
+								"value": "This is a Folder"
 							}
 						}
 					],
 					"ifTrueActivities": [
 						{
-							"name": "Set Item Type As Folder",
-							"description": "Set the Value of the Pipeline Variable \"itemType\" with the Text \"This is a Folder\".",
+							"name": "Set Item Type As File",
+							"description": "Set the Value of the Pipeline Variable \"var_itemType\" with the Text \"This is a File\".",
 							"type": "SetVariable",
 							"dependsOn": [],
 							"userProperties": [],
