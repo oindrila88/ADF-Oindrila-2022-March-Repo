@@ -21,7 +21,7 @@
 			"value": "https://logadlsoindrila2022march.dfs.core.windows.net"
 		},
 		"http_World_Bank_Total_Population_properties_typeProperties_url": {
-			"value": "http://api.worldbank.org/v2/indicator/SP.POP.TOTL?downloadformat=csv"
+			"value": "http://api.worldbank.org/v2/country/ind/indicator/"
 		}
 	}
 }

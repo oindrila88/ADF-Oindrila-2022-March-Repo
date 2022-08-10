@@ -29,7 +29,7 @@
 		},
 		"http_World_Bank_Total_Population_properties_typeProperties_url": {
 			"type": "string",
-			"defaultValue": "http://api.worldbank.org/v2/indicator/SP.POP.TOTL?downloadformat=csv"
+			"defaultValue": "http://api.worldbank.org/v2/country/ind/indicator/"
 		}
 	},
 	"variables": {
@@ -3700,6 +3700,323 @@
 				}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/25_Learn_Issue_Of_Unzip_Files_From_API_Using_Copy_Data_Activity')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Unzip the Zipped CSV Files from API",
+						"description": "Unzip the Zipped CSV Files from the API \"http://api.worldbank.org/v2/country/ind/indicator/AG.AGR.TRAC.NO?source=2&downloadformat=csv\" to the Output Directory \"copy-data-output/pl-copy-unzip-file-from-api-activity\" under the Output Container \"stage\".",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 2,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "BinarySource",
+								"storeSettings": {
+									"type": "HttpReadSettings",
+									"requestMethod": "GET"
+								},
+								"formatSettings": {
+									"type": "BinaryReadSettings",
+									"compressionProperties": {
+										"type": "ZipDeflateReadSettings",
+										"preserveZipFileNameAsFolder": false
+									}
+								}
+							},
+							"sink": {
+								"type": "BinarySink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								}
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "DS_HTTP_Zip_File",
+								"type": "DatasetReference",
+								"parameters": {
+									"param_indicatorRelativeUrl": {
+										"value": "@pipeline().parameters.param_relativeUrl",
+										"type": "Expression"
+									}
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DS_Binary_File_With_Container_Directory_Params",
+								"type": "DatasetReference",
+								"parameters": {
+									"param_containerName": {
+										"value": "@pipeline().parameters.param_outputUnzipContainerName",
+										"type": "Expression"
+									},
+									"param_directoryName": {
+										"value": "@pipeline().parameters.param_outputUnzipDirectoryName",
+										"type": "Expression"
+									}
+								}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"param_relativeUrl": {
+						"type": "string",
+						"defaultValue": "AG.AGR.TRAC.NO?source=2&downloadformat=csv"
+					},
+					"param_outputUnzipContainerName": {
+						"type": "string",
+						"defaultValue": "stage"
+					},
+					"param_outputUnzipDirectoryName": {
+						"type": "string",
+						"defaultValue": "copy-data-output/pl-copy-unzip-file-from-api-activity"
+					}
+				},
+				"folder": {
+					"name": "Training Folder/Learning Activities/Day-8"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/DS_HTTP_Zip_File')]",
+				"[concat(variables('factoryId'), '/datasets/DS_Binary_File_With_Container_Directory_Params')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_HTTP_Zip_File')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "http_World_Bank_Total_Population",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"param_indicatorRelativeUrl": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "Binary",
+				"typeProperties": {
+					"location": {
+						"type": "HttpServerLocation",
+						"relativeUrl": {
+							"value": "@dataset().param_indicatorRelativeUrl",
+							"type": "Expression"
+						}
+					},
+					"compression": {
+						"type": "ZipDeflate",
+						"level": "Optimal"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/http_World_Bank_Total_Population')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/26_Learn_Unzip_Files_From_API_Using_Copy_Data_Activity')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy the Zipped CSV Files from API to Stage",
+						"description": "Copy the Zipped CSV Files from the API \"http://api.worldbank.org/v2/country/ind/indicator/AG.AGR.TRAC.NO?source=2&downloadformat=csv\" to the Staging Directory \"copy-data-output/stage-pl-copy-unzip-file-from-api-activity\" under the Output Container \"stage\".",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 2,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "BinarySource",
+								"storeSettings": {
+									"type": "HttpReadSettings",
+									"requestMethod": "GET"
+								},
+								"formatSettings": {
+									"type": "BinaryReadSettings",
+									"compressionProperties": {
+										"type": "ZipDeflateReadSettings",
+										"preserveZipFileNameAsFolder": false
+									}
+								}
+							},
+							"sink": {
+								"type": "BinarySink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								}
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "DS_HTTP_Zip_File",
+								"type": "DatasetReference",
+								"parameters": {
+									"param_indicatorRelativeUrl": {
+										"value": "@pipeline().parameters.param_relativeUrl",
+										"type": "Expression"
+									}
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DS_Zip_File_With_Container_Directory_Params",
+								"type": "DatasetReference",
+								"parameters": {
+									"param_containerName": {
+										"value": "@pipeline().parameters.param_outputUnzipContainerName",
+										"type": "Expression"
+									},
+									"param_directoryName": {
+										"value": "@pipeline().parameters.param_stageDirectoryName",
+										"type": "Expression"
+									}
+								}
+							}
+						]
+					},
+					{
+						"name": "Unzip the Zipped CSV Files from Stage to Output",
+						"description": "Unzip the Zipped CSV Files from the Stage Directory \"copy-data-output/stage-pl-copy-unzip-file-from-api-activity\" under the Output Container \"stage\" to the Output Directory \"copy-data-output/pl-copy-unzip-file-from-api-activity\" under the Output Container \"stage\".",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "Copy the Zipped CSV Files from API to Stage",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "BinarySource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"wildcardFileName": "*.zip",
+									"deleteFilesAfterCompletion": false
+								},
+								"formatSettings": {
+									"type": "BinaryReadSettings",
+									"compressionProperties": {
+										"type": "ZipDeflateReadSettings",
+										"preserveZipFileNameAsFolder": false
+									}
+								}
+							},
+							"sink": {
+								"type": "BinarySink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								}
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "DS_Zip_File_With_Container_Directory_Params",
+								"type": "DatasetReference",
+								"parameters": {
+									"param_containerName": {
+										"value": "@pipeline().parameters.param_outputUnzipContainerName",
+										"type": "Expression"
+									},
+									"param_directoryName": {
+										"value": "@pipeline().parameters.param_stageDirectoryName",
+										"type": "Expression"
+									}
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DS_Binary_File_With_Container_Directory_Params",
+								"type": "DatasetReference",
+								"parameters": {
+									"param_containerName": {
+										"value": "@pipeline().parameters.param_outputUnzipContainerName",
+										"type": "Expression"
+									},
+									"param_directoryName": {
+										"value": "@pipeline().parameters.param_outputUnzipDirectoryName",
+										"type": "Expression"
+									}
+								}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"param_relativeUrl": {
+						"type": "string",
+						"defaultValue": "AG.AGR.TRAC.NO?source=2&downloadformat=csv"
+					},
+					"param_outputUnzipContainerName": {
+						"type": "string",
+						"defaultValue": "stage"
+					},
+					"param_stageDirectoryName": {
+						"type": "string",
+						"defaultValue": "copy-data-output/stage-pl-copy-unzip-file-from-api-activity"
+					},
+					"param_outputUnzipDirectoryName": {
+						"type": "string",
+						"defaultValue": "copy-data-output/pl-copy-unzip-file-from-api-activity"
+					}
+				},
+				"folder": {
+					"name": "Training Folder/Learning Activities/Day-8"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/DS_HTTP_Zip_File')]",
+				"[concat(variables('factoryId'), '/datasets/DS_Zip_File_With_Container_Directory_Params')]",
+				"[concat(variables('factoryId'), '/datasets/DS_Binary_File_With_Container_Directory_Params')]"
+			]
 		}
 	]
 }

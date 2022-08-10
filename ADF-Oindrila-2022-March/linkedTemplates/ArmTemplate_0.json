@@ -25,7 +25,7 @@
 		},
 		"http_World_Bank_Total_Population_properties_typeProperties_url": {
 			"type": "string",
-			"defaultValue": "http://api.worldbank.org/v2/indicator/SP.POP.TOTL?downloadformat=csv"
+			"defaultValue": "http://api.worldbank.org/v2/country/ind/indicator/"
 		}
 	},
 	"variables": {

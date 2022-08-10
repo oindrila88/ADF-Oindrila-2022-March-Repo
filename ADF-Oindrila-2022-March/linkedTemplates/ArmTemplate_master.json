@@ -29,7 +29,7 @@
 		},
 		"http_World_Bank_Total_Population_properties_typeProperties_url": {
 			"type": "string",
-			"defaultValue": "http://api.worldbank.org/v2/indicator/SP.POP.TOTL?downloadformat=csv"
+			"defaultValue": "http://api.worldbank.org/v2/country/ind/indicator/"
 		},
 		"containerUri": {
 			"type": "string",
@@ -98,6 +98,26 @@
 			},
 			"dependsOn": [
 				"[resourceId('Microsoft.Resources/deployments', 'ADF-Oindrila-2022-March_ArmTemplate_0')]"
+			]
+		},
+		{
+			"name": "ADF-Oindrila-2022-March_ArmTemplate_2",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_2.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'ADF-Oindrila-2022-March_ArmTemplate_1')]"
 			]
 		}
 	]
