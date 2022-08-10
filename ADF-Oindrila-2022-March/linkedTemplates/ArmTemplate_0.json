@@ -7,17 +7,25 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "ADF-Oindrila-2022-March"
 		},
-		"LS_keyvault_2022_march_properties_typeProperties_baseUrl": {
+		"LS_SQLServer_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'LS_SQLServer'"
+		},
+		"LS_oindrila_workspace_2022_march_accessToken": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accessToken' of 'LS_oindrila_workspace_2022_march'"
+		},
+		"LS_KV_Oindrila_2022_March_properties_typeProperties_baseUrl": {
 			"type": "string",
-			"defaultValue": "https://keyvault-2022-march.vault.azure.net/"
+			"defaultValue": "https://kv-oindrila-2022-march.vault.azure.net/"
 		},
 		"LS_adlsoindrila2022march_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://adlsoindrila2022march.dfs.core.windows.net"
 		},
-		"LS_logadlsoindrila2022march_properties_typeProperties_url": {
+		"http_World_Bank_Total_Population_properties_typeProperties_url": {
 			"type": "string",
-			"defaultValue": "https://logadlsoindrila2022march.dfs.core.windows.net"
+			"defaultValue": "http://api.worldbank.org/v2/indicator/SP.POP.TOTL?downloadformat=csv"
 		}
 	},
 	"variables": {
@@ -25,15 +33,501 @@
 	},
 	"resources": [
 		{
-			"name": "[concat(parameters('factoryName'), '/LS_keyvault_2022_march')]",
+			"name": "[concat(parameters('factoryName'), '/14_Learn_If_Condition_Activity')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Verify If City Exists",
+						"description": "Verify if the Value of Pipeline Parameter \"param_cityToSearch\" Exists in the Pipeline Parameter \"param_listOfCities\" of Type Array",
+						"type": "IfCondition",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"expression": {
+								"value": "@contains(pipeline().parameters.param_listOfCities, pipeline().parameters.param_cityToSearch)",
+								"type": "Expression"
+							},
+							"ifFalseActivities": [
+								{
+									"name": "Set Text for False",
+									"description": "Set the Text \"No. It Does Not Exist\" to the Pipeline Variable \"ifCityExists\".",
+									"type": "SetVariable",
+									"dependsOn": [],
+									"userProperties": [],
+									"typeProperties": {
+										"variableName": "var_ifCityExists",
+										"value": "No. It Does Not Exist"
+									}
+								}
+							],
+							"ifTrueActivities": [
+								{
+									"name": "Set Text for True",
+									"description": "Set the Text \"Yes. It Exists\" to the Pipeline Variable \"ifCityExists\".",
+									"type": "SetVariable",
+									"dependsOn": [],
+									"userProperties": [],
+									"typeProperties": {
+										"variableName": "var_ifCityExists",
+										"value": "Yes. It Exists"
+									}
+								}
+							]
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"param_listOfCities": {
+						"type": "array",
+						"defaultValue": [
+							"New York",
+							"London",
+							"Tokyo",
+							"Singapore City",
+							"Lisbon"
+						]
+					},
+					"param_cityToSearch": {
+						"type": "string",
+						"defaultValue": "Kolkata"
+					}
+				},
+				"variables": {
+					"var_ifCityExists": {
+						"type": "String"
+					}
+				},
+				"folder": {
+					"name": "Training Folder/Learning Activities/Day-6"
+				},
+				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/1_PL_Learn_Set_Variable_Activity')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Set City Name Variable",
+						"description": "Get the Value of the Property \"City\" from the Pipeline Parameter \"param_addressLine\" of \"String\" Type and Store into the Variable \"var_cityName\".",
+						"type": "SetVariable",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"variableName": "var_cityName",
+							"value": {
+								"value": "@trim(split(split(pipeline().parameters.param_addressLine, ',')[1], ':')[1])",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"param_addressLine": {
+						"type": "string",
+						"defaultValue": "Address: 221 M.G. Road, City: Kolkata, State: West Bengal"
+					}
+				},
+				"variables": {
+					"var_cityName": {
+						"type": "String"
+					}
+				},
+				"folder": {
+					"name": "Training Folder/Learning Activities/Day-1"
+				},
+				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/20_Learn_Wait_Activity')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Wait for Specified Time",
+						"description": "Wait for the Specified Time, Provided in the Pipeline Parameter \"waitTimeInSecond\".",
+						"type": "Wait",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"waitTimeInSeconds": {
+								"value": "@pipeline().parameters.param_waitTimeInSecond",
+								"type": "Expression"
+							}
+						}
+					},
+					{
+						"name": "Set Wait Finish Message",
+						"description": "Set the Value of the Pipeline Variable \"waitOutput\" as the Value of the Pipeline Parameter \"waitFinishMessage\".",
+						"type": "SetVariable",
+						"dependsOn": [
+							{
+								"activity": "Wait for Specified Time",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"variableName": "var_waitOutput",
+							"value": {
+								"value": "@pipeline().parameters.param_waitFinishMessage",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"param_waitTimeInSecond": {
+						"type": "int",
+						"defaultValue": 75
+					},
+					"param_waitFinishMessage": {
+						"type": "string",
+						"defaultValue": "Wait is over"
+					}
+				},
+				"variables": {
+					"var_waitOutput": {
+						"type": "String"
+					}
+				},
+				"folder": {
+					"name": "Training Folder/Learning Activities/Day-7"
+				},
+				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/2_PL_Learn_Append_Variable_Activity')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Append City Name to List of Cities Variable",
+						"description": "Append the Value of the Variable \"var_cityName\" to the Existing Array Variable \"var_listOfCities\".",
+						"type": "AppendVariable",
+						"dependsOn": [
+							{
+								"activity": "Set City Name Variable",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"variableName": "var_listOfCities",
+							"value": {
+								"value": "@variables('var_cityName')",
+								"type": "Expression"
+							}
+						}
+					},
+					{
+						"name": "Set City Name Variable",
+						"description": "Get the Value of the Property \"City\" from the Pipeline Parameter \"param_addressLine\" of \"String\" Type.",
+						"type": "SetVariable",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"variableName": "var_cityName",
+							"value": {
+								"value": "@trim(split(split(pipeline().parameters.param_addressLine, ',')[1], ':')[1])",
+								"type": "Expression"
+							}
+						}
+					},
+					{
+						"name": "Set List of Cities Variable to Another Variable",
+						"description": "Set the Value of the Array Variable \"var_listOfCities\" to the Existing Empty Array Variable \"var_appendedCities\".",
+						"type": "SetVariable",
+						"dependsOn": [
+							{
+								"activity": "Append City Name to List of Cities Variable",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"variableName": "var_appendedCities",
+							"value": {
+								"value": "@variables('var_listOfCities')",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"param_addressLine": {
+						"type": "string",
+						"defaultValue": "Address: 221 M.G. Road, City: Kolkata, State: West Bengal"
+					}
+				},
+				"variables": {
+					"var_cityName": {
+						"type": "String"
+					},
+					"var_listOfCities": {
+						"type": "Array",
+						"defaultValue": [
+							"New York",
+							"London",
+							"Tokyo",
+							"Singapore City"
+						]
+					},
+					"var_appendedCities": {
+						"type": "Array"
+					}
+				},
+				"folder": {
+					"name": "Training Folder/Learning Activities/Day-1"
+				},
+				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/3_PL_Learn_Filter_Activity')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Filter City Starting With Letter - L",
+						"description": "Filter All the Cities, Starting with the Letter \"L\", from the Pipeline Parameter \"param_listOfCities\".",
+						"type": "Filter",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@pipeline().parameters.param_listOfCities",
+								"type": "Expression"
+							},
+							"condition": {
+								"value": "@startswith(item(), 'L')",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"param_listOfCities": {
+						"type": "array",
+						"defaultValue": [
+							"New York",
+							"London",
+							"Tokyo",
+							"Singapore City",
+							"Lisbon"
+						]
+					}
+				},
+				"folder": {
+					"name": "Training Folder/Learning Activities/Day-1"
+				},
+				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/4_Learn_Web_Activity')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Find Weather Info of City",
+						"description": "Access the REST API BASE URL \"http://api.weatherstack.com/current/\", and, pass \"City Name\" and the \"Access Key\" as \"Query String\", appended to the BASE URL, separated by a \"Question Mark\", i.e., \"?\".",
+						"type": "WebActivity",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 2,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": {
+								"value": "@concat('http://api.weatherstack.com/current?access_key=', pipeline().parameters.param_accessKey, '&query=', pipeline().parameters.param_cityName)",
+								"type": "Expression"
+							},
+							"method": "GET",
+							"headers": {}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"param_cityName": {
+						"type": "string",
+						"defaultValue": "Kolkata"
+					},
+					"param_accessKey": {
+						"type": "string",
+						"defaultValue": "7b1a503846c18a56136f8ab3c90d5017"
+					}
+				},
+				"folder": {
+					"name": "Training Folder/Learning Activities/Day-2"
+				},
+				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/5_Learn_To_Access_KV_Secret_From_ADF_PL')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Find API Access Key KV Secret",
+						"description": "Fetch the Value of the Secret \"kv-secret-for-weather-api-access-key\" from the Azure Key Vault resource “KV-Oindrila-2022-March”",
+						"type": "WebActivity",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 2,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": true,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": "https://kv-oindrila-2022-march.vault.azure.net/secrets/kv-secret-for-weather-api-access-key/?api-version=7.0",
+							"method": "GET",
+							"headers": {},
+							"authentication": {
+								"type": "MSI",
+								"resource": "https://vault.azure.net"
+							}
+						}
+					},
+					{
+						"name": "Find Weather Info of City",
+						"description": "Access the REST API BASE URL \"http://api.weatherstack.com/current/\", and, pass \"City Name\" and the \"Access Key\" as \"Query String\", appended to the BASE URL, separated by a \"Question Mark\", i.e., \"?\".",
+						"type": "WebActivity",
+						"dependsOn": [
+							{
+								"activity": "Find API Access Key KV Secret",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 2,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": true
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": {
+								"value": "@concat('http://api.weatherstack.com/current?access_key=', activity('Find API Access Key KV Secret').output.value, '&query=', pipeline().parameters.param_cityName)",
+								"type": "Expression"
+							},
+							"method": "GET",
+							"headers": {}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"param_cityName": {
+						"type": "string",
+						"defaultValue": "Kolkata"
+					}
+				},
+				"folder": {
+					"name": "Training Folder/Learning Activities/Day-2"
+				},
+				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LS_KV_Oindrila_2022_March')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"description": "Linked Service for Connecting to the Azure Key Vault Instance \"keyvault-2022-march\" from the ADF Instance \"ADF-Oindrila-2022-March\".",
+				"description": "Linked Service to Connect to the Azure Key Vault Instance \"KV-Oindrila-2022-March\" from Azure Data Factory Instance \"ADF-Oindrila-2022-March\".",
 				"annotations": [],
 				"type": "AzureKeyVault",
 				"typeProperties": {
-					"baseUrl": "[parameters('LS_keyvault_2022_march_properties_typeProperties_baseUrl')]"
+					"baseUrl": "[parameters('LS_KV_Oindrila_2022_March_properties_typeProperties_baseUrl')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LS_SQLServer')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Linked Service for connecting to SQL Server resource \"sqlserveroindrila2022march\"",
+				"parameters": {
+					"param_ServerName": {
+						"type": "string"
+					},
+					"param_DatabaseName": {
+						"type": "string"
+					},
+					"param_AdminUserName": {
+						"type": "string"
+					},
+					"param_Password": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"connectionString": "[parameters('LS_SQLServer_connectionString')]"
 				}
 			},
 			"dependsOn": []
@@ -43,51 +537,401 @@
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"description": "Linked Service for Connecting to ADLS Gen2 Instance \"adlsoindrila2022march\" from ADF Instance \"ADF-Oindrila-2022-March\".",
+				"description": "Linked Service for connecting to Azure Data Lake Storage Gen2 ‘adlsoindrila2022march’",
 				"annotations": [],
 				"type": "AzureBlobFS",
 				"typeProperties": {
-					"url": "[parameters('LS_adlsoindrila2022march_properties_typeProperties_url')]",
-					"accountKey": {
-						"type": "AzureKeyVaultSecret",
-						"store": {
-							"referenceName": "LS_keyvault_2022_march",
-							"type": "LinkedServiceReference"
-						},
-						"secretName": "adlsoindrila2022march-access-key-1"
-					}
+					"url": "[parameters('LS_adlsoindrila2022march_properties_typeProperties_url')]"
 				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/LS_keyvault_2022_march')]"
-			]
+			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/LS_logadlsoindrila2022march')]",
+			"name": "[concat(parameters('factoryName'), '/LS_oindrila_workspace_2022_march')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"description": "Linked Service for Connecting to ADLS Gen2 Instance \"logadlsoindrila2022march\" from ADF Instance \"ADF-Oindrila-2022-March\" for Logging.",
+				"description": "\"Linked Service\" to the Azure Databricks Instance \"oindrila_workspace_2022_march\".",
 				"annotations": [],
-				"type": "AzureBlobFS",
+				"type": "AzureDatabricks",
 				"typeProperties": {
-					"url": "[parameters('LS_logadlsoindrila2022march_properties_typeProperties_url')]",
-					"accountKey": {
-						"type": "AzureKeyVaultSecret",
-						"store": {
-							"referenceName": "LS_keyvault_2022_march",
-							"type": "LinkedServiceReference"
-						},
-						"secretName": "logadlsoindrila2022march-access-key-1"
-					}
+					"domain": "https://adb-2428975292555881.1.azuredatabricks.net",
+					"accessToken": {
+						"type": "SecureString",
+						"value": "[parameters('LS_oindrila_workspace_2022_march_accessToken')]"
+					},
+					"newClusterNodeType": "Standard_DS3_v2",
+					"newClusterNumOfWorker": "1",
+					"newClusterSparkEnvVars": {
+						"PYSPARK_PYTHON": "/databricks/python3/bin/python3"
+					},
+					"newClusterVersion": "10.5.x-scala2.12",
+					"newClusterInitScripts": [],
+					"clusterOption": "Fixed"
 				}
 			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/http_World_Bank_Total_Population')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "This API gives a Zip file, containing main indicator details file, along with metadata files in CSV format",
+				"annotations": [],
+				"type": "HttpServer",
+				"typeProperties": {
+					"url": "[parameters('http_World_Bank_Total_Population_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": true,
+					"authenticationType": "Anonymous"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/6_Learn_Stored_Procedure_Activity')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Find SQL Server Password KV Secret",
+						"description": "Fetch the Value of the Secret \"kv-sqlserveroindrila2022march-pwd\" from the Azure Key Vault resource “KV-Oindrila-2022-March”",
+						"type": "WebActivity",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 2,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": true,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": "https://kv-oindrila-2022-march.vault.azure.net/secrets/kv-sqlserveroindrila2022march-pwd/?api-version=7.0",
+							"method": "GET",
+							"headers": {},
+							"authentication": {
+								"type": "MSI",
+								"resource": "https://vault.azure.net"
+							}
+						}
+					},
+					{
+						"name": "Insert Stored Procedure",
+						"description": "Call the Stored Procedure \"SP_InsertPipelineRunDetails\" to Insert the Pipeline Run Details to the Table \"tbl_PipelineRunDetails\".",
+						"type": "SqlServerStoredProcedure",
+						"dependsOn": [
+							{
+								"activity": "Find SQL Server Password KV Secret",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": true
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"storedProcedureName": {
+								"value": "@pipeline().parameters.param_storedProcedureName",
+								"type": "Expression"
+							},
+							"storedProcedureParameters": {
+								"DataFactoryName": {
+									"value": {
+										"value": "@pipeline().DataFactory",
+										"type": "Expression"
+									},
+									"type": "String"
+								},
+								"PipelineName": {
+									"value": {
+										"value": "@pipeline().Pipeline",
+										"type": "Expression"
+									},
+									"type": "String"
+								},
+								"PipelineRunId": {
+									"value": {
+										"value": "@pipeline().RunId",
+										"type": "Expression"
+									},
+									"type": "String"
+								},
+								"TriggerType": {
+									"value": {
+										"value": "@pipeline().TriggerType",
+										"type": "Expression"
+									},
+									"type": "String"
+								},
+								"TriggerRunId": {
+									"value": {
+										"value": "@pipeline().TriggerId",
+										"type": "Expression"
+									},
+									"type": "String"
+								},
+								"TriggerName": {
+									"value": {
+										"value": "@pipeline().TriggerName",
+										"type": "Expression"
+									},
+									"type": "String"
+								},
+								"TriggerRunTime": {
+									"value": {
+										"value": "@pipeline().TriggerTime",
+										"type": "Expression"
+									},
+									"type": "String"
+								}
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "LS_SQLServer",
+							"type": "LinkedServiceReference",
+							"parameters": {
+								"param_ServerName": {
+									"value": "@pipeline().parameters.param_sqlServerName",
+									"type": "Expression"
+								},
+								"param_DatabaseName": {
+									"value": "@pipeline().parameters.param_sqlServerDatabaseName",
+									"type": "Expression"
+								},
+								"param_AdminUserName": {
+									"value": "@pipeline().parameters.param_sqlServerAdminUserName",
+									"type": "Expression"
+								},
+								"param_Password": {
+									"value": "@activity('Find SQL Server Password KV Secret').output.value",
+									"type": "Expression"
+								}
+							}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"param_sqlServerName": {
+						"type": "string",
+						"defaultValue": "sqlserveroindrila2022march.database.windows.net"
+					},
+					"param_sqlServerDatabaseName": {
+						"type": "string",
+						"defaultValue": "sqldboindrila2022march"
+					},
+					"param_sqlServerAdminUserName": {
+						"type": "string",
+						"defaultValue": "oindrila2022march"
+					},
+					"param_storedProcedureName": {
+						"type": "string",
+						"defaultValue": "dbo.SP_InsertPipelineRunDetails"
+					}
+				},
+				"folder": {
+					"name": "Training Folder/Learning Activities/Day-3"
+				},
+				"annotations": []
+			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/LS_keyvault_2022_march')]"
+				"[concat(variables('factoryId'), '/linkedServices/LS_SQLServer')]"
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/DS_adlsoindrila2022march_Bin_File')]",
+			"name": "[concat(parameters('factoryName'), '/7_Learn_Stored_Procedure_Activity_With_Out_Param')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Find SQL Server Password KV Secret",
+						"description": "Fetch the Value of the Secret \"kv-sqlserveroindrila2022march-pwd\" from the Azure Key Vault resource “KV-Oindrila-2022-March”",
+						"type": "WebActivity",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 2,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": true,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": "https://kv-oindrila-2022-march.vault.azure.net/secrets/kv-sqlserveroindrila2022march-pwd/?api-version=7.0",
+							"method": "GET",
+							"headers": {},
+							"authentication": {
+								"type": "MSI",
+								"resource": "https://vault.azure.net"
+							}
+						}
+					},
+					{
+						"name": "Data Retrieval Stored Procedure",
+						"description": "Call the Stored Procedure \"dbo.SP_GetEmployeeDetails\" to Fetch the Details of the Table \"Employee\".",
+						"type": "SqlServerStoredProcedure",
+						"dependsOn": [
+							{
+								"activity": "Find SQL Server Password KV Secret",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": true
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"storedProcedureName": {
+								"value": "@pipeline().parameters.param_storedProcedureName",
+								"type": "Expression"
+							},
+							"storedProcedureParameters": {
+								"Address": {
+									"value": {
+										"value": "@pipeline().parameters.param_address",
+										"type": "Expression"
+									},
+									"type": "String"
+								},
+								"Id": {
+									"value": null,
+									"type": "Int32"
+								},
+								"FirstName": {
+									"value": null,
+									"type": "String"
+								},
+								"LastName": {
+									"value": null,
+									"type": "String"
+								}
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "LS_SQLServer",
+							"type": "LinkedServiceReference",
+							"parameters": {
+								"param_ServerName": {
+									"value": "@pipeline().parameters.param_sqlServerName",
+									"type": "Expression"
+								},
+								"param_DatabaseName": {
+									"value": "@pipeline().parameters.param_sqlServerDatabaseName",
+									"type": "Expression"
+								},
+								"param_AdminUserName": {
+									"value": "@pipeline().parameters.param_sqlServerAdminUserName",
+									"type": "Expression"
+								},
+								"param_Password": {
+									"value": "@activity('Find SQL Server Password KV Secret').output.value",
+									"type": "Expression"
+								}
+							}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"param_sqlServerName": {
+						"type": "string",
+						"defaultValue": "sqlserveroindrila2022march.database.windows.net"
+					},
+					"param_sqlServerDatabaseName": {
+						"type": "string",
+						"defaultValue": "sqldboindrila2022march"
+					},
+					"param_sqlServerAdminUserName": {
+						"type": "string",
+						"defaultValue": "oindrila2022march"
+					},
+					"param_storedProcedureName": {
+						"type": "string",
+						"defaultValue": "dbo.SP_GetEmployeeDetails"
+					},
+					"param_address": {
+						"type": "string",
+						"defaultValue": "Kolkata"
+					}
+				},
+				"folder": {
+					"name": "Training Folder/Learning Activities/Day-3"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_SQLServer')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/PL_Call_ADB_Notebook')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Calling one Databricks Notebook",
+				"activities": [
+					{
+						"name": "Calling Notebook",
+						"description": "Call the Notebook \"nbk_Introduction_To_Widgets\".",
+						"type": "DatabricksNotebook",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 2,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": true,
+							"secureInput": true
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": "/Users/oindrila.chakraborty88_gmail.com#ext#@oindrilachakraborty88gmail.onmicrosoft.com/Training-Day-5/nbk_Introduction_To_Widgets",
+							"baseParameters": {
+								"Text Widget": "Soumyajyoti Bagchi",
+								"Dropdown Widget": "17"
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "LS_oindrila_workspace_2022_march",
+							"type": "LinkedServiceReference"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"folder": {
+					"name": "Calling Other Services Folder"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_oindrila_workspace_2022_march')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_Binary_File_With_Container_Directory_Params')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -96,27 +940,26 @@
 					"type": "LinkedServiceReference"
 				},
 				"parameters": {
-					"container name": {
-						"type": "string",
-						"defaultValue": "zip-container"
+					"param_containerName": {
+						"type": "string"
+					},
+					"param_directoryName": {
+						"type": "string"
 					}
-				},
-				"folder": {
-					"name": "ADLS Dataset Folder"
 				},
 				"annotations": [],
 				"type": "Binary",
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
+						"folderPath": {
+							"value": "@dataset().param_directoryName",
+							"type": "Expression"
+						},
 						"fileSystem": {
-							"value": "@dataset().container name",
+							"value": "@dataset().param_containerName",
 							"type": "Expression"
 						}
-					},
-					"compression": {
-						"type": "ZipDeflate",
-						"level": "Optimal"
 					}
 				}
 			},
@@ -125,7 +968,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/DS_adlsoindrila2022march_Csv_File')]",
+			"name": "[concat(parameters('factoryName'), '/DS_CSV_With_Container_Directory_File_Params')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -134,21 +977,31 @@
 					"type": "LinkedServiceReference"
 				},
 				"parameters": {
-					"container name": {
-						"type": "string",
-						"defaultValue": "csv-container"
+					"param_containerName": {
+						"type": "string"
+					},
+					"param_directoryName": {
+						"type": "string"
+					},
+					"param_fileName": {
+						"type": "string"
 					}
-				},
-				"folder": {
-					"name": "ADLS Dataset Folder"
 				},
 				"annotations": [],
 				"type": "DelimitedText",
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
+						"fileName": {
+							"value": "@dataset().param_fileName",
+							"type": "Expression"
+						},
+						"folderPath": {
+							"value": "@dataset().param_directoryName",
+							"type": "Expression"
+						},
 						"fileSystem": {
-							"value": "@dataset().container name",
+							"value": "@dataset().param_containerName",
 							"type": "Expression"
 						}
 					},
@@ -164,97 +1017,124 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/PPL_Practice_1')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
+			"name": "[concat(parameters('factoryName'), '/DS_CSV_With_Container_Directory_Params')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"activities": [
-					{
-						"name": "Extract CSV Files",
-						"description": "Extract CSV Files from One Directory to Another Directory.",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 2,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "BinarySource",
-								"storeSettings": {
-									"type": "AzureBlobFSReadSettings",
-									"recursive": true,
-									"wildcardFolderPath": "*",
-									"wildcardFileName": "*.zip",
-									"deleteFilesAfterCompletion": false
-								},
-								"formatSettings": {
-									"type": "BinaryReadSettings",
-									"compressionProperties": {
-										"type": "ZipDeflateReadSettings"
-									}
-								}
-							},
-							"sink": {
-								"type": "BinarySink",
-								"storeSettings": {
-									"type": "AzureBlobFSWriteSettings",
-									"copyBehavior": "PreserveHierarchy"
-								}
-							},
-							"enableStaging": false,
-							"enableSkipIncompatibleRow": false,
-							"logSettings": {
-								"enableCopyActivityLog": true,
-								"copyActivityLogSettings": {
-									"logLevel": "Info",
-									"enableReliableLogging": false
-								},
-								"logLocationSettings": {
-									"linkedServiceName": {
-										"referenceName": "LS_logadlsoindrila2022march",
-										"type": "LinkedServiceReference"
-									},
-									"path": "practice-ppl-log-container"
-								}
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "DS_adlsoindrila2022march_Bin_File",
-								"type": "DatasetReference",
-								"parameters": {
-									"container name": "zip-container"
-								}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "DS_adlsoindrila2022march_Bin_File",
-								"type": "DatasetReference",
-								"parameters": {
-									"container name": "zip-container"
-								}
-							}
-						]
+				"linkedServiceName": {
+					"referenceName": "LS_adlsoindrila2022march",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"param_containerName": {
+						"type": "string"
+					},
+					"param_directoryName": {
+						"type": "string"
 					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
 				},
-				"folder": {
-					"name": "Practice Pipeline Folder"
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": {
+							"value": "@dataset().param_directoryName",
+							"type": "Expression"
+						},
+						"fileSystem": {
+							"value": "@dataset().param_containerName",
+							"type": "Expression"
+						}
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
 				},
-				"annotations": []
+				"schema": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/DS_adlsoindrila2022march_Bin_File')]",
-				"[concat(variables('factoryId'), '/linkedServices/LS_logadlsoindrila2022march')]"
+				"[concat(variables('factoryId'), '/linkedServices/LS_adlsoindrila2022march')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_Json_With_Container_And_Directory_Params')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_adlsoindrila2022march",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"param_containerName": {
+						"type": "string"
+					},
+					"param_directoryName": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": {
+							"value": "@dataset().param_directoryName",
+							"type": "Expression"
+						},
+						"fileSystem": {
+							"value": "@dataset().param_containerName",
+							"type": "Expression"
+						}
+					}
+				},
+				"schema": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_adlsoindrila2022march')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_Zip_File_With_Container_Directory_Params')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_adlsoindrila2022march",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"param_containerName": {
+						"type": "string"
+					},
+					"param_directoryName": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "Binary",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": {
+							"value": "@dataset().param_directoryName",
+							"type": "Expression"
+						},
+						"fileSystem": {
+							"value": "@dataset().param_containerName",
+							"type": "Expression"
+						}
+					},
+					"compression": {
+						"type": "ZipDeflate",
+						"level": "Optimal"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_adlsoindrila2022march')]"
 			]
 		}
 	]

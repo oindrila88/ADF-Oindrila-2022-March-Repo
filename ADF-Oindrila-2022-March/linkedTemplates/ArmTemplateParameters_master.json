@@ -5,14 +5,23 @@
 		"factoryName": {
 			"value": "ADF-Oindrila-2022-March"
 		},
+		"LS_SQLServer_connectionString": {
+			"value": ""
+		},
+		"LS_oindrila_workspace_2022_march_accessToken": {
+			"value": ""
+		},
+		"LS_KV_Oindrila_2022_March_properties_typeProperties_baseUrl": {
+			"value": "https://kv-oindrila-2022-march.vault.azure.net/"
+		},
 		"LS_adlsoindrila2022march_properties_typeProperties_url": {
 			"value": "https://adlsoindrila2022march.dfs.core.windows.net"
 		},
-		"LS_keyvault_2022_march_properties_typeProperties_baseUrl": {
-			"value": "https://keyvault-2022-march.vault.azure.net/"
-		},
 		"LS_logadlsoindrila2022march_properties_typeProperties_url": {
 			"value": "https://logadlsoindrila2022march.dfs.core.windows.net"
+		},
+		"http_World_Bank_Total_Population_properties_typeProperties_url": {
+			"value": "http://api.worldbank.org/v2/indicator/SP.POP.TOTL?downloadformat=csv"
 		},
 		"containerUri": {
 			"value": ""
