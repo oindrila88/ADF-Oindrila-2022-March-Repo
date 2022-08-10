@@ -28,58 +28,12 @@
 							"type": "DelimitedTextReadSettings"
 						}
 					},
-					"sink": {
-						"type": "DelimitedTextSink",
-						"storeSettings": {
-							"type": "AzureBlobFSWriteSettings",
-							"copyBehavior": "PreserveHierarchy"
-						},
-						"formatSettings": {
-							"type": "DelimitedTextWriteSettings",
-							"quoteAllText": true,
-							"fileExtension": ".csv"
-						}
-					},
-					"enableStaging": false,
-					"translator": {
-						"type": "TabularTranslator",
-						"typeConversion": true,
-						"typeConversionSettings": {
-							"allowDataTruncation": true,
-							"treatBooleanAsNumber": false
-						}
-					}
+					"enableStaging": false
 				},
 				"inputs": [
 					{
-						"referenceName": "DS_pl_copy_data_activity",
-						"type": "DatasetReference",
-						"parameters": {
-							"param_container": {
-								"value": "@pipeline().parameters.param_inputContainerName",
-								"type": "Expression"
-							},
-							"param_directory": {
-								"value": "@pipeline().parameters.param_inputDirectoryName",
-								"type": "Expression"
-							}
-						}
-					}
-				],
-				"outputs": [
-					{
-						"referenceName": "DS_pl_copy_data_activity",
-						"type": "DatasetReference",
-						"parameters": {
-							"param_container": {
-								"value": "@pipeline().parameters.param_outputContainerName",
-								"type": "Expression"
-							},
-							"param_directory": {
-								"value": "@pipeline().parameters.param_outputDirectoryName",
-								"type": "Expression"
-							}
-						}
+						"referenceName": "DS_CSV_With_Container_Directory_Params",
+						"type": "DatasetReference"
 					}
 				]
 			}
