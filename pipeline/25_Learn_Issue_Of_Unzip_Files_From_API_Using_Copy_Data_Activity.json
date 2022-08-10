@@ -4,7 +4,7 @@
 		"activities": [
 			{
 				"name": "Unzip the Zipped CSV Files from API",
-				"description": "Unzip the Zipped CSV Files from the API \"input-zip-files\" to the Output Directory \"copy-data-output/pl-copy-unzip-file-from-api-activity\" under the Output Container \"stage\".",
+				"description": "Unzip the Zipped CSV Files from the API \"http://api.worldbank.org/v2/country/ind/indicator/AG.AGR.TRAC.NO?source=2&downloadformat=csv\" to the Output Directory \"copy-data-output/pl-copy-unzip-file-from-api-activity\" under the Output Container \"stage\".",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
