@@ -30,6 +30,12 @@
 							}
 						}
 					},
+					"sink": {
+						"type": "BinarySink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						}
+					},
 					"enableStaging": false
 				},
 				"inputs": [
@@ -43,6 +49,12 @@
 							}
 						}
 					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DS_Binary_File_With_Container_Directory_Params",
+						"type": "DatasetReference"
+					}
 				]
 			}
 		],
@@ -50,6 +62,14 @@
 			"param_relativeUrl": {
 				"type": "string",
 				"defaultValue": "AG.AGR.TRAC.NO?source=2&downloadformat=csv"
+			},
+			"param_outputUnzipContainerName": {
+				"type": "string",
+				"defaultValue": "stage"
+			},
+			"param_outputUnzipDirectoryName": {
+				"type": "string",
+				"defaultValue": "copy-data-output/pl-copy-unzip-file-from-api-activity"
 			}
 		},
 		"folder": {
