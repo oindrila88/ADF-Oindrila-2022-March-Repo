@@ -53,7 +53,17 @@
 				"outputs": [
 					{
 						"referenceName": "DS_Binary_File_With_Container_Directory_Params",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"param_containerName": {
+								"value": "@pipeline().parameters.param_outputUnzipContainerName",
+								"type": "Expression"
+							},
+							"param_directoryName": {
+								"value": "@pipeline().parameters.param_outputUnzipDirectoryName",
+								"type": "Expression"
+							}
+						}
 					}
 				]
 			}
