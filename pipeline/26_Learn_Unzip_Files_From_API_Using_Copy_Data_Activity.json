@@ -66,6 +66,84 @@
 						}
 					}
 				]
+			},
+			{
+				"name": "Unzip the Zipped CSV Files from Stage to Output",
+				"description": "Unzip the Zipped CSV Files from the Stage Directory \"copy-data-output/stage-pl-copy-unzip-file-from-api-activity\" under the Output Container \"stage\" to the Output Directory \"copy-data-output/pl-copy-unzip-file-from-api-activity\" under the Output Container \"stage\".",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Copy the Zipped CSV Files from API to Stage",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "BinarySource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"wildcardFileName": "*.zip",
+							"deleteFilesAfterCompletion": false
+						},
+						"formatSettings": {
+							"type": "BinaryReadSettings",
+							"compressionProperties": {
+								"type": "ZipDeflateReadSettings",
+								"preserveZipFileNameAsFolder": false
+							}
+						}
+					},
+					"sink": {
+						"type": "BinarySink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "DS_Zip_File_With_Container_Directory_Params",
+						"type": "DatasetReference",
+						"parameters": {
+							"param_containerName": {
+								"value": "@pipeline().parameters.param_outputUnzipContainerName",
+								"type": "Expression"
+							},
+							"param_directoryName": {
+								"value": "@pipeline().parameters.param_stageDirectoryName",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DS_Binary_File_With_Container_Directory_Params",
+						"type": "DatasetReference",
+						"parameters": {
+							"param_containerName": {
+								"value": "@pipeline().parameters.param_outputUnzipContainerName",
+								"type": "Expression"
+							},
+							"param_directoryName": {
+								"value": "@pipeline().parameters.param_outputUnzipDirectoryName",
+								"type": "Expression"
+							}
+						}
+					}
+				]
 			}
 		],
 		"parameters": {
