@@ -122,14 +122,9 @@
 									"partitionOption": "None"
 								},
 								"sink": {
-									"type": "DelimitedTextSink",
+									"type": "BinarySink",
 									"storeSettings": {
 										"type": "AzureBlobFSWriteSettings"
-									},
-									"formatSettings": {
-										"type": "DelimitedTextWriteSettings",
-										"quoteAllText": true,
-										"fileExtension": ".csv"
 									}
 								},
 								"enableStaging": false
@@ -153,6 +148,22 @@
 										},
 										"param_password": {
 											"value": "@activity('Find SQL Server Password KV Secret').output.value",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "DS_Binary_File_With_Container_Directory_Params",
+									"type": "DatasetReference",
+									"parameters": {
+										"param_containerName": {
+											"value": "@pipeline().parameters.param_containerName",
+											"type": "Expression"
+										},
+										"param_directoryName": {
+											"value": "@pipeline().parameters.param_directoryName",
 											"type": "Expression"
 										}
 									}
