@@ -16,10 +16,32 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
+					"source": {
+						"type": "BinarySource",
+						"storeSettings": {
+							"type": "HttpReadSettings",
+							"requestMethod": "GET"
+						},
+						"formatSettings": {
+							"type": "BinaryReadSettings"
+						}
+					},
 					"enableStaging": false
-				}
+				},
+				"inputs": [
+					{
+						"referenceName": "DS_HTTP_Zip_File",
+						"type": "DatasetReference"
+					}
+				]
 			}
 		],
+		"parameters": {
+			"param_relativeUrl": {
+				"type": "string",
+				"defaultValue": "AG.AGR.TRAC.NO?source=2&downloadformat=csv"
+			}
+		},
 		"folder": {
 			"name": "Training Folder/Learning Activities/Day-8"
 		},

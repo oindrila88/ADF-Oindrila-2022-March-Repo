@@ -1,0 +1,16 @@
+{
+	"name": "DS_HTTP_Zip_File",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "http_World_Bank_Total_Population",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation"
+			}
+		}
+	}
+}
