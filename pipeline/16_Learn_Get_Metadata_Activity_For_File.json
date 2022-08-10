@@ -51,7 +51,7 @@
 			},
 			{
 				"name": "Verify Item Type is File",
-				"description": "Verify If the Item, Pointed by the Dataset “DS_pl_copy_data_activity” is a \"File\", or, Not.",
+				"description": "Verify If the Item, Pointed by the Dataset “DS_CSV_With_Contaner_Directory_File_Params” is a \"File\", or, Not.",
 				"type": "IfCondition",
 				"dependsOn": [],
 				"userProperties": [],
