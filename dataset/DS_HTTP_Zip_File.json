@@ -5,11 +5,23 @@
 			"referenceName": "http_World_Bank_Total_Population",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"param_indicatorRelativeUrl": {
+				"type": "string"
+			}
+		},
 		"annotations": [],
 		"type": "Binary",
 		"typeProperties": {
 			"location": {
-				"type": "HttpServerLocation"
+				"type": "HttpServerLocation",
+				"relativeUrl": {
+					"value": "@dataset().param_indicatorRelativeUrl",
+					"type": "Expression"
+				}
+			},
+			"compression": {
+				"type": "ZipDeflate"
 			}
 		}
 	}
