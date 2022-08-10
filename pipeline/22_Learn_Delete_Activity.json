@@ -227,7 +227,14 @@
 													}
 												}
 											},
-											"enableLogging": false,
+											"logStorageSettings": {
+												"linkedServiceName": {
+													"referenceName": "LS_logadlsoindrila2022march",
+													"type": "LinkedServiceReference"
+												},
+												"path": "delete-activity-log-container/delete-activity-log-directory"
+											},
+											"enableLogging": true,
 											"storeSettings": {
 												"type": "AzureBlobFSReadSettings",
 												"recursive": true,
