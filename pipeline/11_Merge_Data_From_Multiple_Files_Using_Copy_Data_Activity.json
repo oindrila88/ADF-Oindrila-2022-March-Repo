@@ -137,14 +137,14 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "DS_pl_copy_data_activity",
+						"referenceName": "DS_CSV_With_Container_Directory_Params",
 						"type": "DatasetReference",
 						"parameters": {
-							"param_container": {
+							"param_containerName": {
 								"value": "@pipeline().parameters.param_containerName",
 								"type": "Expression"
 							},
-							"param_directory": {
+							"param_directoryName": {
 								"value": "@pipeline().parameters.param_directoryName",
 								"type": "Expression"
 							}
