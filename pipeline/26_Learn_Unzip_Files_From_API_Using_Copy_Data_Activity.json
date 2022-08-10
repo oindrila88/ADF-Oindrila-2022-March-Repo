@@ -4,7 +4,7 @@
 		"activities": [
 			{
 				"name": "Copy the Zipped CSV Files from API to Stage",
-				"description": "Copy the Zipped CSV Files from the API \" http://api.worldbank.org/v2/country/ind/indicator/AG.AGR.TRAC.NO?source=2&downloadformat=csv\" to the Staging Directory \"copy-data-output/stage-pl-copy-unzip-file-from-api-activity\" under the Output Container \"stage\".",
+				"description": "Copy the Zipped CSV Files from the API \"http://api.worldbank.org/v2/country/ind/indicator/AG.AGR.TRAC.NO?source=2&downloadformat=csv\" to the Staging Directory \"copy-data-output/stage-pl-copy-unzip-file-from-api-activity\" under the Output Container \"stage\".",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
