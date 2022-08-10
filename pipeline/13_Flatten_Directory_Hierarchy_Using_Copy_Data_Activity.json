@@ -21,7 +21,7 @@
 						"storeSettings": {
 							"type": "AzureBlobFSReadSettings",
 							"recursive": true,
-							"wildcardFileName": "*",
+							"wildcardFileName": "*.csv",
 							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
@@ -41,6 +41,20 @@
 						}
 					},
 					"enableStaging": false,
+					"logSettings": {
+						"enableCopyActivityLog": true,
+						"copyActivityLogSettings": {
+							"logLevel": "Info",
+							"enableReliableLogging": false
+						},
+						"logLocationSettings": {
+							"linkedServiceName": {
+								"referenceName": "LS_logadlsoindrila2022march",
+								"type": "LinkedServiceReference"
+							},
+							"path": "copy-data-log-container/copy-data-log-directory"
+						}
+					},
 					"translator": {
 						"type": "TabularTranslator",
 						"typeConversion": true,
@@ -52,14 +66,14 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "DS_pl_copy_data_activity",
+						"referenceName": "DS_CSV_With_Container_Directory_Params",
 						"type": "DatasetReference",
 						"parameters": {
-							"param_container": {
+							"param_containerName": {
 								"value": "@pipeline().parameters.param_inputContainerName",
 								"type": "Expression"
 							},
-							"param_directory": {
+							"param_directoryName": {
 								"value": "@pipeline().parameters.param_inputDirectoryName",
 								"type": "Expression"
 							}
@@ -68,14 +82,14 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "DS_pl_copy_data_activity",
+						"referenceName": "DS_CSV_With_Container_Directory_Params",
 						"type": "DatasetReference",
 						"parameters": {
-							"param_container": {
+							"param_containerName": {
 								"value": "@pipeline().parameters.param_outputContainerName",
 								"type": "Expression"
 							},
-							"param_directory": {
+							"param_directoryName": {
 								"value": "@pipeline().parameters.param_outputDirectoryName",
 								"type": "Expression"
 							}

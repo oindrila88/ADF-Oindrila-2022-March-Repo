@@ -1,15 +1,15 @@
 {
-	"name": "DS_pl_copy_data_activity",
+	"name": "DS_CSV_With_Container_Directory_Params",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "LS_adlsoindrila2022march",
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
-			"param_container": {
+			"param_containerName": {
 				"type": "string"
 			},
-			"param_directory": {
+			"param_directoryName": {
 				"type": "string"
 			}
 		},
@@ -19,11 +19,11 @@
 			"location": {
 				"type": "AzureBlobFSLocation",
 				"folderPath": {
-					"value": "@dataset().param_directory",
+					"value": "@dataset().param_directoryName",
 					"type": "Expression"
 				},
 				"fileSystem": {
-					"value": "@dataset().param_container",
+					"value": "@dataset().param_containerName",
 					"type": "Expression"
 				}
 			},

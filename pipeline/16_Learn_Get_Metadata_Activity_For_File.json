@@ -1,10 +1,10 @@
 {
-	"name": "17_Learn_Get_Metadata_Activity_For_Folder",
+	"name": "16_Learn_Get_Metadata_Activity_For_File",
 	"properties": {
 		"activities": [
 			{
-				"name": "Get Metadata of Item",
-				"description": "Get the following Metadata information of the Item, Pointed by the Pipeline Parameters \"containerName\" and \"directoryName\" -\n\n1. Type\n2. Exists\n3. Name\n4. Child Items\n5. Last Modified Date and Time",
+				"name": "Get Metadata of File",
+				"description": "Get the following Metadata information of the File, Pointed by the Pipeline Parameters \"param_containerName\", \"param_directoryName\" and \"param_fileName\" -\n\n1. Column count\n2. Exists\n3. Item Name\n4. Item Type\n5. Last Modified Date and Time\n6. Size\n7. Structure",
 				"type": "GetMetadata",
 				"dependsOn": [],
 				"policy": {
@@ -17,29 +17,31 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataset": {
-						"referenceName": "DS_pl_copy_data_activity",
+						"referenceName": "DS_CSV_With_Container_Directory_File_Params",
 						"type": "DatasetReference",
 						"parameters": {
-							"param_container": {
+							"param_containerName": {
 								"value": "@pipeline().parameters.param_containerName",
 								"type": "Expression"
 							},
-							"param_directory": {
+							"param_directoryName": {
 								"value": "@pipeline().parameters.param_directoryName",
+								"type": "Expression"
+							},
+							"param_fileName": {
+								"value": "@pipeline().parameters.param_fileName",
 								"type": "Expression"
 							}
 						}
 					},
 					"fieldList": [
-						"itemType",
+						"columnCount",
 						"exists",
 						"itemName",
-						"childItems",
-						"lastModified"
+						"itemType"
 					],
 					"storeSettings": {
 						"type": "AzureBlobFSReadSettings",
-						"recursive": true,
 						"enablePartitionDiscovery": false
 					},
 					"formatSettings": {
@@ -48,12 +50,12 @@
 				}
 			},
 			{
-				"name": "Verify Item Type",
-				"description": "Verify If the Item, Pointed by the Dataset “DS_pl_copy_data_activity” is a \"Folder\", or, a \"File\".",
+				"name": "Verify Item Type is File",
+				"description": "Verify If the Item, Pointed by the Dataset “DS_CSV_With_Contaner_Directory_File_Params” is a \"File\", or, Not.",
 				"type": "IfCondition",
 				"dependsOn": [
 					{
-						"activity": "Get Metadata of Item",
+						"activity": "Get Metadata of File",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -62,23 +64,10 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@equals(activity('Get Metadata of Item').output.itemType, 'Folder')",
+						"value": "@equals(activity('Get Metadata of File').output.itemType, 'File')",
 						"type": "Expression"
 					},
 					"ifFalseActivities": [
-						{
-							"name": "Set Item Type As File",
-							"description": "Set the Value of the Pipeline Variable \"itemType\" with the Text \"This is a File\".",
-							"type": "SetVariable",
-							"dependsOn": [],
-							"userProperties": [],
-							"typeProperties": {
-								"variableName": "itemType",
-								"value": "This is a File"
-							}
-						}
-					],
-					"ifTrueActivities": [
 						{
 							"name": "Set Item Type As Folder",
 							"description": "Set the Value of the Pipeline Variable \"itemType\" with the Text \"This is a Folder\".",
@@ -86,7 +75,20 @@
 							"dependsOn": [],
 							"userProperties": [],
 							"typeProperties": {
-								"variableName": "itemType",
+								"variableName": "var_itemType",
+								"value": "This is a Folder"
+							}
+						}
+					],
+					"ifTrueActivities": [
+						{
+							"name": "Set Item Type As File",
+							"description": "Set the Value of the Pipeline Variable \"var_itemType\" with the Text \"This is a File\".",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "var_itemType",
 								"value": "This is a Folder"
 							}
 						}
@@ -97,20 +99,24 @@
 		"parameters": {
 			"param_containerName": {
 				"type": "string",
-				"defaultValue": "stage"
+				"defaultValue": "raw"
 			},
 			"param_directoryName": {
 				"type": "string",
-				"defaultValue": "copy-data-output/pl-for-each-copy-data-activity"
+				"defaultValue": "input-csv-files/1988/09/02/"
+			},
+			"param_fileName": {
+				"type": "string",
+				"defaultValue": "Students_1.csv"
 			}
 		},
 		"variables": {
-			"itemType": {
+			"var_itemType": {
 				"type": "String"
 			}
 		},
 		"folder": {
-			"name": "Training Folder/Learning Activities/Day-7"
+			"name": "Training Folder/Learning Activities/Day-6"
 		},
 		"annotations": []
 	}

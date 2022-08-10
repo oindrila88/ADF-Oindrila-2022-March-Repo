@@ -1,5 +1,5 @@
 {
-	"name": "15_Learn_ForEach_Activity",
+	"name": "18_Learn_ForEach_Activity",
 	"properties": {
 		"activities": [
 			{
@@ -132,15 +132,7 @@
 										"fileExtension": ".csv"
 									}
 								},
-								"enableStaging": false,
-								"translator": {
-									"type": "TabularTranslator",
-									"typeConversion": true,
-									"typeConversionSettings": {
-										"allowDataTruncation": true,
-										"treatBooleanAsNumber": false
-									}
-								}
+								"enableStaging": false
 							},
 							"inputs": [
 								{
@@ -161,22 +153,6 @@
 										},
 										"param_password": {
 											"value": "@activity('Find SQL Server Password KV Secret').output.value",
-											"type": "Expression"
-										}
-									}
-								}
-							],
-							"outputs": [
-								{
-									"referenceName": "DS_pl_copy_data_activity",
-									"type": "DatasetReference",
-									"parameters": {
-										"param_container": {
-											"value": "@pipeline().parameters.param_containerName",
-											"type": "Expression"
-										},
-										"param_directory": {
-											"value": "@pipeline().parameters.param_directoryName",
 											"type": "Expression"
 										}
 									}

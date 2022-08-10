@@ -9,10 +9,10 @@
 			"accountKey": {
 				"type": "AzureKeyVaultSecret",
 				"store": {
-					"referenceName": "LS_keyvault_2022_march",
+					"referenceName": "LS_KV_Oindrila_2022_March",
 					"type": "LinkedServiceReference"
 				},
-				"secretName": "logadlsoindrila2022march-access-key-1"
+				"secretName": "kv-secret-for-logadlsoindrila2022march-access-key-1"
 			}
 		}
 	}
