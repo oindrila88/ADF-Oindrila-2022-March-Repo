@@ -4,7 +4,7 @@
 		"activities": [
 			{
 				"name": "Get Metadata of File",
-				"description": "Get the following Metadata information of the File, Pointed to the \"Students_1.csv\" File, Present inside the Directory \" input-csv-files/1988/09/02\" under the Container \"raw\" -\n\n1. Column count\n2. Exists\n3. Item Name\n4. Item Type\n5. Last Modified Date and Time\n6. Size\n7. Structure",
+				"description": "Get the following Metadata information of the File, Pointed by the Pipeline Parameters \"param_containerName\", \"param_directoryName\" and \"param_fileName\" -\n\n1. Column count\n2. Exists\n3. Item Name\n4. Item Type\n5. Last Modified Date and Time\n6. Size\n7. Structure",
 				"type": "GetMetadata",
 				"dependsOn": [],
 				"policy": {
