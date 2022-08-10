@@ -1,0 +1,36 @@
+{
+	"name": "DS_Zip_File_With_Container_Directory_Params",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_adlsoindrila2022march",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"param_containerName": {
+				"type": "string"
+			},
+			"param_directoryName": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": {
+					"value": "@dataset().param_directoryName",
+					"type": "Expression"
+				},
+				"fileSystem": {
+					"value": "@dataset().param_containerName",
+					"type": "Expression"
+				}
+			},
+			"compression": {
+				"type": "ZipDeflate",
+				"level": "Optimal"
+			}
+		}
+	}
+}
