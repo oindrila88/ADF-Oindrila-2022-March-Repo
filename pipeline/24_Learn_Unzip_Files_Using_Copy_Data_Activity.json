@@ -88,7 +88,7 @@
 			},
 			"param_outputUnzipDirectoryName": {
 				"type": "string",
-				"defaultValue": "pl-copy-unzip-file-activity"
+				"defaultValue": "copy-data-output/pl-copy-unzip-file-activity"
 			}
 		},
 		"folder": {
