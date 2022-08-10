@@ -16,10 +16,35 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"fieldList": []
+					"dataset": {
+						"referenceName": "DS_CSV_With_Container_Directory_File_Params",
+						"type": "DatasetReference"
+					},
+					"fieldList": [],
+					"storeSettings": {
+						"type": "AzureBlobFSReadSettings",
+						"enablePartitionDiscovery": false
+					},
+					"formatSettings": {
+						"type": "DelimitedTextReadSettings"
+					}
 				}
 			}
 		],
+		"parameters": {
+			"param_containerName": {
+				"type": "string",
+				"defaultValue": "raw"
+			},
+			"param_directoryName": {
+				"type": "string",
+				"defaultValue": "input-csv-files/1988/09/02/"
+			},
+			"param_fileName": {
+				"type": "string",
+				"defaultValue": "Students_1.csv"
+			}
+		},
 		"folder": {
 			"name": "Training Folder/Learning Activities/Day-6"
 		},
