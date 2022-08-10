@@ -38,8 +38,7 @@
 						"columnCount",
 						"exists",
 						"itemName",
-						"itemType",
-						"childItems"
+						"itemType"
 					],
 					"storeSettings": {
 						"type": "AzureBlobFSReadSettings",
