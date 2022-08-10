@@ -1,6 +1,25 @@
 {
 	"name": "25_Learn_Unzip_Files_From_API_Using_Copy_Data_Activity",
 	"properties": {
+		"activities": [
+			{
+				"name": "Unzip the Zipped CSV Files from API",
+				"description": "Unzip the Zipped CSV Files from the API \"input-zip-files\" to the Output Directory \"copy-data-output/pl-copy-unzip-file-from-api-activity\" under the Output Container \"stage\".",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 2,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"enableStaging": false
+				}
+			}
+		],
 		"folder": {
 			"name": "Training Folder/Learning Activities/Day-8"
 		},
