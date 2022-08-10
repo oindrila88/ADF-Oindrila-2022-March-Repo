@@ -1,6 +1,73 @@
 {
 	"name": "26_Learn_Unzip_Files_From_API_Using_Copy_Data_Activity",
 	"properties": {
+		"activities": [
+			{
+				"name": "Copy the Zipped CSV Files from API to Stage",
+				"description": "Copy the Zipped CSV Files from the API \" http://api.worldbank.org/v2/country/ind/indicator/AG.AGR.TRAC.NO?source=2&downloadformat=csv\" to the Staging Directory \"copy-data-output/stage-pl-copy-unzip-file-from-api-activity\" under the Output Container \"stage\".",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 2,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "BinarySource",
+						"storeSettings": {
+							"type": "HttpReadSettings",
+							"requestMethod": "GET"
+						},
+						"formatSettings": {
+							"type": "BinaryReadSettings",
+							"compressionProperties": {
+								"type": "ZipDeflateReadSettings",
+								"preserveZipFileNameAsFolder": false
+							}
+						}
+					},
+					"sink": {
+						"type": "BinarySink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "DS_HTTP_Zip_File",
+						"type": "DatasetReference",
+						"parameters": {
+							"param_indicatorRelativeUrl": {
+								"value": "@pipeline().parameters.param_relativeUrl",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DS_Binary_File_With_Container_Directory_Params",
+						"type": "DatasetReference",
+						"parameters": {
+							"param_containerName": {
+								"value": "@pipeline().parameters.param_outputUnzipContainerName",
+								"type": "Expression"
+							},
+							"param_directoryName": {
+								"value": "@pipeline().parameters.param_outputUnzipDirectoryName",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			}
+		],
 		"parameters": {
 			"param_relativeUrl": {
 				"type": "string",
@@ -9,6 +76,10 @@
 			"param_outputUnzipContainerName": {
 				"type": "string",
 				"defaultValue": "stage"
+			},
+			"param_stageDirectoryName": {
+				"type": "string",
+				"defaultValue": "copy-data-output/stage-pl-copy-unzip-file-from-api-activity"
 			},
 			"param_outputUnzipDirectoryName": {
 				"type": "string",
