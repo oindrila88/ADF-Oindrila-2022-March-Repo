@@ -16,35 +16,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"dataset": {
-						"referenceName": "DS_pl_copy_data_activity",
-						"type": "DatasetReference",
-						"parameters": {
-							"param_container": {
-								"value": "@pipeline().parameters.param_containerName",
-								"type": "Expression"
-							},
-							"param_directory": {
-								"value": "@pipeline().parameters.param_directoryName",
-								"type": "Expression"
-							}
-						}
-					},
-					"fieldList": [
-						"itemType",
-						"exists",
-						"itemName",
-						"childItems",
-						"lastModified"
-					],
-					"storeSettings": {
-						"type": "AzureBlobFSReadSettings",
-						"recursive": true,
-						"enablePartitionDiscovery": false
-					},
-					"formatSettings": {
-						"type": "DelimitedTextReadSettings"
-					}
+					"fieldList": []
 				}
 			},
 			{

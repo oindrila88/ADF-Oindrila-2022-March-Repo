@@ -16,26 +16,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"dataset": {
-						"referenceName": "DS_CSV_Students_1",
-						"type": "DatasetReference"
-					},
-					"fieldList": [
-						"columnCount",
-						"itemName",
-						"itemType",
-						"lastModified",
-						"size",
-						"structure"
-					],
-					"storeSettings": {
-						"type": "AzureBlobFSReadSettings",
-						"recursive": true,
-						"enablePartitionDiscovery": false
-					},
-					"formatSettings": {
-						"type": "DelimitedTextReadSettings"
-					}
+					"fieldList": []
 				}
 			}
 		],

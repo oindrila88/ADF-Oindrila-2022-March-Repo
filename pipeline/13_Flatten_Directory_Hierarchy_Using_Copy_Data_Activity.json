@@ -54,48 +54,8 @@
 							},
 							"path": "copy-data-log-container/copy-data-log-directory"
 						}
-					},
-					"translator": {
-						"type": "TabularTranslator",
-						"typeConversion": true,
-						"typeConversionSettings": {
-							"allowDataTruncation": true,
-							"treatBooleanAsNumber": false
-						}
 					}
-				},
-				"inputs": [
-					{
-						"referenceName": "DS_pl_copy_data_activity",
-						"type": "DatasetReference",
-						"parameters": {
-							"param_container": {
-								"value": "@pipeline().parameters.param_inputContainerName",
-								"type": "Expression"
-							},
-							"param_directory": {
-								"value": "@pipeline().parameters.param_inputDirectoryName",
-								"type": "Expression"
-							}
-						}
-					}
-				],
-				"outputs": [
-					{
-						"referenceName": "DS_pl_copy_data_activity",
-						"type": "DatasetReference",
-						"parameters": {
-							"param_container": {
-								"value": "@pipeline().parameters.param_outputContainerName",
-								"type": "Expression"
-							},
-							"param_directory": {
-								"value": "@pipeline().parameters.param_outputDirectoryName",
-								"type": "Expression"
-							}
-						}
-					}
-				]
+				}
 			}
 		],
 		"parameters": {
