@@ -62,7 +62,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@equals(activity('Get Metadata of Item').output.itemType, 'Folder')",
+						"value": "@equals(activity('Get Metadata of Folder').output.itemType, 'Folder')",
 						"type": "Expression"
 					},
 					"ifFalseActivities": [
