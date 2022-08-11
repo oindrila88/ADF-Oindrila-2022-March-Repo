@@ -56,6 +56,18 @@
 			"param_inputFileName": {
 				"type": "string",
 				"defaultValue": "Person.csv"
+			},
+			"param_outputContainerName": {
+				"type": "string",
+				"defaultValue": "stage"
+			},
+			"param_outputDirectoryName": {
+				"type": "string",
+				"defaultValue": "data-flow-output-csv-files"
+			},
+			"param_outputFileName": {
+				"type": "string",
+				"defaultValue": "filter-data-flow-with-middle-names.csv"
 			}
 		},
 		"folder": {
