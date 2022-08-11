@@ -123,6 +123,94 @@
 													"variableName": "var_address",
 													"value": "Kolkata"
 												}
+											},
+											{
+												"name": "Copy data1",
+												"type": "Copy",
+												"dependsOn": [
+													{
+														"activity": "Set Addres Variable To Kolkata",
+														"dependencyConditions": [
+															"Succeeded"
+														]
+													}
+												],
+												"policy": {
+													"timeout": "7.00:00:00",
+													"retry": 0,
+													"retryIntervalInSeconds": 30,
+													"secureOutput": false,
+													"secureInput": false
+												},
+												"userProperties": [],
+												"typeProperties": {
+													"source": {
+														"type": "AzureSqlSource",
+														"sqlReaderQuery": {
+															"value": "@concat('SELECT Id, FirstName, LastName, Address FROM dbo.Employee WHERE Address = ''', item().Address, '''')",
+															"type": "Expression"
+														},
+														"queryTimeout": "02:00:00",
+														"partitionOption": "None"
+													},
+													"sink": {
+														"type": "DelimitedTextSink",
+														"storeSettings": {
+															"type": "AzureBlobFSWriteSettings"
+														},
+														"formatSettings": {
+															"type": "DelimitedTextWriteSettings",
+															"quoteAllText": true,
+															"fileExtension": ".csv"
+														}
+													},
+													"enableStaging": false,
+													"translator": {
+														"type": "TabularTranslator",
+														"typeConversion": true,
+														"typeConversionSettings": {
+															"allowDataTruncation": true,
+															"treatBooleanAsNumber": false
+														}
+													}
+												},
+												"inputs": [
+													{
+														"referenceName": "DS_sqldboindrila2022march",
+														"type": "DatasetReference",
+														"parameters": {
+															"param_sqlServerName": {
+																"value": "@pipeline().parameters.param_sqlServerName",
+																"type": "Expression"
+															},
+															"param_databaseName": {
+																"value": "@pipeline().parameters.param_sqlServerDbName",
+																"type": "Expression"
+															},
+															"param_adminUserName": {
+																"value": "@pipeline().parameters.param_sqlServerAdminUserName",
+																"type": "Expression"
+															},
+															"param_password": {
+																"value": "@activity('Find SQL Server Password KV Secret').output.value",
+																"type": "Expression"
+															}
+														}
+													}
+												],
+												"outputs": [
+													{
+														"referenceName": "DS_CSV_With_Container_Directory_Params",
+														"type": "DatasetReference",
+														"parameters": {
+															"param_containerName": {
+																"value": "@pipeline().parameters.param_containerName",
+																"type": "Expression"
+															},
+															"param_directoryName": "copy-data-output/pl-switch-copy-data-activity/Kolkata"
+														}
+													}
+												]
 											}
 										]
 									},
@@ -139,6 +227,94 @@
 													"variableName": "var_address",
 													"value": "Noida"
 												}
+											},
+											{
+												"name": "Copy data1_copy1",
+												"type": "Copy",
+												"dependsOn": [
+													{
+														"activity": "Set Addres Variable To Noida",
+														"dependencyConditions": [
+															"Succeeded"
+														]
+													}
+												],
+												"policy": {
+													"timeout": "7.00:00:00",
+													"retry": 0,
+													"retryIntervalInSeconds": 30,
+													"secureOutput": false,
+													"secureInput": false
+												},
+												"userProperties": [],
+												"typeProperties": {
+													"source": {
+														"type": "AzureSqlSource",
+														"sqlReaderQuery": {
+															"value": "@concat('SELECT Id, FirstName, LastName, Address FROM dbo.Employee WHERE Address = ''', item().Address, '''')",
+															"type": "Expression"
+														},
+														"queryTimeout": "02:00:00",
+														"partitionOption": "None"
+													},
+													"sink": {
+														"type": "DelimitedTextSink",
+														"storeSettings": {
+															"type": "AzureBlobFSWriteSettings"
+														},
+														"formatSettings": {
+															"type": "DelimitedTextWriteSettings",
+															"quoteAllText": true,
+															"fileExtension": ".csv"
+														}
+													},
+													"enableStaging": false,
+													"translator": {
+														"type": "TabularTranslator",
+														"typeConversion": true,
+														"typeConversionSettings": {
+															"allowDataTruncation": true,
+															"treatBooleanAsNumber": false
+														}
+													}
+												},
+												"inputs": [
+													{
+														"referenceName": "DS_sqldboindrila2022march",
+														"type": "DatasetReference",
+														"parameters": {
+															"param_sqlServerName": {
+																"value": "@pipeline().parameters.param_sqlServerName",
+																"type": "Expression"
+															},
+															"param_databaseName": {
+																"value": "@pipeline().parameters.param_sqlServerDbName",
+																"type": "Expression"
+															},
+															"param_adminUserName": {
+																"value": "@pipeline().parameters.param_sqlServerAdminUserName",
+																"type": "Expression"
+															},
+															"param_password": {
+																"value": "@activity('Find SQL Server Password KV Secret').output.value",
+																"type": "Expression"
+															}
+														}
+													}
+												],
+												"outputs": [
+													{
+														"referenceName": "DS_CSV_With_Container_Directory_Params",
+														"type": "DatasetReference",
+														"parameters": {
+															"param_containerName": {
+																"value": "@pipeline().parameters.param_containerName",
+																"type": "Expression"
+															},
+															"param_directoryName": "copy-data-output/pl-switch-copy-data-activity/Noida"
+														}
+													}
+												]
 											}
 										]
 									}
@@ -154,6 +330,94 @@
 											"variableName": "var_address",
 											"value": "Other City"
 										}
+									},
+									{
+										"name": "Copy data1_copy2",
+										"type": "Copy",
+										"dependsOn": [
+											{
+												"activity": "Set Addres Variable To Other City",
+												"dependencyConditions": [
+													"Succeeded"
+												]
+											}
+										],
+										"policy": {
+											"timeout": "7.00:00:00",
+											"retry": 0,
+											"retryIntervalInSeconds": 30,
+											"secureOutput": false,
+											"secureInput": false
+										},
+										"userProperties": [],
+										"typeProperties": {
+											"source": {
+												"type": "AzureSqlSource",
+												"sqlReaderQuery": {
+													"value": "@concat('SELECT Id, FirstName, LastName, Address FROM dbo.Employee WHERE Address = ''', item().Address, '''')",
+													"type": "Expression"
+												},
+												"queryTimeout": "02:00:00",
+												"partitionOption": "None"
+											},
+											"sink": {
+												"type": "DelimitedTextSink",
+												"storeSettings": {
+													"type": "AzureBlobFSWriteSettings"
+												},
+												"formatSettings": {
+													"type": "DelimitedTextWriteSettings",
+													"quoteAllText": true,
+													"fileExtension": ".csv"
+												}
+											},
+											"enableStaging": false,
+											"translator": {
+												"type": "TabularTranslator",
+												"typeConversion": true,
+												"typeConversionSettings": {
+													"allowDataTruncation": true,
+													"treatBooleanAsNumber": false
+												}
+											}
+										},
+										"inputs": [
+											{
+												"referenceName": "DS_sqldboindrila2022march",
+												"type": "DatasetReference",
+												"parameters": {
+													"param_sqlServerName": {
+														"value": "@pipeline().parameters.param_sqlServerName",
+														"type": "Expression"
+													},
+													"param_databaseName": {
+														"value": "@pipeline().parameters.param_sqlServerDbName",
+														"type": "Expression"
+													},
+													"param_adminUserName": {
+														"value": "@pipeline().parameters.param_sqlServerAdminUserName",
+														"type": "Expression"
+													},
+													"param_password": {
+														"value": "@activity('Find SQL Server Password KV Secret').output.value",
+														"type": "Expression"
+													}
+												}
+											}
+										],
+										"outputs": [
+											{
+												"referenceName": "DS_CSV_With_Container_Directory_Params",
+												"type": "DatasetReference",
+												"parameters": {
+													"param_containerName": {
+														"value": "@pipeline().parameters.param_containerName",
+														"type": "Expression"
+													},
+													"param_directoryName": "copy-data-output/pl-switch-copy-data-activity/Other_Cities"
+												}
+											}
+										]
 									}
 								]
 							}
