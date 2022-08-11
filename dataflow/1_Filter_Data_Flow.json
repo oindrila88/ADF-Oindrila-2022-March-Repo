@@ -15,8 +15,20 @@
 					"name": "SourceCsvPerson"
 				}
 			],
-			"sinks": [],
-			"transformations": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DS_CSV_Person_With_Middle_Names",
+						"type": "DatasetReference"
+					},
+					"name": "SinkFilteredCsvFile"
+				}
+			],
+			"transformations": [
+				{
+					"name": "FilterPersonWithMiddleNames"
+				}
+			],
 			"scriptLines": [
 				"source(output(",
 				"          PersonId as string,",
@@ -27,7 +39,15 @@
 				"     ),",
 				"     allowSchemaDrift: false,",
 				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false) ~> SourceCsvPerson"
+				"     ignoreNoFilesFound: false) ~> SourceCsvPerson",
+				"SourceCsvPerson filter(isNull(MiddleName) == false()) ~> FilterPersonWithMiddleNames",
+				"FilterPersonWithMiddleNames sink(allowSchemaDrift: false,",
+				"     validateSchema: false,",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> SinkFilteredCsvFile"
 			]
 		}
 	}
