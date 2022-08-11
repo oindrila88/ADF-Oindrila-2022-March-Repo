@@ -1,6 +1,46 @@
 {
 	"name": "27_Call_Filter_Data_Flow",
 	"properties": {
+		"activities": [
+			{
+				"name": "Call Filter Data Flow",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "1.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "1_Filter_Data_Flow",
+						"type": "DataFlowReference"
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine"
+				}
+			}
+		],
+		"parameters": {
+			"param_containerName": {
+				"type": "string",
+				"defaultValue": "raw"
+			},
+			"param_directoryName": {
+				"type": "string",
+				"defaultValue": "input-data-flow-csv-files"
+			},
+			"param_fileName": {
+				"type": "string",
+				"defaultValue": "Person.csv"
+			}
+		},
 		"folder": {
 			"name": "Training Folder/Learning Activities/Day-9"
 		},
