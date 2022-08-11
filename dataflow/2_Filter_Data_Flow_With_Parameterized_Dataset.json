@@ -34,7 +34,7 @@
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> SourceCsvPerson",
 				"SourceCsvPerson filter(isNull('MiddleName') == false()) ~> FilterPersonWithMiddleNames",
-				"FilterPersonWithMiddleNames sink(allowSchemaDrift: true,",
+				"FilterPersonWithMiddleNames sink(allowSchemaDrift: false,",
 				"     validateSchema: false,",
 				"     umask: 0022,",
 				"     preCommands: [],",
