@@ -30,9 +30,8 @@
 				}
 			],
 			"scriptLines": [
-				"source(allowSchemaDrift: true,",
+				"source(allowSchemaDrift: false,",
 				"     validateSchema: false,",
-				"     inferDriftedColumnTypes: true,",
 				"     ignoreNoFilesFound: false) ~> SourceCsvPerson",
 				"SourceCsvPerson filter(isNull('MiddleName') == false()) ~> FilterPersonWithMiddleNames",
 				"FilterPersonWithMiddleNames sink(allowSchemaDrift: true,",
