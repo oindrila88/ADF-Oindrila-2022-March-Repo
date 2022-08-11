@@ -1,0 +1,38 @@
+{
+	"name": "1_Filter_Data_Flow",
+	"properties": {
+		"folder": {
+			"name": "Training Folder/Learning Data Flows/Day-1"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DS_CSV_With_Container_Directory_File_Params",
+						"type": "DatasetReference"
+					},
+					"name": "SourceCsvPerson"
+				}
+			],
+			"sinks": [],
+			"transformations": [
+				{
+					"name": "FilterPersonWithMiddleNames"
+				}
+			],
+			"scriptLines": [
+				"parameters{",
+				"     param_containerName as string,",
+				"     param_directoryName as string,",
+				"     param_fileName as string",
+				"}",
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     inferDriftedColumnTypes: true,",
+				"     ignoreNoFilesFound: false) ~> SourceCsvPerson",
+				"SourceCsvPerson filter(ERROR_FUNCTION('')) ~> FilterPersonWithMiddleNames"
+			]
+		}
+	}
+}
