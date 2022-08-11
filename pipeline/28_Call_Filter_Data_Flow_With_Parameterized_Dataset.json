@@ -45,15 +45,15 @@
 			}
 		],
 		"parameters": {
-			"param_containerName": {
+			"param_inputContainerName": {
 				"type": "string",
 				"defaultValue": "raw"
 			},
-			"param_directoryName": {
+			"param_inputDirectoryName": {
 				"type": "string",
 				"defaultValue": "input-data-flow-csv-files"
 			},
-			"param_fileName": {
+			"param_inputFileName": {
 				"type": "string",
 				"defaultValue": "Person.csv"
 			}
