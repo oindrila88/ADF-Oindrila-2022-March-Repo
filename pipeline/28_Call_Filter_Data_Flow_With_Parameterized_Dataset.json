@@ -22,15 +22,29 @@
 						"datasetParameters": {
 							"SourceCsvPerson": {
 								"param_containerName": {
-									"value": "@pipeline().parameters.param_containerName",
+									"value": "@pipeline().parameters.param_inputContainerName",
 									"type": "Expression"
 								},
 								"param_directoryName": {
-									"value": "@pipeline().parameters.param_directoryName",
+									"value": "@pipeline().parameters.param_inputDirectoryName",
 									"type": "Expression"
 								},
 								"param_fileName": {
-									"value": "@pipeline().parameters.param_fileName",
+									"value": "@pipeline().parameters.param_inputFileName",
+									"type": "Expression"
+								}
+							},
+							"SinkCsvFile": {
+								"param_containerName": {
+									"value": "@pipeline().parameters.param_outputContainerName",
+									"type": "Expression"
+								},
+								"param_directoryName": {
+									"value": "@pipeline().parameters.param_outputDirectoryName",
+									"type": "Expression"
+								},
+								"param_fileName": {
+									"value": "@pipeline().parameters.param_outputFileName",
 									"type": "Expression"
 								}
 							}
