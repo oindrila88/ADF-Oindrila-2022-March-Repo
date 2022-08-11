@@ -1,0 +1,48 @@
+{
+	"name": "2_Filter_Data_Flow_With_Parameterized_Dataset",
+	"properties": {
+		"folder": {
+			"name": "Training Folder/Learning Data Flows/Day-1"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DS_CSV_With_Container_Directory_File_Params",
+						"type": "DatasetReference"
+					},
+					"name": "SourceCsvPerson"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DS_CSV_With_Container_Directory_File_Params",
+						"type": "DatasetReference"
+					},
+					"name": "SinkCsvFile"
+				}
+			],
+			"transformations": [
+				{
+					"name": "FilterPersonWithMiddleNames"
+				}
+			],
+			"scriptLines": [
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     inferDriftedColumnTypes: true,",
+				"     ignoreNoFilesFound: false) ~> SourceCsvPerson",
+				"SourceCsvPerson filter(isNull('MiddleName') == false()) ~> FilterPersonWithMiddleNames",
+				"FilterPersonWithMiddleNames sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> SinkCsvFile"
+			]
+		}
+	}
+}
