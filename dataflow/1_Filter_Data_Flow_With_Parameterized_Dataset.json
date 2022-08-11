@@ -1,5 +1,5 @@
 {
-	"name": "1_Filter_Data_Flow",
+	"name": "1_Filter_Data_Flow_With_Parameterized_Dataset",
 	"properties": {
 		"folder": {
 			"name": "Training Folder/Learning Data Flows/Day-1"
@@ -26,7 +26,7 @@
 				"     validateSchema: false,",
 				"     inferDriftedColumnTypes: true,",
 				"     ignoreNoFilesFound: false) ~> SourceCsvPerson",
-				"SourceCsvPerson filter(ERROR_FUNCTION('')) ~> FilterPersonWithMiddleNames"
+				"SourceCsvPerson filter(isNull('MiddleName') == false()) ~> FilterPersonWithMiddleNames"
 			]
 		}
 	}
