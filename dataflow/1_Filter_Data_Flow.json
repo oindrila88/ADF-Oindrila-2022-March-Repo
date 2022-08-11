@@ -1,0 +1,34 @@
+{
+	"name": "1_Filter_Data_Flow",
+	"properties": {
+		"folder": {
+			"name": "Training Folder/Learning Data Flows/Day-1"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DS_CSV_Person",
+						"type": "DatasetReference"
+					},
+					"name": "SourceCsvPerson"
+				}
+			],
+			"sinks": [],
+			"transformations": [],
+			"scriptLines": [
+				"source(output(",
+				"          PersonId as string,",
+				"          FirstName as string,",
+				"          MiddleName as string,",
+				"          LastName as string,",
+				"          LocationId as string",
+				"     ),",
+				"     allowSchemaDrift: false,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> SourceCsvPerson"
+			]
+		}
+	}
+}
