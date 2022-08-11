@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Call Filter Data Flow",
+				"name": "Call Filter Data Flow With Parameterization",
 				"description": "Call the Data Flow to Filter the Rows Where the Column \"MiddleName\" is \"Not Null\".",
 				"type": "ExecuteDataFlow",
 				"dependsOn": [],
