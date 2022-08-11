@@ -1,5 +1,5 @@
 {
-	"name": "27_Call_Filter_Data_Flow",
+	"name": "27_Call_Filter_Data_Flow_With_Parameterized_Dataset",
 	"properties": {
 		"activities": [
 			{
@@ -9,7 +9,7 @@
 				"dependsOn": [],
 				"policy": {
 					"timeout": "1.00:00:00",
-					"retry": 0,
+					"retry": 2,
 					"retryIntervalInSeconds": 30,
 					"secureOutput": false,
 					"secureInput": false
@@ -17,7 +17,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataflow": {
-						"referenceName": "1_Filter_Data_Flow",
+						"referenceName": "2_Filter_Data_Flow_With_Parameterized_Dataset",
 						"type": "DataFlowReference",
 						"datasetParameters": {
 							"SourceCsvPerson": {
