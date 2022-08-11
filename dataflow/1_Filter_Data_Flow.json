@@ -22,11 +22,6 @@
 				}
 			],
 			"scriptLines": [
-				"parameters{",
-				"     param_containerName as string,",
-				"     param_directoryName as string,",
-				"     param_fileName as string",
-				"}",
 				"source(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     inferDriftedColumnTypes: true,",
