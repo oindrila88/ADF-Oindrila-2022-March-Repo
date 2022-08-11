@@ -1,6 +1,63 @@
 {
 	"name": "27_Call_Filter_Data_Flow",
 	"properties": {
+		"activities": [
+			{
+				"name": "Call Filter Data Flow",
+				"description": "Call the Data Flow to Filter the Rows Where the Column \"MiddleName\" is \"Not Null\".",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "1.00:00:00",
+					"retry": 2,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "2_Filter_Data_Flow_With_Parameterized_Dataset",
+						"type": "DataFlowReference",
+						"datasetParameters": {
+							"SourceCsvPerson": {
+								"param_containerName": {
+									"value": "@pipeline().parameters.param_inputContainerName",
+									"type": "Expression"
+								},
+								"param_directoryName": {
+									"value": "@pipeline().parameters.param_inputDirectoryName",
+									"type": "Expression"
+								},
+								"param_fileName": {
+									"value": "@pipeline().parameters.param_inputFileName",
+									"type": "Expression"
+								}
+							},
+							"SinkFilteredCsvFile": {
+								"param_containerName": {
+									"value": "@pipeline().parameters.param_outputContainerName",
+									"type": "Expression"
+								},
+								"param_directoryName": {
+									"value": "@pipeline().parameters.param_outputDirectoryName",
+									"type": "Expression"
+								},
+								"param_fileName": {
+									"value": "@pipeline().parameters.param_outputFileName",
+									"type": "Expression"
+								}
+							}
+						}
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine"
+				}
+			}
+		],
 		"folder": {
 			"name": "Training Folder/Learning Activities/Day-9"
 		},
