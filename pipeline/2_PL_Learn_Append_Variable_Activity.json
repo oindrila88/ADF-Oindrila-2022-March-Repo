@@ -41,14 +41,7 @@
 				"name": "Set List of Cities Variable to Another Variable",
 				"description": "Set the Value of the Array Variable \"var_listOfCities\" to the Existing Empty Array Variable \"var_appendedCities\".",
 				"type": "SetVariable",
-				"dependsOn": [
-					{
-						"activity": "Append City Name to List of Cities Variable",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
+				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
 					"variableName": "var_appendedCities",
