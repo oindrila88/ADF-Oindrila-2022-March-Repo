@@ -1,0 +1,9 @@
+{
+	"name": "ADF-Oindrila-2022-March",
+	"properties": {
+		"globalConfigurations": {
+			"PipelineBillingEnabled": "true"
+		}
+	},
+	"location": "centralindia"
+}
