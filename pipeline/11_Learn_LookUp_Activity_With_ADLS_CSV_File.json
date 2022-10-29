@@ -1,6 +1,53 @@
 {
 	"name": "11_Learn_LookUp_Activity_With_ADLS_CSV_File",
 	"properties": {
+		"activities": [
+			{
+				"name": "Lookup ADLS CSV File",
+				"description": "Use this \"Lookup\" Activity to Fetch \"All\" the \"Records\" of the CSV File \"Students_2.csv\" Present in the ADLS Gen2.",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 2,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"dataset": {
+						"referenceName": "DS_CSV_With_Container_Directory_File_Params",
+						"type": "DatasetReference"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"param_containerName": {
+				"type": "string",
+				"defaultValue": "raw"
+			},
+			"param_directoryPath": {
+				"type": "string",
+				"defaultValue": "input-csv-files/2022/08/04/"
+			},
+			"param_csvFileName": {
+				"type": "string",
+				"defaultValue": "Students_2.csv"
+			}
+		},
 		"folder": {
 			"name": "Training Folder/Learning Activities/Day-4"
 		},
