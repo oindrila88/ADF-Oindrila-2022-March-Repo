@@ -29,7 +29,21 @@
 					},
 					"dataset": {
 						"referenceName": "DS_CSV_With_Container_Directory_File_Params",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"param_containerName": {
+								"value": "@pipeline().parameters.param_containerName",
+								"type": "Expression"
+							},
+							"param_directoryName": {
+								"value": "@pipeline().parameters.param_directoryPath",
+								"type": "Expression"
+							},
+							"param_fileName": {
+								"value": "@pipeline().parameters.param_csvFileName",
+								"type": "Expression"
+							}
+						}
 					}
 				}
 			}
