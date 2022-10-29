@@ -51,7 +51,7 @@
 						"partitionOption": "None"
 					},
 					"dataset": {
-						"referenceName": "DS_sqldboindrila2022march",
+						"referenceName": "DS_sqldboindrila2022march_Param_Table",
 						"type": "DatasetReference",
 						"parameters": {
 							"param_sqlServerName": {
@@ -68,6 +68,14 @@
 							},
 							"param_password": {
 								"value": "@activity('Find SQL Server Password KV Secret').output.value",
+								"type": "Expression"
+							},
+							"param_schemaName": {
+								"value": "@pipeline().parameters.param_sqlSchemaName",
+								"type": "Expression"
+							},
+							"param_tableName": {
+								"value": "@pipeline().parameters.param_sqlTableName",
 								"type": "Expression"
 							}
 						}
@@ -88,6 +96,14 @@
 			"param_sqlServerAdminUserName": {
 				"type": "string",
 				"defaultValue": "oindrila2022march"
+			},
+			"param_sqlSchemaName": {
+				"type": "string",
+				"defaultValue": "dbo"
+			},
+			"param_sqlTableName": {
+				"type": "string",
+				"defaultValue": "Employee"
 			}
 		},
 		"folder": {
