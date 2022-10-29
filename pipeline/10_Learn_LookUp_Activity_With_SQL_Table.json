@@ -47,10 +47,6 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderQuery": {
-							"value": "@concat('SELECT * FROM dbo.Employee WHERE Address = ''', pipeline().parameters.param_address, '''')",
-							"type": "Expression"
-						},
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
@@ -92,10 +88,6 @@
 			"param_sqlServerAdminUserName": {
 				"type": "string",
 				"defaultValue": "oindrila2022march"
-			},
-			"param_address": {
-				"type": "string",
-				"defaultValue": "Kolkata"
 			}
 		},
 		"folder": {
