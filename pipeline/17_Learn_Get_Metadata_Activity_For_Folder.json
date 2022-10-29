@@ -1,5 +1,5 @@
 {
-	"name": "15_Learn_Get_Metadata_Activity_For_Folder",
+	"name": "17_Learn_Get_Metadata_Activity_For_Folder",
 	"properties": {
 		"activities": [
 			{
@@ -39,6 +39,7 @@
 					],
 					"storeSettings": {
 						"type": "AzureBlobFSReadSettings",
+						"recursive": true,
 						"enablePartitionDiscovery": false
 					},
 					"formatSettings": {
