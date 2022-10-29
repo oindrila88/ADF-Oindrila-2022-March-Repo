@@ -1,0 +1,106 @@
+{
+	"name": "10_Learn_LookUp_Activity_With_SQL_Table",
+	"properties": {
+		"activities": [
+			{
+				"name": "Find SQL Server Password KV Secret",
+				"description": "Fetch the Value of the Secret \"kv-sqlserveroindrila2022march-pwd\" from the Azure Key Vault resource “KV-Oindrila-2022-March”",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 2,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": true,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": "https://kv-oindrila-2022-march.vault.azure.net/secrets/kv-sqlserveroindrila2022march-pwd/?api-version=7.0",
+					"method": "GET",
+					"authentication": {
+						"type": "MSI",
+						"resource": "https://vault.azure.net"
+					}
+				}
+			},
+			{
+				"name": "Lookup SQL Table",
+				"description": "Use this \"Lookup\" Activity to Fetch \"All\" the \"Records\" of the SQL Table \"dbo.Employee\".",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "Find SQL Server Password KV Secret",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 2,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": true
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": {
+							"value": "@concat('SELECT * FROM dbo.Employee WHERE Address = ''', pipeline().parameters.param_address, '''')",
+							"type": "Expression"
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "DS_sqldboindrila2022march",
+						"type": "DatasetReference",
+						"parameters": {
+							"param_sqlServerName": {
+								"value": "@pipeline().parameters.param_sqlServerName",
+								"type": "Expression"
+							},
+							"param_databaseName": {
+								"value": "@pipeline().parameters.param_sqlServerDatabaseName",
+								"type": "Expression"
+							},
+							"param_adminUserName": {
+								"value": "@pipeline().parameters.param_sqlServerAdminUserName",
+								"type": "Expression"
+							},
+							"param_password": {
+								"value": "@activity('Find SQL Server Password KV Secret').output.value",
+								"type": "Expression"
+							}
+						}
+					},
+					"firstRowOnly": false
+				}
+			}
+		],
+		"parameters": {
+			"param_sqlServerName": {
+				"type": "string",
+				"defaultValue": "sqlserveroindrila2022march.database.windows.net"
+			},
+			"param_sqlServerDatabaseName": {
+				"type": "string",
+				"defaultValue": "sqldboindrila2022march"
+			},
+			"param_sqlServerAdminUserName": {
+				"type": "string",
+				"defaultValue": "oindrila2022march"
+			},
+			"param_address": {
+				"type": "string",
+				"defaultValue": "Kolkata"
+			}
+		},
+		"folder": {
+			"name": "Training Folder/Learning Activities/Day-4"
+		},
+		"annotations": []
+	}
+}
