@@ -1,6 +1,161 @@
 {
 	"name": "16_Merge_Data_From_Multiple_Files_Into_Single_File_Using_Copy_Data_Activity",
 	"properties": {
+		"activities": [
+			{
+				"name": "Merge Data from Multiple Files to Another File in ADLS",
+				"description": "Copy Data from the Multiple CSV Files Present in the \"Hierarchy\" of \"Sub-Directories\" inside the Directory \"input-csv-files\" under the Container \"raw\" and Store the Merged Data into the Another CSV File, Present in the Directory \"copy-data-output/pl-copy-data-activity\" Under the Container \"stage\".",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 2,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"wildcardFileName": "*.csv",
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false,
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "FirstName",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "FirstName",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "MiddleName",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "MiddleName",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "LastName",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "LastName",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Subject",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "SubjectName",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Marks",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Marks",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "DS_CSV_With_Container_Directory_Params",
+						"type": "DatasetReference",
+						"parameters": {
+							"param_containerName": {
+								"value": "@pipeline().parameters.param_containerName",
+								"type": "Expression"
+							},
+							"param_directoryName": {
+								"value": "@pipeline().parameters.param_directoryName",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DS_sqldboindrila2022march_Param_Table",
+						"type": "DatasetReference",
+						"parameters": {
+							"param_sqlServerName": {
+								"value": "@pipeline().parameters.param_sqlServerName",
+								"type": "Expression"
+							},
+							"param_databaseName": {
+								"value": "@pipeline().parameters.param_sqlServerDbName",
+								"type": "Expression"
+							},
+							"param_adminUserName": {
+								"value": "@pipeline().parameters.param_sqlServerAdminUserName",
+								"type": "Expression"
+							},
+							"param_password": {
+								"value": "@activity('Find SQL Server Password KV Secret').output.value",
+								"type": "Expression"
+							},
+							"param_schemaName": {
+								"value": "@pipeline().parameters.param_schemaName",
+								"type": "Expression"
+							},
+							"param_tableName": {
+								"value": "@pipeline().parameters.param_tableName",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			}
+		],
 		"folder": {
 			"name": "Training Folder/Learning Activities/Day-5"
 		},
