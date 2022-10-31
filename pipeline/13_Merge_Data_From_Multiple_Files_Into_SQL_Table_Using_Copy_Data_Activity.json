@@ -1,5 +1,5 @@
 {
-	"name": "13_Merge_Data_From_Multiple_Files_Using_Copy_Data_Activity",
+	"name": "13_Merge_Data_From_Multiple_Files_Into_SQL_Table_Using_Copy_Data_Activity",
 	"properties": {
 		"activities": [
 			{
