@@ -29,10 +29,16 @@
 						}
 					},
 					"sink": {
-						"type": "AzureSqlSink",
-						"writeBehavior": "insert",
-						"sqlWriterUseTableLock": false,
-						"disableMetricsCollection": false
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings",
+							"copyBehavior": "MergeFiles"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".csv"
+						}
 					},
 					"enableStaging": false,
 					"translator": {
@@ -112,11 +118,11 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"param_containerName": {
-								"value": "@pipeline().parameters.param_containerName",
+								"value": "@pipeline().parameters.param_inputContainerName",
 								"type": "Expression"
 							},
 							"param_directoryName": {
-								"value": "@pipeline().parameters.param_directoryName",
+								"value": "@pipeline().parameters.param_inputDirectoryName",
 								"type": "Expression"
 							}
 						}
@@ -124,31 +130,15 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "DS_sqldboindrila2022march_Param_Table",
+						"referenceName": "DS_CSV_With_Container_Directory_Params",
 						"type": "DatasetReference",
 						"parameters": {
-							"param_sqlServerName": {
-								"value": "@pipeline().parameters.param_sqlServerName",
+							"param_containerName": {
+								"value": "@pipeline().parameters.param_outputContainerName",
 								"type": "Expression"
 							},
-							"param_databaseName": {
-								"value": "@pipeline().parameters.param_sqlServerDbName",
-								"type": "Expression"
-							},
-							"param_adminUserName": {
-								"value": "@pipeline().parameters.param_sqlServerAdminUserName",
-								"type": "Expression"
-							},
-							"param_password": {
-								"value": "@activity('Find SQL Server Password KV Secret').output.value",
-								"type": "Expression"
-							},
-							"param_schemaName": {
-								"value": "@pipeline().parameters.param_schemaName",
-								"type": "Expression"
-							},
-							"param_tableName": {
-								"value": "@pipeline().parameters.param_tableName",
+							"param_directoryName": {
+								"value": "@pipeline().parameters.param_outputDirectoryName",
 								"type": "Expression"
 							}
 						}
@@ -156,6 +146,24 @@
 				]
 			}
 		],
+		"parameters": {
+			"param_inputContainerName": {
+				"type": "string",
+				"defaultValue": "raw"
+			},
+			"param_inputDirectoryName": {
+				"type": "string",
+				"defaultValue": "input-csv-files"
+			},
+			"param_outputContainerName": {
+				"type": "string",
+				"defaultValue": "stage"
+			},
+			"param_outputDirectoryName": {
+				"type": "string",
+				"defaultValue": "copy-data-output/pl-copy-data-activity"
+			}
+		},
 		"folder": {
 			"name": "Training Folder/Learning Activities/Day-5"
 		},
