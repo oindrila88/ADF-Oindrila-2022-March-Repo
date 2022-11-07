@@ -108,7 +108,7 @@
 			},
 			"param_fileName": {
 				"type": "string",
-				"defaultValue": "Students_1.csv"
+				"defaultValue": "Students_3.csv"
 			}
 		},
 		"variables": {
