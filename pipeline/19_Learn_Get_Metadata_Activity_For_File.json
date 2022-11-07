@@ -90,7 +90,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"variableName": "var_itemType",
-								"value": "This is a Folder"
+								"value": "This is a File"
 							}
 						}
 					]
