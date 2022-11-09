@@ -78,6 +78,38 @@
 					},
 					"firstRowOnly": false
 				}
+			},
+			{
+				"name": "ForEach1",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Lookup Employee Table",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Lookup Employee Table').output.value",
+						"type": "Expression"
+					},
+					"isSequential": false,
+					"activities": [
+						{
+							"name": "Set variable1",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "varDemo",
+								"value": "DEMO"
+							}
+						}
+					]
+				}
 			}
 		],
 		"parameters": {
@@ -96,6 +128,11 @@
 			"param_address": {
 				"type": "string",
 				"defaultValue": "Tokyo"
+			}
+		},
+		"variables": {
+			"varDemo": {
+				"type": "String"
 			}
 		},
 		"folder": {
